@@ -1,0 +1,44 @@
+﻿@model UserModel
+
+<head>
+    <link rel="stylesheet" href="~/StyleNavBar.css"> <!-- Importa o arquivo CSS externo da pasta "wwwroot" -->
+</head>
+
+<!--a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sistema Escola Matheus</a-->
+@if(Model.Role == MyProjectInMVC.Enums.AdmEnum.Admin)
+{
+    <span class="navbar-text me-3">
+        Bem-vindo(a), @Model.Name (Admin)
+    </span>
+}
+else
+{
+    <span class="navbar-text me-3">
+        Bem-vindo(a), @Model.Name
+    </span>
+}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Página Inicial</a>
+            </li>
+            
+            @if(Model.Role == MyProjectInMVC.Enums.AdmEnum.Admin)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Usuários</a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="ResetPassword" asp-action="Index">Senha</a>
+            </li>
+        </ul>
+
+        <div class="d-flex">
+            <a class="btn btn-custom" asp-area="" asp-controller="Login" asp-action="Exit">Sair</a>
+        </div>
+    </div>

@@ -1,0 +1,73 @@
+﻿@model List<CategoryModel>
+@{
+    ViewData["Title"] = "Página de Categorias";
+}
+<div class="card mt-5">
+    <div class="card-body mt-1">
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                <div class="text-center">
+                    @TempData["SuccessMessage"]
+                </div>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                <div class="text-center">
+                    @TempData["MessageError"]
+                </div>
+            </div>
+        }
+
+        <div class="text-center">
+            <h1 class="mt-1">Listagem de Categorias</h1>
+            <a class="btn btn-primary mt-2" role="button" asp-controller="User" asp-action="Create">Adicionar novo usuário</a>
+        </div>
+
+        <div class="">
+            <table class="table table-striped mt-4" id="users-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Slug</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int i = 0;
+                        foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@item.Name</td>
+                                <td>@item.Slug</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger mt-4 mb-4" role="alert">
+                            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                            <div class="text-center">
+                                Nenhum aluno cadastrado!
+                            </div>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

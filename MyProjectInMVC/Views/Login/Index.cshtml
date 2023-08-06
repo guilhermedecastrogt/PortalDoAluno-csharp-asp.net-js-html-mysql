@@ -1,0 +1,91 @@
+﻿@model LoginModel
+@{
+    Layout = "_LayoutLoggedOut";
+    ViewData["Title"] = "Login";
+}
+
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/styles.css"> <!-- Importa o arquivo CSS externo da pasta "wwwroot" -->
+</head>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <div class="container mt-1">
+        <div class="row mt-1">
+            <div class="col-md-11 mt-60 mx-md-auto mt-3">
+                <div class="login-box bg-white pl-lg-5 pl-0">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-md-6">
+                            
+                            <div class="form-wrap bg-white">
+                                @if (TempData["SuccessMessage"] != null)
+                                {
+                                    <div class="alert alert-success" role="alert">
+                                        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                                        <div class="text-center">
+                                            @TempData["SuccessMessage"]
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (TempData["ErrorMessage"] != null)
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        <!--button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</!--button-->
+                                        <div class="text-center">
+                                            @TempData["ErrorMessage"]
+                                        </div>
+                                    </div>
+                                }
+                                <h1 class="btm-sep pb-3 mb-5">Login</h1>
+                                <form asp-controller="Login" asp-action="Login" class="form" method="post">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group position-relative">
+                                                <span class="zmdi zmdi-account"></span>
+                                                <input type="email" asp-for="Email" id="email" class="form-control" placeholder="Email">
+                                                
+                                            </div>
+                                            <p class="mt-2">@Html.ValidationMessageFor(x => x.Email)</p>
+                                        </div>
+                                        <div class="col-12 mt-3 mb-3">
+                                            <div class="form-group position-relative">
+                                                <span class="zmdi zmdi-email"></span>
+                                                <input type="password" asp-for="Password" id="password" class="form-control" placeholder="Senha">
+                                            </div>
+                                            <p class="mt-2">@Html.ValidationMessageFor(x=>x.Password)</p>
+                                        </div>
+                                        <div class="col-12 text-lg-right">
+                                            <a asp-action="ResetPassword"  asp-controller="Login" class="c-black">Esqueceu sua senha?</a>
+                                        </div>
+                                        <div class="col-12 mt-30">
+                                            <button type="submit" id="submit" class="btn btn-lg btn-custom btn-primary btn-block mt-3">
+                                                Entrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="content text-center">
+                                <div class="border-bottom pb-5 mb-5">
+                                    <h3 class="c-black">Ainda não é aluno?</h3>
+                                    <a href="sign-up.html" class="btn btn-custom">Consultar Planos</a>
+                                </div>
+                                <h5 class="c-black mb-4 mt-n1">Siga-Nos!</h5>
+                                <div class="socials">
+                                    <a href="#" class="zmdi zmdi-facebook"></a>
+                                    <a href="#" class="zmdi zmdi-twitter"></a>
+                                    <a href="#" class="zmdi zmdi-google"></a>
+                                    <a href="#" class="zmdi zmdi-instagram"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,98 @@
+﻿@model ResetCurrentPasswordModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Nova Senha";
+}
+
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/resetpassword.css">
+</head>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <div class="container mt-1">
+        <div class="row mt-1">
+            <div class="col-md-11 mt-60 mx-md-auto mt-3">
+                <div class="login-box bg-white pl-lg-5 pl-0">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-md-6">
+
+                            <div class="form-wrap bg-white">
+                                @if (TempData["SuccessMessage"] != null)
+                                {
+                                    <div class="alert alert-success" role="alert">
+                                        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                                        <div class="text-center">
+                                            @TempData["SuccessMessage"]
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (TempData["ErrorMessage"] != null)
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        <!--button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</!--button-->
+                                        <div class="text-center">
+                                            @TempData["ErrorMessage"]
+                                        </div>
+                                    </div>
+                                }
+                                <h1 class="btm-sep pb-3 mb-3">Redefinir Senha</h1>
+                                <form asp-controller="ResetPassword" asp-action="Reset" class="form" method="post">
+                                    <div class="row">
+
+                                        <div class="col-12">
+                                            
+                                               
+                                                <input type="password" asp-for="CurrentPassword" class="form-control" placeholder="Senha atual">
+                                      
+                                            <p class="mt-2">@Html.ValidationMessageFor(x=>x.CurrentPassword)</p>
+                                        </div>
+
+                                        <div class="col-12">
+                                            
+                                                
+                                                <input type="password" asp-for="NewPassword" id="password" class="form-control" placeholder="Nova senha">
+                                           
+                                            <p class="mt-2">@Html.ValidationMessageFor(x=>x.NewPassword)</p>
+                                        </div>
+
+                                        <div class="col-12">
+                                            
+                                                
+                                                <input type="password" asp-for="ConfirmNewPassword" id="password" class="form-control" placeholder="Confirmar senha">
+                                            
+                                            <p class="mt-2">@Html.ValidationMessageFor(x=>x.ConfirmNewPassword)</p>
+                                        </div>
+                                       
+                                        <div class="col-12 mt-30">
+                                            <button type="submit" id="submit" class="btn btn-lg btn-custom btn-primary btn-block mt-3">
+                                                Alterar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="content text-center">
+                                <div class="border-bottom pb-5 mb-5">
+                                    <h3 class="c-black">Proteja sua conta!</h3>
+                                    <a href="sign-up.html" class="btn btn-custom">Jamais compartilhe sua senha</a>
+                                </div>
+                                <h5 class="c-black mb-4 mt-n1">Siga-Nos!</h5>
+                                <div class="socials">
+                                    <a href="#" class="zmdi zmdi-facebook"></a>
+                                    <a href="#" class="zmdi zmdi-twitter"></a>
+                                    <a href="#" class="zmdi zmdi-google"></a>
+                                    <a href="#" class="zmdi zmdi-instagram"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

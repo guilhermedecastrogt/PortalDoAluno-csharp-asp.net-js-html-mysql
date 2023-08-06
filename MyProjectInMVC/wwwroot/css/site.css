@@ -1,0 +1,156 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: #f7f7f7;
+}
+
+.field-validation-error {
+    color: red;
+    background-color: #ffe9e9;
+    border: 1px solid #e01d1d;
+    border-radius: 5px;
+    padding: 1px 10px 2px 10px;
+}
+
+.close-alert {
+    position: absolute;
+    right: -10px;
+    top: -15px;
+    border-radius: 15px;
+    width: 30px;
+    height: 31px;
+}
+
+.container-personalizado {
+    background-color: #ffffff; /* Cor de fundo branca */
+    border: 1px solid #f1f1f1; /* Borda minimalista de cor cinza claro */
+    border-radius: 30px; /* Borda arredondada */
+    padding: 40px; /* Padding interno de 20px */
+    /* Outros estilos personalizados, se necessário */
+}
+
+.container-personalizado-login {
+    background-color: #ffffff; /* Cor de fundo branca */
+    border: 1px solid #f1f1f1; /* Borda minimalista de cor cinza claro */
+    border-radius: 30px; /* Borda arredondada */
+    padding: 15px; /* Padding interno de 20px */
+    /* Outros estilos personalizados, se necessário */
+}
+
+.container-loggedout {
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+header {
+    margin-top: 20px;
+    margin-bottom:40px;
+}
+
+/* Estilos personalizados para a navbar */
+.custom-navbar {
+    background-image: linear-gradient(to right, #4f66d8, #76bfe9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    max-width: 84%; /* Defina o valor que preferir para a largura máxima */
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+}
+
+    /* Estilo para a cor do texto na navbar */
+    .custom-navbar .navbar-brand,
+    .custom-navbar .navbar-text {
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Estilo para os links na navbar */
+    .custom-navbar .navbar-nav .nav-link {
+        color: white;
+        transition: background-color 0.2s;
+        margin-right: 10px; /* Adiciona 10px de espaço à direita de cada botão */
+    }
+
+    /* Estilo para o botão de sair na navbar */
+    .custom-navbar .btn-custom {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        transition: background-color 0.2s;
+    }
+
+        /* Estilo para os links na navbar quando estão ativos ou em foco */
+        .custom-navbar .navbar-nav .nav-link.active,
+        .custom-navbar .navbar-nav .nav-link:focus {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.25rem;
+        }
+
+    /* Estilo para o botão de sair na navbar */
+    .custom-navbar .btn-custom {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        transition: background-color 0.2s;
+    }
+
+        /* Estilo para o botão de sair na navbar quando estiver em foco */
+        .custom-navbar .btn-custom:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Estilo para o botão de sair na navbar quando estiver ativo (clicado) */
+        .custom-navbar .btn-custom:active {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+    /* Estilo para a cor do texto "Bem-vindo(a)" */
+    .custom-navbar .navbar-text b {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .custom-navbar .navbar-nav .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Altere a opacidade conforme desejado */
+        border-radius: 0.25rem;
+        color: white;
+    }
+
+    .custom-navbar .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg' class='icon'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    footer{
+        background-color: white;
+    }

@@ -1,0 +1,79 @@
+﻿@model List<UserModel>
+@{
+    ViewData["Title"] = "Contact Page";
+}
+<div class="card mt-5">
+    <div class="card-body mt-1">
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                <div class="text-center">
+                    @TempData["SuccessMessage"]
+                </div>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                <div class="text-center">
+                    @TempData["MessageError"]
+                </div>
+            </div>
+        }
+
+        <div class="text-center">
+            <h1 class="mt-1">Listagem de Usuários</h1>
+            <a class="btn btn-primary mt-2" role="button" asp-controller="User" asp-action="Create">Adicionar novo usuário</a>
+        </div>
+
+        <div class="">
+            <table class="table table-striped mt-4" id="users-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Aluno</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Data de Cadastro</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int i = 0;
+                        foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@item.Name</td>
+                                <td>@item.Email</td>
+                                <td>@item.CreatedAt</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="User" asp-action="ConfirmDelete" class="btn btn-danger">Deletar</a>
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="User" asp-action="Edit" class="btn btn-warning">Editar</a>
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="User" asp-action="Info" class="btn btn-primary">Info</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger mt-4 mb-4" role="alert">
+                            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                            <div class="text-center">
+                                Nenhum aluno cadastrado!
+                            </div>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

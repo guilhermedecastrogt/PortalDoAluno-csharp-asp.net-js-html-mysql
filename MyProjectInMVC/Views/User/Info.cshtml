@@ -1,0 +1,26 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Contact Page";
+}
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 75vh;">
+    <div class="jumbotron container-personalizado">
+        
+        <h2>@Model.Name </h2>
+       
+        <p class="mt-4"><b>Email: </b>@Model.Email</p>
+        <p class="mt-1"><b>Número de telefone:</b> @Model.phoneNumber</p>
+        <p class="mt-1"><b>Cpf:</b> @Model.Cpf</p>
+        <p class="mt-1"><b>Cargo:</b> @Model.Role</p>
+        <p class="mt-1"><b>Data de cadastro:</b> @Model.CreatedAt</p>
+        @if (Model.UpdatedAt == null)
+        {
+            <p class="mt-1"><b>Última atualização:</b> Usuário nunca editado.</p>
+        } else
+        {
+            <p class="mt-1"><b>Última atualização:</b> @Model.UpdatedAt</p>
+        }
+        <small class="mt-4"><b>Id:</b> @Model.Id</small>
+
+    </div>
+</div>

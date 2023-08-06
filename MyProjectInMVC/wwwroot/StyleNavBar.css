@@ -1,0 +1,49 @@
+﻿/* Estilos personalizados para a navbar */
+.custom-navbar {
+    background-image: linear-gradient(to right, #4f66d8, #76bfe9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    /* Estilo para a cor do texto na navbar */
+    .custom-navbar .navbar-brand,
+    .custom-navbar .navbar-text {
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Estilo para os links na navbar */
+    .custom-navbar .navbar-nav .nav-link {
+        color: white;
+        transition: background-color 0.2s;
+    }
+
+        /* Estilo para os links na navbar quando estão ativos ou em foco */
+        .custom-navbar .navbar-nav .nav-link.active,
+        .custom-navbar .navbar-nav .nav-link:focus {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.25rem;
+        }
+
+    /* Estilo para o botão de sair na navbar */
+    .custom-navbar .btn-custom {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        transition: background-color 0.2s;
+    }
+
+        /* Estilo para o botão de sair na navbar quando estiver em foco */
+        .custom-navbar .btn-custom:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Estilo para o botão de sair na navbar quando estiver ativo (clicado) */
+        .custom-navbar .btn-custom:active {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+    /* Estilo para a cor do texto "Bem-vindo(a)" */
+    .custom-navbar .navbar-text b {
+        color: rgba(255, 255, 255, 0.8);
+    }
