@@ -1,0 +1,13 @@
+﻿@model CategoryModel
+@{
+    ViewData["Title"] = "Confirmação apagar categoria";
+}
+
+<div class="card mt-5">
+    <div class="card-body mt-2 mb-2 text-center">
+        <h2 class="mt-4">Deseja deletar categoria <b>@Model.Name</b>?</h2>
+
+        <a class="btn btn-danger mt-3 mb-4" asp-controller="Category" asp-action="Delete" asp-route-id="@Model.Id" role="button">Deletar</a>
+        <a class="btn btn-primary mt-3 mb-4" asp-controller="Category" asp-action="Index" role="button">Cancelar</a>
+    </div>
+</div>

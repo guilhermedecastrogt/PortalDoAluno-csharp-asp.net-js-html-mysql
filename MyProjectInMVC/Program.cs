@@ -20,10 +20,12 @@ namespace MyProjectInMVC
             builder.Services.AddDbContext<DataContext>
                 (options => options.UseSqlServer(mySqlConnection));
 
+
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ISessao, Sessao>();
             builder.Services.AddScoped<IEmail, Email>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             builder.Services.AddSession(o =>
             {

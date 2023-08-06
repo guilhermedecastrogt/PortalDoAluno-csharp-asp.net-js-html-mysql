@@ -11,5 +11,6 @@ namespace MyProjectInMVC.Repository
         UserModel Edit(UserModel user);
         bool Delete(Guid id);
         UserModel ResetPassword (ResetCurrentPasswordModel resetCurrentPassword);
+
     }
 }

@@ -27,16 +27,18 @@
 
         <div class="text-center">
             <h1 class="mt-1">Listagem de Categorias</h1>
-            <a class="btn btn-primary mt-2" role="button" asp-controller="User" asp-action="Create">Adicionar novo usuário</a>
+            <a class="btn btn-primary mt-2" role="button" asp-controller="Category" asp-action="Create">Adicionar nova categoria</a>
         </div>
 
         <div class="">
-            <table class="table table-striped mt-4" id="users-table">
+            <table class="table table-striped mt-4" id="category-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Slug</th>
+                        <th scope="col">Ações</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -52,6 +54,8 @@
                                 <td>@item.Slug</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="Category" asp-action="ConfirmDelete" class="btn btn-danger">Deletar</a>
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="Category" asp-action="Edit" class="btn btn-warning">Editar</a>
                                     </div>
                                 </td>
                             </tr>
