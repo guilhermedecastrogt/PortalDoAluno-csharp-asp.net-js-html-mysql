@@ -77,3 +77,95 @@ h1 {
 .navbar-nav .nav-link:hover {
   color: #f5f5f5;
 } */
+
+
+.cardlist {
+    float: right;
+    width: 35%;
+    background-color: white;
+    height: 800px;
+    border-radius: 30px;
+    border: 3px solid #f7f7f7;
+    padding: 10px 10px 10px 10px;
+}
+    
+.optionslist {
+    float: left;
+    width: 800px;
+    border: 3px solid #f7f7f7;
+    padding-bottom: 0px;
+    background: #fffff;
+    margin-bottom: 0px;
+    padding-top: 0em;
+    min-height: 50vh;
+}
+
+.primarydiv {
+    /*display: flex;*/
+    width: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+html, body {
+    overflow: hidden;
+}
+
+svg {
+    height: 60vh;
+    width: 30vw;
+    display: block;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+i {
+    color: white;
+}
+
+    i:hover {
+        color: lightgray;
+    }
+
+.notes, .sparks {
+    opacity: 0;
+}
+
+#shadow {
+    animation: shadow 4s infinite linear;
+    transform-origin: 50% 50%;
+}
+
+#guitar_2_ {
+    animation: hover 4s infinite linear;
+}
+
+    #guitar_2_:hover {
+        cursor: pointer;
+    }
+
+@keyframes hover {
+    from, to {
+        transition-timing-function: ease-in-out;
+        transform: translate3d(0,0,0);
+    }
+
+    50% {
+        transition-timing-function: ease-in-out;
+        transform: translate3d(0,1.5%,0);
+    }
+}
+
+@keyframes shadow {
+    from, to {
+        transition-timing-function: ease-in-out;
+        transform: scale(0.95,1);
+    }
+
+    50% {
+        transition-timing-function: ease-in-out;
+        transform: scale(1.05,1);
+    }
+}
