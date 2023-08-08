@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Infrastructure;
 using MyProjectInMVC.Filters;
+using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Repository;
 
@@ -10,9 +11,11 @@ namespace MyProjectInMVC.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
-        public CategoryController(ICategoryRepository categoryrepository)
+        private readonly ISessao _session;
+        public CategoryController(ICategoryRepository categoryrepository, ISessao session)
         {
             _categoryRepository = categoryrepository;
+            _session = session;
         }
         public IActionResult Index()
         {

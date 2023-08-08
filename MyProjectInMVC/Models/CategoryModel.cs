@@ -18,6 +18,5 @@ namespace MyProjectInMVC.Models
         [Required(ErrorMessage = "Digite o slug da categoria")]
         [RegularExpression(@"^[a-zA-Z0-9\-]+$", ErrorMessage = "O slug não pode ter espaços nem caracteres especiais")]
         public string Slug { get; set; }
-
     }
 }
