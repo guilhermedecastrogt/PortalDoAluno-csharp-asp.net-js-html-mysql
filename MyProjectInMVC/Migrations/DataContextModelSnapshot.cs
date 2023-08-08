@@ -36,17 +36,26 @@ namespace MyProjectInMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
-
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("MyProjectInMVC.Models.UserCategoryModel", b =>
+                {
+                    b.Property<Guid>("UserCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserCategoryId");
+
+                    b.ToTable("UserCategory");
                 });
 
             modelBuilder.Entity("MyProjectInMVC.Models.UserModel", b =>
@@ -87,20 +96,6 @@ namespace MyProjectInMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("MyProjectInMVC.Models.CategoryModel", b =>
-                {
-                    b.HasOne("MyProjectInMVC.Models.UserModel", "User")
-                        .WithMany("Category")
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyProjectInMVC.Models.UserModel", b =>
-                {
-                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

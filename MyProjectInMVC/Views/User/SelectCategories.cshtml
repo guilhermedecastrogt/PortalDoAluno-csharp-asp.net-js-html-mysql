@@ -1,0 +1,18 @@
+﻿<h2>Selecione a categoria</h2>
+<small>@ViewBag.UserId</small>
+
+<form asp-controller="User" asp-action="SelectCategories" method="post">
+
+    <input type="hidden" name="userid" value="@ViewBag.UserId" />
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div>
+            <input type="checkbox" name="selectedCategoryIds" id="categoria_@Model[i].Id" value="@Model[i].Id" />
+            <label for="categoria_@Model[i].Id">@Model[i].Name</label>
+        </div>
+    }
+
+    <button type="submit">Salvar Categorias</button>
+
+</form>

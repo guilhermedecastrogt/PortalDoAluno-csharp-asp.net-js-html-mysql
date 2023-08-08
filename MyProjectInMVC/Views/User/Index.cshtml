@@ -58,6 +58,10 @@
                                         <a role="button" asp-route-id="@item.Id" asp-controller="User" asp-action="ConfirmDelete" class="btn btn-danger">Deletar</a>
                                         <a role="button" asp-route-id="@item.Id" asp-controller="User" asp-action="Edit" class="btn btn-warning">Editar</a>
                                         <a role="button" asp-route-id="@item.Id" asp-controller="User" asp-action="Info" class="btn btn-primary">Info</a>
+                                        <form asp-controller="User" asp-route-id="@item.Id" asp-action="SelectCategories" method="get">
+                                            <input type="hidden" name="userid" value="@item.Id" />
+                                            <button class="btn btn-primary" type="submit">Add Category</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

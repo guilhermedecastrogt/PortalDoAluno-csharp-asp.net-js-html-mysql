@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyProjectInMVC.Data;
 using MyProjectInMVC.Filters;
+using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Repository;
 
@@ -12,10 +13,12 @@ namespace MyProjectInMVC.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly DataContext _context;
-        public UserController(IUserRepository userRepository, DataContext context)
+        private readonly ICategoryRepository _categoryRepository;
+        public UserController(IUserRepository userRepository, DataContext context, ICategoryRepository categoryRepository, ISessao session)
         {
             _userRepository = userRepository;
             _context = context;
+            _categoryRepository = categoryRepository;
         }
 
         public IActionResult Index()
@@ -114,28 +117,35 @@ namespace MyProjectInMVC.Controllers
 
         }
 
-        /*public IActionResult SelectCategories(Guid userid)
-        {
-            var categories = _userRepository.ContactsList();
+        public IActionResult SelectCategories(Guid userid)
+        { 
+            List<CategoryModel> categories = _categoryRepository.CategoryList();
             ViewBag.UserId = userid;
             return View(categories);
-        }*/
+        }
 
-        /*[HttpPost]
-        public ActionResult SelectCategories(Guid userId, List<Guid> selectedCategoryIds)
+        [HttpPost]
+        public ActionResult SelectCategories(Guid userid, List<Guid> selectedCategoryIds)
         {
-            // Remova todas as associações existentes para este usuário
-            _context.UserCategory.RemoveRange(_context.UserCategory.Where(uc => uc.UserId == userId));
-
-            // Crie novas associações para as categorias selecionadas
-            foreach (var categoryId in selectedCategoryIds)
+            try
             {
-                _context.UserCategory.Add(new UserCategoryModel { UserId = userId, CategoryId = categoryId });
+                _context.UserCategory.RemoveRange(_context.UserCategory.Where(x => x.UserId == userid));
+
+                foreach (var categoryId in selectedCategoryIds)
+                {
+                    _context.UserCategory.Add(new UserCategoryModel { UserId = userid, CategoryId = categoryId});
+                }
+
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Categorias adicionadas ao usuário com sucesso!";
+                return RedirectToAction("Index");
             }
-
-            _context.SaveChanges();
-
-            return RedirectToAction("Index", "Home");
-        }*/
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Falha ao adicionar categorias ao usuário, tente novamente: {ex}";
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
