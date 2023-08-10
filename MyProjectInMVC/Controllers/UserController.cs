@@ -5,6 +5,7 @@ using MyProjectInMVC.Filters;
 using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Repository;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyProjectInMVC.Controllers
 {
@@ -35,13 +36,45 @@ namespace MyProjectInMVC.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var model = new IndexViewUserCreateModel
+            {
+                Categories = _categoryRepository.CategoryList()
+                //User = new UserModel()
+            };
+
+            return View(model);
         }
 
         public IActionResult Edit(Guid id)
         {
-            UserModel user = _userRepository.ListPerId(id);
-            return View(user);
+            try
+            {
+                UserModel user = _userRepository.ListPerId(id);
+                List<CategoryModel> categories = _categoryRepository.CategoryList();
+
+                UserModelNoPassword usern = new UserModelNoPassword
+                {
+                    Name = user.Name,
+                    Id = user.Id,
+                    Cpf = user.Cpf,
+                    phoneNumber = user.phoneNumber,
+                    Email = user.Email,
+                    Role = user.Role
+                };
+
+                var viewModel = new IndexViewUserEditModel
+                {
+                    UserModel = usern,
+                    CategoryList = categories
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception error)
+            {
+                TempData["ErrorMessage"] = $"Houve um erro ao carregar o usuário: {error.Message}";
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult ConfirmDelete(Guid id)
@@ -51,17 +84,43 @@ namespace MyProjectInMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(UserModel user)
+        public IActionResult Create(UserModel user, List<Guid> selectedCategoryIds)
         {
             try
             {
+
                 if (ModelState.IsValid)
                 {
-                    _userRepository.Add(user);
+
+                    UserModel successCreateUser = _userRepository.Add(user);
+
+                    if (successCreateUser == null)
+                    {
+                        TempData["ErrorMessage"] = $"Houve um erro ao cadastrar usuário.";
+                        return RedirectToAction("Index");
+                    }
+
+                    bool successSaveCategory = _userRepository.UserCategoryAdd(selectedCategoryIds, user.Id);
+
+                    if(!successSaveCategory)
+                    {
+                        TempData["ErrorMessage"] = $"Houve um erro ao cadastrar categoria para o usuário.";
+                        return RedirectToAction("Index");
+                    }
+
                     TempData["SuccessMessage"] = "Usuário registrado com sucesso!";
                     return RedirectToAction("Index");
+
                 }
-                return View(user);
+
+                var viewModel = new IndexViewUserCreateModel
+                {
+                    User = user,
+                    Categories = _categoryRepository.CategoryList()
+                };
+
+                return View(viewModel);
+
             }
             catch (Exception error)
             {
@@ -85,36 +144,38 @@ namespace MyProjectInMVC.Controllers
                 return RedirectToAction("Index");
             }
         }
+        
         [HttpPost]
-        public IActionResult Edit(UserModelNoPassword usernopassword)
+        public IActionResult Edit(IndexViewUserEditModel viewModel, List<Guid> selectedCategoryIds)
         {
-            try
+            if (ModelState.IsValid)
             {
-                UserModel user = null;
-                if (ModelState.IsValid)
+                UserModel user = new UserModel
                 {
-                    user = new UserModel()
-                    {
-                        Id = usernopassword.Id,
-                        Name = usernopassword.Name,
-                        Email = usernopassword.Email,
-                        Cpf = usernopassword.Cpf,
-                        phoneNumber = usernopassword.phoneNumber,
-                        Role = usernopassword.Role
-                    };
+                    Id = viewModel.UserModel.Id,
+                    Name = viewModel.UserModel.Name,
+                    Email = viewModel.UserModel.Email,
+                    Cpf = viewModel.UserModel.Cpf,
+                    phoneNumber = viewModel.UserModel.phoneNumber,
+                    Role = viewModel.UserModel.Role
+                };
 
-                    user = _userRepository.Edit(user);
-                    TempData["SuccessMessage"] = "Usuário editado co successo!";
+                _userRepository.Edit(user);
+
+                bool successSaveCategory = _userRepository.UserCategoryAdd(selectedCategoryIds, viewModel.UserModel.Id);
+
+                if(!successSaveCategory)
+                {
+                    TempData["ErrorMessage"] = "Usuário erro ao atualizar as tategorias do usuário!";
                     return RedirectToAction("Index");
                 }
-                return View(user);
-            }
-            catch (Exception error)
-            {
-                TempData["ErrorMessage"] = $"Houve um erro ao cadastrar usuário: {error.Message}";
+
+                TempData["SuccessMessage"] = "Usuário editado com sucesso!";
                 return RedirectToAction("Index");
             }
 
+            viewModel.CategoryList = _categoryRepository.CategoryList();
+            return View(viewModel);
         }
 
         public IActionResult SelectCategories(Guid userid)

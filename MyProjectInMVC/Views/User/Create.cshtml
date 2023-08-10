@@ -1,5 +1,5 @@
 ﻿@using MyProjectInMVC.Enums;
-@model UserModel
+@model IndexViewUserCreateModel
 @{
     ViewData["Title"] = "Criar novo Usuário";
 }
@@ -13,44 +13,71 @@
         <form asp-controller="User" asp-action="Create" method="post">
             <div class="form-group mt-4">
                 <label for="name">Nome</label>
-                <input type="text" asp-for="Name" class="form-control mt-1" placeholder="Digite o Nome">
-                <p class="mt-2">@Html.ValidationMessageFor(x => x.Name)</p>
+                <input type="text" asp-for="User.Name" class="form-control mt-1" placeholder="Digite o Nome">
+                <p class="mt-2">@Html.ValidationMessageFor(x => x.User.Name)</p>
             </div>
 
             <div class="form-group mt-2">
                 <label for="email">Email</label>
-                <input type="email" asp-for="Email" class="form-control mt-1" placeholder="Digite o email">
-                <p class="mt-2">@Html.ValidationMessageFor(x => x.Email)</p>
+                <input type="email" asp-for="User.Email" class="form-control mt-1" placeholder="Digite o email">
+                <p class="mt-2">@Html.ValidationMessageFor(x => x.User.Email)</p>
             </div>
 
             <div class="form-group mt-2">
                 <label for="phone">Phone</label>
-                <input type="text" asp-for="phoneNumber" class="form-control mt-1" placeholder="Exemplo: (00) 00000-0000">
-                <p class="mt-2">@Html.ValidationMessageFor(x => x.phoneNumber)</p>
+                <input type="text" asp-for="User.phoneNumber" class="form-control mt-1" placeholder="Exemplo: (00) 00000-0000">
+                <p class="mt-2">@Html.ValidationMessageFor(x => x.User.phoneNumber)</p>
             </div>
 
             <div class="form-group mt-2">
                 <label for="cpf">Cpf</label>
-                <input type="string" asp-for="Cpf" class="form-control mt-1" placeholder="Exemplo: 000.000.000-00">
-                <p class="mt-2">@Html.ValidationMessageFor(x => x.Cpf)</p>
+                <input type="string" asp-for="User.Cpf" class="form-control mt-1" placeholder="Exemplo: 000.000.000-00">
+                <p class="mt-2">@Html.ValidationMessageFor(x => x.User.Cpf)</p>
             </div>
 
             <div>
                 <label for="Password">Senha</label>
-                <input type="password" asp-for="Password" class="form-control mt-1" placeholder="Digite a senha" />
-                <p class="mt-2">@Html.ValidationMessageFor(x => x.Password)</p>
+                <input type="password" asp-for="User.Password" class="form-control mt-1" placeholder="Digite a senha" />
+                <p class="mt-2">@Html.ValidationMessageFor(x => x.User.Password)</p>
             </div>
 
             <div class="form-group mt-2">
                 <label for="name" class="form-label">Cargo</label><br>
-                <select asp-for="Role" class="form-select mt-1">
+                <select asp-for="User.Role" class="form-select mt-1">
                     <option value="@AdmEnum.Aluno">Aluno</option>
                     <option value="@AdmEnum.Admin">Admin</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-4">Adicionar</button>
-            <a class="btn btn-secondary mt-4" asp-controller="User" asp-action="Index">Retornar</a>
+            @*<h2>Selecione a categoria</h2>
+
+            @foreach(CategoryModel item in Model.Categories)
+            {
+                <div>
+                    <input type="checkbox" name="selectedCategoryIds" id="categoria_@item.Id" value="@item.Id" />
+                    <label for="categoria_@item.Id">@item.Name</label>
+                </div>
+            }*@
+
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <label class="form-label mt-3">Selecione a categoria</label>
+                    <div class="list-group">
+                        @foreach (CategoryModel item in Model.Categories)
+                        {
+                            <div class="list-group-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="selectedCategoryIds" id="categoria_@item.Id" value="@item.Id" />
+                                    <label class="form-check-label" for="categoria_@item.Id">@item.Name</label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4 mb-2">Adicionar</button>
+            <a class="btn btn-secondary mt-4 mb-2" asp-controller="User" asp-action="Index">Retornar</a>
         </form>
     </div>
 </div>

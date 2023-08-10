@@ -5,10 +5,6 @@ namespace MyProjectInMVC.Models
 {
     public class UserModelNoPassword
     {
-        public UserModelNoPassword()
-        {
-            Id = Guid.NewGuid();
-        }
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Digite o nome!")]
         public string Name { get; set; }

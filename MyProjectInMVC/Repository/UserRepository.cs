@@ -1,4 +1,5 @@
-﻿using MyProjectInMVC.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MyProjectInMVC.Data;
 using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using NuGet.Protocol.Plugins;
@@ -102,6 +103,27 @@ namespace MyProjectInMVC.Repository
                     return userDb;
                 }
             }
+        }
+
+        public bool UserCategoryAdd(List<Guid> selectedCategoryIds, Guid user)
+        {
+            try
+            {
+                _dataContext.UserCategory.RemoveRange(_dataContext.UserCategory.Where(x => x.UserId == user));
+
+                foreach (var categoryId in selectedCategoryIds)
+                {
+                    _dataContext.UserCategory.Add(new UserCategoryModel { UserId = user, CategoryId = categoryId });
+                }
+
+                _dataContext.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }            
         }
     }
 }
