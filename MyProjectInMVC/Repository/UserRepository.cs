@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyProjectInMVC.Data;
+using MyProjectInMVC.Enums;
 using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using NuGet.Protocol.Plugins;
@@ -106,7 +107,7 @@ namespace MyProjectInMVC.Repository
             }
         }
 
-        public bool UserCategoryAdd(List<Guid> selectedCategoryIds, Guid user)
+        public bool UserCategoryAdd(List<Guid> selectedCategoryIds, Guid user, CategoryLevelEnum level)
         {
             try
             {
@@ -114,7 +115,7 @@ namespace MyProjectInMVC.Repository
 
                 foreach (var categoryId in selectedCategoryIds)
                 {
-                    _dataContext.UserCategory.Add(new UserCategoryModel { UserId = user, CategoryId = categoryId });
+                    _dataContext.UserCategory.Add(new UserCategoryModel { UserId = user, CategoryId = categoryId, Level = level});
                 }
 
                 _dataContext.SaveChanges();

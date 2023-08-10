@@ -12,7 +12,7 @@ using MyProjectInMVC.Data;
 namespace MyProjectInMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230808212713_UserCategoryModel")]
+    [Migration("20230810183838_UserCategoryModel")]
     partial class UserCategoryModel
     {
         /// <inheritdoc />
@@ -52,6 +52,9 @@ namespace MyProjectInMVC.Migrations
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MyProjectInMVC.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyProjectInMVC.Models
 {

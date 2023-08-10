@@ -17,7 +17,8 @@ namespace MyProjectInMVC.Migrations
                 {
                     UserCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

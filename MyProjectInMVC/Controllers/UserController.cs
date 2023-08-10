@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyProjectInMVC.Data;
+using MyProjectInMVC.Enums;
 using MyProjectInMVC.Filters;
 using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
@@ -84,7 +85,7 @@ namespace MyProjectInMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(UserModel user, List<Guid> selectedCategoryIds)
+        public IActionResult Create(UserModel user, List<Guid> selectedCategoryIds, CategoryLevelEnum level)
         {
             try
             {
@@ -100,7 +101,7 @@ namespace MyProjectInMVC.Controllers
                         return RedirectToAction("Index");
                     }
 
-                    bool successSaveCategory = _userRepository.UserCategoryAdd(selectedCategoryIds, user.Id);
+                    bool successSaveCategory = _userRepository.UserCategoryAdd(selectedCategoryIds, user.Id, level);
 
                     if(!successSaveCategory)
                     {
@@ -146,7 +147,7 @@ namespace MyProjectInMVC.Controllers
         }
         
         [HttpPost]
-        public IActionResult Edit(IndexViewUserEditModel viewModel, List<Guid> selectedCategoryIds)
+        public IActionResult Edit(IndexViewUserEditModel viewModel, List<Guid> selectedCategoryIds, CategoryLevelEnum level)
         {
             if (ModelState.IsValid)
             {
@@ -162,7 +163,7 @@ namespace MyProjectInMVC.Controllers
 
                 _userRepository.Edit(user);
 
-                bool successSaveCategory = _userRepository.UserCategoryAdd(selectedCategoryIds, viewModel.UserModel.Id);
+                bool successSaveCategory = _userRepository.UserCategoryAdd(selectedCategoryIds, viewModel.UserModel.Id, level);
 
                 if(!successSaveCategory)
                 {

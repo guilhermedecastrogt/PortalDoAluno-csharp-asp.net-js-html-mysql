@@ -1,4 +1,5 @@
-﻿using MyProjectInMVC.Models;
+﻿using MyProjectInMVC.Enums;
+using MyProjectInMVC.Models;
 
 namespace MyProjectInMVC.Repository
 {
@@ -11,6 +12,6 @@ namespace MyProjectInMVC.Repository
         UserModel Edit(UserModel user);
         bool Delete(Guid id);
         UserModel ResetPassword (ResetCurrentPasswordModel resetCurrentPassword);
-        bool UserCategoryAdd (List<Guid> selectedCategoryIds, Guid user);
+        bool UserCategoryAdd (List<Guid> selectedCategoryIds, Guid user, CategoryLevelEnum level);
     }
 }

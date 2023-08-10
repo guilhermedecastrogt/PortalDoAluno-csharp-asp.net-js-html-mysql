@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MyProjectInMVC.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyProjectInMVC.Models
 {
@@ -8,11 +9,10 @@ namespace MyProjectInMVC.Models
         {
             UserCategoryId = Guid.NewGuid();
         }
-
         [Key]
         public Guid UserCategoryId { get; set; }
-
         public Guid UserId { get; set; }
         public Guid CategoryId { get; set; }
+        public CategoryLevelEnum Level { get; set; }
     }
 }

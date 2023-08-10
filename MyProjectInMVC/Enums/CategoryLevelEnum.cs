@@ -1,6 +1,6 @@
 ﻿namespace MyProjectInMVC.Enums
 {
-    public enum CategoryLevel
+    public enum CategoryLevelEnum
     {
         Iniciante = 1,
         Junior = 2,
