@@ -37,6 +37,7 @@ namespace MyProjectInMVC.Repository
             }
 
             _context.Category.Remove(category);
+            _context.UserCategory.RemoveRange(_context.UserCategory.Where(x => x.CategoryId == id));
             _context.SaveChanges();
             return true;
         }

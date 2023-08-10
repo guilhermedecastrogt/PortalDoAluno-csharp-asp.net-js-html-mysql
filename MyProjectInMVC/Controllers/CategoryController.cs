@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Infrastructure;
+using MyProjectInMVC.Data;
 using MyProjectInMVC.Filters;
 using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
@@ -12,7 +13,7 @@ namespace MyProjectInMVC.Controllers
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ISessao _session;
-        public CategoryController(ICategoryRepository categoryrepository, ISessao session)
+        public CategoryController(ICategoryRepository categoryrepository, ISessao session, DataContext dataContext)
         {
             _categoryRepository = categoryrepository;
             _session = session;

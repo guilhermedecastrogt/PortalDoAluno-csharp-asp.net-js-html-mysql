@@ -1,26 +1,30 @@
-﻿@{
+﻿@model List<CategoryModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <head>
-    <link rel="stylesheet" href="~/css/home.css">
+    <link rel="stylesheet" href="~/css/home2.css">
 </head>
 
-<div class="primarydiv">
-
+<div class="primarydiv mb-5">
     <div class="container mt-3 optionslist ">
-        <!--div class="fundobranco"><h1 class="text-center">Bem-vindo ao Portal do Aluno</h1></div-->
         <div class="row mt-3">
-            <div class="col-md-6 mb-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Materiais de Estudo</h5>
-                        <p class="card-text">Acesse aqui os materiais de estudo disponibilizados para sua turma.</p>
-                        <a href="#" class="btn botclass btn-primary">Acessar</a>
+
+            @foreach (CategoryModel item in Model)
+            {
+                <div class="col-md-6 mb-6 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">Acesse aqui os materiais de estudo disponibilizados para sua turma.</p>
+                            <a href="#" class="btn botclass btn-primary">Acessar</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 mb-6">
+            }
+
+            <div class="col-md-6 mb-6 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Chat com o Professor</h5>

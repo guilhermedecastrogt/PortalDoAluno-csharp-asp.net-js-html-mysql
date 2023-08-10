@@ -37,6 +37,7 @@ namespace MyProjectInMVC.Repository
                 throw new System.Exception("Internal Error");
             }
 
+            _dataContext.UserCategory.RemoveRange(_dataContext.UserCategory.Where(x => x.UserId == id));
             _dataContext.Users.Remove(userDb);
             _dataContext.SaveChanges();
 
