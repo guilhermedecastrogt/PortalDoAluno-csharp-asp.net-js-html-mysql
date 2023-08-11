@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="~/css/home2.css">
 </head>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        <div class="text-center">
+            @TempData["SuccessMessage"]
+        </div>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        <div class="text-center">
+            <p>@TempData["MessageError"] </p>
+        </div>
+    </div>
+}
+
 <div class="primarydiv mb-5">
     <div class="container mt-3 optionslist ">
         <div class="row mt-3">
@@ -18,8 +38,8 @@
                         <div class="card-body">
                             <h5 class="card-title">@item.Name</h5>
                             <p class="card-text">Acesse aqui os materiais de estudo disponibilizados para sua turma.</p>
-                            <form asp-controller="UniqueCategory" asp-action="Index" mathod="get">
-                                <input name="categoryid" value="@item.Id">
+                            <form asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@item.Slug" mathod="get">
+                                <input type="hidden" name="categoryid" value="@item.Id">
                                 <button type="submit" class="btn botclass btn-primary">Acessar</button>
                             </form>
                         </div>
@@ -45,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 mb-6 mt-3">
+            @*<div class="col-md-6 mb-6 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Atividades</h5>
@@ -53,7 +73,7 @@
                         <a href="#" class="btn botclass btn-primary">Acessar</a>
                     </div>
                 </div>
-            </div>
+            </div>*@
             <div class="col-md-6 mb-6 mt-3">
                 <div class="card">
                     <div class="card-body">

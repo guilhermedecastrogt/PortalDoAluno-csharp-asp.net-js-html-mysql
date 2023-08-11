@@ -15,27 +15,41 @@ namespace MyProjectInMVC.Controllers
         {
             _session = session;
             _dataContext = dataContext;
-
         }
 
         public IActionResult Index(Guid categoryid)
         {
-            UserModel user = _session.FindSession();
-            UserCategoryModel confirm = _dataContext.UserCategory.FirstOrDefault
-                (
-                    x => x.UserId == user.Id
-                    &&
-                    x.CategoryId == categoryid
-                );
-
-            if (confirm == null)
+            if (categoryid == Guid.Empty) 
             {
-                RedirectToAction("Index", "Home");
+                TempData["ErrorMessage"] = "Acesso não permitido";
+                return RedirectToAction("Index", "Home");
             }
 
-            CategoryModel category = _dataContext.Category.FirstOrDefault(x => x.Id == categoryid);
+            try
+            {
+                UserModel user = _session.FindSession();
+                UserCategoryModel confirm = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == categoryid);
+                if (confirm == null)
+                {
+                    RedirectToAction("Index", "Home");
+                }
 
-            return View(category);
+                CategoryModel category = _dataContext.Category.FirstOrDefault(x => x.Id == categoryid);
+
+
+
+                UniqueCategoryModel model = new UniqueCategoryModel
+                {
+                    Category = category
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Erro ao acessar página, tente novamente {ex}";
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }
