@@ -9,16 +9,19 @@ namespace MyProjectInMVC.Models
             Id = Guid.NewGuid();
             CreatedAt = DateTime.Now;
         }
+
+        [Key]
         public Guid Id { get; set; }
-        [Required(ErrorMessage = "Título em branco")]
-        [StringLength(24, ErrorMessage = "O título deve ter no máximo 24 caracteres")]
+        [Required(ErrorMessage = "Titulo em branco")]
+        [StringLength(24, ErrorMessage = "Tamano excede 24 letras")]
         public string Title { get; set; }
-        [StringLength(255, ErrorMessage = "O título deve ter no máximo 24 caracteres")]
+        [StringLength(255, ErrorMessage = "Tamano excede 255 letras")]
         public string? Instructions { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public string? FileName { get; set; }
-        public byte[]? File { get; set; }
+        public string? FilePath { get; set; }
+        public Guid? CategoryId { get; set; }
+        public CategoryModel? Category { get; set; }
 
     }
 }

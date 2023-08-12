@@ -1,0 +1,72 @@
+﻿@using MyProjectInMVC.Enums;
+@model HomeworkModelView
+@{
+    ViewData["Title"] = "Criar novo Usuário";
+}
+
+<div class="card mt-5">
+    <div class="card-body mt-1">
+
+        <div class="text-center">
+            <h1 class="mt-3">Registrar nova tarefa</h1>
+        </div>
+        @using (Html.BeginForm("Create", "Homework", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <div class="form-group mt-4">
+                <label for="name">Nome*</label>
+                <input type="text" asp-for="HomeworkModel.Title" class="form-control mt-1" placeholder="Digite o Nome">
+                <p class="mt-2">@Html.ValidationMessageFor(x => x.HomeworkModel.Title)</p>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="email">Instruções</label>
+                <textarea asp-for="HomeworkModel.Instructions" class="form-control mt-1" placeholder="Digite as instruções"></textarea>
+                <p class="mt-2">@Html.ValidationMessageFor(x => x.HomeworkModel.Instructions)</p>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="cpf">Arquivo</label>
+                <input type="file" asp-for="DataFile" class="form-control mt-1" id="dataFile" placeholder="Upload de arquivo">
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <label class="form-label mt-3">Selecione a categoria</label>
+                    <div class="list-group">
+                        @foreach (CategoryModel item in Model.Categories)
+                        {
+                            <div class="list-group-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="selectedCategoryIds" id="categoria_@item.Id" value="@item.Id">
+                                    <label class="form-check-label" for="categoria_@item.Id">@item.Name</label><br>
+                                    <select name="level" class="form-select mt-1" id="levelSelect" style="display: none;">
+                                        <option value="@CategoryLevelEnum.Iniciante">Iniciante</option>
+                                        <option value="@CategoryLevelEnum.Junior">Junior</option>
+                                        <option value="@CategoryLevelEnum.Pleno">Pleno</option>
+                                        <option value="@CategoryLevelEnum.Experiênte">Experiênte</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <script>
+                                const checkbox = document.getElementById('categoria_@item.Id');
+                                const levelSelect = document.getElementById('levelSelect');
+
+                                checkbox.addEventListener('change', function () {
+                                    if (checkbox.checked) {
+                                        levelSelect.style.display = 'block';
+                                    } else {
+                                        levelSelect.style.display = 'none';
+                                    }
+                                });
+                            </script>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4 mb-2">Adicionar</button>
+            <a class="btn btn-secondary mt-4 mb-2" asp-controller="User" asp-action="Index">Retornar</a>
+        }
+    </div>
+</div>

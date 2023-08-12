@@ -17,7 +17,6 @@ body {
     }
 
 /* Estilos para os botões */
-/* Estilos para os botões */
 .botclass {
     position: relative;
     border-radius: 13px;
@@ -48,7 +47,6 @@ body {
 /* Estilos para o título principal */
 .fundobranco {
     background-color: white;
-    max-width: 200px;
 }
 
 h1 {
@@ -70,7 +68,7 @@ h1 {
 
 .optionslist {
     float: left;
-    width: 800px;
+    width: auto;
     padding-bottom: 0px;
     background: #fffff;
     margin-bottom: 0px;
@@ -79,12 +77,13 @@ h1 {
 }
 
 .primarydiv {
-    /*display: flex;*/
-    width: 100%;
-    padding-bottom: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    padding-bottom: auto;
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    left: 0;
-    right: 0;
+    left: auto;
+    right: auto;
 }

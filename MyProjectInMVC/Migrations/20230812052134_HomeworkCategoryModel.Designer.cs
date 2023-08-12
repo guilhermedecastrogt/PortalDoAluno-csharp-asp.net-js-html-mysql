@@ -12,15 +12,15 @@ using MyProjectInMVC.Data;
 namespace MyProjectInMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230811224101_HomeworkModel")]
-    partial class HomeworkModel
+    [Migration("20230812052134_HomeworkCategoryModel")]
+    partial class HomeworkCategoryModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -44,6 +44,23 @@ namespace MyProjectInMVC.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("MyProjectInMVC.Models.HomeworkCategoryModel", b =>
+                {
+                    b.Property<Guid>("HomeworkCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("HomeworkId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("HomeworkCategoryId");
+
+                    b.ToTable("HomeworkCategory");
+                });
+
             modelBuilder.Entity("MyProjectInMVC.Models.HomeworkModel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -53,10 +70,7 @@ namespace MyProjectInMVC.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte[]>("File")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FileName")
+                    b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Instructions")

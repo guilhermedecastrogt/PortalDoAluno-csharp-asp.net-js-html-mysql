@@ -12,7 +12,7 @@ namespace MyProjectInMVC.Repository
         }
         public HomeworkModel Add(HomeworkModel homework)
         {
-            _context.Homework.Add(homework);
+            _context.Homeworks.Add(homework);
             _context.SaveChanges();
             return homework;
         }
@@ -24,7 +24,7 @@ namespace MyProjectInMVC.Repository
             {
                 return false;
             }
-            _context.Homework.Remove(homework);
+            _context.Homeworks.Remove(homework);
             _context.SaveChanges();
             return true;
         }
@@ -36,13 +36,13 @@ namespace MyProjectInMVC.Repository
 
         public HomeworkModel FindPerId(Guid id)
         {
-            HomeworkModel homework = _context.Homework.FirstOrDefault(x => x.Id == id);
+            HomeworkModel homework = _context.Homeworks.FirstOrDefault(x => x.Id == id);
             return homework;
         }
 
         public List<HomeworkModel> HomeworkList()
         {
-            return _context.Homework.ToList();
+            return _context.Homeworks.ToList();
         }
     }
 }
