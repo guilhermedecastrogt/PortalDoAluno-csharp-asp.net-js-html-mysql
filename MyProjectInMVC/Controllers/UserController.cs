@@ -85,7 +85,7 @@ namespace MyProjectInMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(UserModel user, List<Guid> selectedCategoryIds, CategoryLevelEnum level)
+        public IActionResult Create(UserModel user, List<Guid> selectedCategoryIds, List<CategoryLevelEnum> level)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace MyProjectInMVC.Controllers
         }
         
         [HttpPost]
-        public IActionResult Edit(IndexViewUserEditModel viewModel, List<Guid> selectedCategoryIds, CategoryLevelEnum level)
+        public IActionResult Edit(IndexViewUserEditModel viewModel, List<Guid> selectedCategoryIds, List<CategoryLevelEnum> level)
         {
             if (ModelState.IsValid)
             {

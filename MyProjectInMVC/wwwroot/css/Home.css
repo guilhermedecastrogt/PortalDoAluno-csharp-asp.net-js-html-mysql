@@ -1,1 +1,102 @@
-﻿
+﻿﻿ /* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* Estilos para os cards */
+.card {
+    border-radius: 15px;
+    border-color: white;
+    /*box-shadow: 0 4px 8px white;*/
+    transition: transform 0.3s ease;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+/* Estilos para os botões */
+/* Estilos para os botões */
+.botclass {
+    position: relative;
+    border-radius: 13px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-image: linear-gradient(to right, #4f66d8, #76bfe9);
+    background-size: 200% 100%; /* Define o tamanho do gradiente */
+    background-position: left; /* Define a posição inicial do gradiente à esquerda */
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+    /* Efeito de hover para o gradiente lateral */
+    .botclass:hover {
+        background-position: right; /* Move o gradiente para a posição final à direita */
+    }
+
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: white;
+    }
+
+/* Estilos para o título principal */
+.fundobranco {
+    background-color: white;
+    max-width: 200px;
+}
+
+h1 {
+    color: #007bff;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.cardlist {
+    float: right;
+    width: 35%;
+    background-color: white;
+    height: 800px;
+    border-radius: 30px;
+    border: 3px solid #f7f7f7;
+    padding: 10px 10px 10px 10px;
+}
+
+.optionslist {
+    float: left;
+    width: 800px;
+    padding-bottom: 0px;
+    background: #fffff;
+    margin-bottom: 0px;
+    padding-top: 0em;
+    min-height: 50vh;
+}
+
+.primarydiv {
+    /*display: flex;*/
+    width: 100%;
+    padding-bottom: 800px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+@media screen and (max-width :768px) {
+    .cardlist {
+        width: auto;
+        float: none;
+    }
+
+    .optionslist {
+        width: auto;
+        float: none;
+    }
+}

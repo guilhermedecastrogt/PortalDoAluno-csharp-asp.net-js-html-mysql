@@ -5,16 +5,12 @@ namespace MyProjectInMVC.Models
     public class HomeworkModelView
     {
         public HomeworkModel HomeworkModel { get; set; }
+        //[MaxFileSize(5 * 1024 * 1024)]
+        //[AllowedExtensions(new string[] { ".jpg", ".png", ".pdf", ".doc", ".docm", ".docx", ".xlsx", ".xls"})]
+        public IFormFile? DataFile { get; set; }
+        public List<CategoryModel>? Categories { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z0-9\-]+$", ErrorMessage = "O slug não pode ter espaços nem caracteres especiais")]
-        public string NameFile { get; set; }
-
-        [MaxFileSize(5 * 1024 * 1024)]
-        [AllowedExtensions(new string[] { ".jpg", ".png", ".pdf", ".doc", ".docm", ".docx", ".xlsx", ".xls"})]
-        public IFormFile DataFile { get; set; }
-        public List<CategoryModel> Categories { get; set; }
-
-        //MaxFileSize
+        /*/MaxFileSize
         public class MaxFileSizeAttribute : ValidationAttribute
         {
             private readonly int _maxFileSize;
@@ -61,6 +57,6 @@ namespace MyProjectInMVC.Models
 
                 return ValidationResult.Success;
             }
-        }
+        */
     }
 }

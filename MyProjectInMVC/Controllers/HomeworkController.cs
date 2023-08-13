@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyProjectInMVC.Data;
+using MyProjectInMVC.Enums;
 using MyProjectInMVC.Filters;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Repository;
@@ -35,7 +36,7 @@ namespace MyProjectInMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(HomeworkModelView homework)
+        public IActionResult Create(HomeworkModelView homework, CategoryLevelEnum level, Guid selectedCategoryIds)
         {
             try
             {
@@ -45,8 +46,14 @@ namespace MyProjectInMVC.Controllers
                     {
                         if (homework.DataFile != null && homework.DataFile.Length > 0 && homework.DataFile.Length <= 10 * 1024 * 1024)
                         {
-                            string nameFile = homework.HomeworkModel.Id.ToString();
+                            string originalFileName = Path.GetFileName(homework.DataFile.FileName);
+                            string extension = Path.GetExtension(originalFileName);
+
+                            string nameFile = homework.HomeworkModel.Id.ToString() + extension;
+
                             homework.HomeworkModel.FilePath = Path.Combine(Directory.GetCurrentDirectory(), "App_Data\\Homeworks", nameFile);
+                            var stream = new FileStream(homework.HomeworkModel.FilePath, FileMode.Create);
+                            homework.DataFile.CopyToAsync(stream);
                         }
                     }
                     catch (Exception ex)
@@ -54,6 +61,8 @@ namespace MyProjectInMVC.Controllers
                         TempData["ErrorMessage"] = $"Erro ao salvar arquivo: {ex}";
                         return RedirectToAction("Index");
                     }
+
+                    homework.HomeworkModel.CategoryId = selectedCategoryIds;
 
                     _homeworkRepository.Add(homework.HomeworkModel);
                     TempData["SuccessMessage"] = "Tarefa cadastrada com sucesso";
@@ -68,5 +77,22 @@ namespace MyProjectInMVC.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpPost]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                _homeworkRepository.Delete(id);
+                TempData["SuccessMessage"] = "Usuário apagado com sucesso!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception error)
+            {
+                TempData["ErrorMessage"] = $"Erro ao apagar usuário: {error.Message}";
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }

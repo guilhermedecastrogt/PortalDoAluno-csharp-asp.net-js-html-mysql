@@ -54,7 +54,10 @@
                                 <td>@item.CreatedAt</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a role="button" asp-route-id="@item.Id" asp-controller="Homework" asp-action="ConfirmDelete" class="btn btn-danger">Deletar</a>
+                                        <form asp-controller="Homework" asp-action="Delete" method="post">
+                                            <input type="hidden" name="id" value="@item.Id">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
                                         <a role="button" asp-route-id="@item.Id" asp-controller="Homework" asp-action="Edit" class="btn btn-warning">Editar</a>
                                     </div>
                                 </td>
