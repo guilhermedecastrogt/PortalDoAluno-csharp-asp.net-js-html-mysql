@@ -20,7 +20,7 @@
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
                 <div class="text-center">
-                    @TempData["MessageError"]
+                    @TempData["ErrorMessage"]
                 </div>
             </div>
         }
@@ -58,7 +58,7 @@
                                             <input type="hidden" name="id" value="@item.Id">
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
-                                        <a role="button" asp-route-id="@item.Id" asp-controller="Homework" asp-action="Edit" class="btn btn-warning">Editar</a>
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="Homework" asp-action="" class="btn btn-warning">Editar</a>
                                     </div>
                                 </td>
                             </tr>

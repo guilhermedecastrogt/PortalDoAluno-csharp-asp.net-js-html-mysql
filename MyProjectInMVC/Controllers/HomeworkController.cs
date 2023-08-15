@@ -61,8 +61,9 @@ namespace MyProjectInMVC.Controllers
                         TempData["ErrorMessage"] = $"Erro ao salvar arquivo: {ex}";
                         return RedirectToAction("Index");
                     }
-
+                    
                     homework.HomeworkModel.CategoryId = selectedCategoryIds;
+                    homework.HomeworkModel.Level = level;
 
                     _homeworkRepository.Add(homework.HomeworkModel);
                     TempData["SuccessMessage"] = "Tarefa cadastrada com sucesso";

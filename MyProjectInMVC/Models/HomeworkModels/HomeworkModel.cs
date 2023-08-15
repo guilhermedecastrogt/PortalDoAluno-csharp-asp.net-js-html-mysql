@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MyProjectInMVC.Enums;
 
 namespace MyProjectInMVC.Models
 {
@@ -22,6 +23,8 @@ namespace MyProjectInMVC.Models
         public string? FilePath { get; set; }
         public Guid? CategoryId { get; set; }
         public CategoryModel? Category { get; set; }
+        [Required(ErrorMessage = "Selecione uma categoria")]
+        public CategoryLevelEnum Level { get; set; }
 
     }
 }
