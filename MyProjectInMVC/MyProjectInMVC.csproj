@@ -34,4 +34,8 @@
     <Folder Include="App_Data\Homeworks\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\HomeworkModels\HomeworkCategoryLevelModel.cs" />
+  </ItemGroup>
+
 </Project>

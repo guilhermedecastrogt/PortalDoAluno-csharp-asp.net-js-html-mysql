@@ -12,15 +12,15 @@
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
                 <div class="text-center">
-                    @TempData["MessageError"]
+                    @TempData["ErrorMessage"]
                 </div>
             </div>
-                
         }
 
         <div class="text-center">
             <h1 class="mt-3">Registrar nova tarefa</h1>
         </div>
+
         @using (Html.BeginForm("Create", "Homework", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
             <div class="form-group mt-4">
@@ -38,20 +38,21 @@
             <div class="form-group mt-2">
                 <label for="cpf">Arquivo</label>
                 <input type="file" asp-for="DataFile" class="form-control mt-1" id="dataFile" placeholder="Upload de arquivo">
-                <p class="mt-2">@Html.ValidationMessageFor(x => x.DataFile)</p>
+                <label class="mt-2 field-validation-error" id="errormsg">Nenhum arquivo anexado</label>
             </div>
 
             <div class="row mb-2">
                 <div class="col-md-6">
-                    <label class="form-label mt-3">Selecione a categoria</label>
+                    <label class="form-label mt-3">Selecione a categoria*</label>
                     <div class="list-group">
                         @foreach (CategoryModel item in Model.Categories)
                         {
                             <div class="list-group-item">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="selectedCategoryIds" id="categoria_@item.Id" value="@item.Id">
-                                    <label class="form-check-label" for="categoria_@item.Id">@item.Name</label><br>
+                                    <label class="form-check-label">@item.Name</label><br>
                                     <select name="level" class="form-select mt-1 levelSelect" style="display: none;">
+                                        <option value="0">Selecione</option>
                                         <option value="@CategoryLevelEnum.Iniciante">Iniciante</option>
                                         <option value="@CategoryLevelEnum.Junior">Junior</option>
                                         <option value="@CategoryLevelEnum.Pleno">Pleno</option>
@@ -64,7 +65,11 @@
                         <script>
                             const checkboxes = document.querySelectorAll('.form-check-input');
                             const levelSelects = document.querySelectorAll('.levelSelect');
-                        
+
+                            const dataFileInput = document.getElementById('dataFile');
+                            const erromsgLabel = document.getElementById('errormsg');
+
+
                             checkboxes.forEach((checkbox, index) => {
                                 checkbox.addEventListener('change', function () {
                                     levelSelects.forEach(levelSelect => {
@@ -76,6 +81,15 @@
                                     }
                                 });
                             });
+
+                            dataFileInput.addEventListener('change', () => {
+                                if (dataFileInput.files.length === 0) {
+                                    erromsgLabel.style.display = 'block';
+                                } else {
+                                    erromsgLabel.style.display = 'none';
+                                }
+                            });
+
                         </script>
                     </div>
                 </div>

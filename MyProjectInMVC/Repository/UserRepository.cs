@@ -107,16 +107,16 @@ namespace MyProjectInMVC.Repository
             }
         }
 
-        public bool UserCategoryAdd(List<Guid> selectedCategoryIds, Guid user, List<CategoryLevelEnum> level)
+        public bool UserCategoryAdd(List<Guid> categoryid, Guid user, List<CategoryLevelEnum> level)
         {
             try
             {
                 _dataContext.UserCategory.RemoveRange(_dataContext.UserCategory.Where(x => x.UserId == user));
 
                 int i = 0;
-                foreach (var categoryId in selectedCategoryIds)
+                foreach (var item in categoryid)
                 {
-                    _dataContext.UserCategory.Add(new UserCategoryModel { UserId = user, CategoryId = categoryId, Level = level[i] });
+                    _dataContext.UserCategory.Add(new UserCategoryModel { UserId = user, CategoryId = item, Level = level[i] });
                     i++;
                 }
 

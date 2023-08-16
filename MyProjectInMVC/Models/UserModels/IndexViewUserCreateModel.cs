@@ -1,4 +1,6 @@
-﻿namespace MyProjectInMVC.Models
+﻿using MyProjectInMVC.Enums;
+
+namespace MyProjectInMVC.Models
 {
     public class IndexViewUserCreateModel
     {

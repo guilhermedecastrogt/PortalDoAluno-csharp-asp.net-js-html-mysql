@@ -36,10 +36,22 @@ namespace MyProjectInMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(HomeworkModelView homework, CategoryLevelEnum level, Guid selectedCategoryIds)
+        public IActionResult Create(HomeworkModelView homework, List<CategoryLevelEnum> level, Guid selectedCategoryIds)
         {
+
+            if (selectedCategoryIds == null || level == null || level.Count == 0 || level[0] == null)
+            {
+                homework.Categories = _context.Category.ToList();
+                TempData["ErrorMessage"] = "Selecione uma categoria e um nível";
+                TempData["DataFileMessage"] = "*";
+                return View(homework);
+            }
+
             try
             {
+                ModelState.Remove("level");
+                ModelState.Remove("selectedCategoryIds");
+
                 if (ModelState.IsValid)
                 {
                     try
@@ -61,15 +73,16 @@ namespace MyProjectInMVC.Controllers
                         TempData["ErrorMessage"] = $"Erro ao salvar arquivo: {ex}";
                         return RedirectToAction("Index");
                     }
-                    
+
                     homework.HomeworkModel.CategoryId = selectedCategoryIds;
-                    homework.HomeworkModel.Level = level;
+                    homework.HomeworkModel.Level = level[0];
 
                     _homeworkRepository.Add(homework.HomeworkModel);
                     TempData["SuccessMessage"] = "Tarefa cadastrada com sucesso";
                     return RedirectToAction("Index");
                 }
                 homework.Categories = _context.Category.ToList();
+                TempData["DataFileMessage"] = "*";
                 return View(homework);
             }
             catch (Exception ex)

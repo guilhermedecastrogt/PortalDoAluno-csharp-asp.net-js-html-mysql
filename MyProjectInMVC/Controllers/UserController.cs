@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using MyProjectInMVC.Data;
 using MyProjectInMVC.Enums;
@@ -85,14 +86,15 @@ namespace MyProjectInMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(UserModel user, List<Guid> selectedCategoryIds, List<CategoryLevelEnum> level)
+        public IActionResult Create(UserModel user, List<Guid>? selectcategoryId, List<CategoryLevelEnum> level)
         {
             try
             {
+                ModelState.Remove("level");
 
                 if (ModelState.IsValid)
                 {
-
+                    
                     UserModel successCreateUser = _userRepository.Add(user);
 
                     if (successCreateUser == null)
@@ -100,8 +102,8 @@ namespace MyProjectInMVC.Controllers
                         TempData["ErrorMessage"] = $"Houve um erro ao cadastrar usuário.";
                         return RedirectToAction("Index");
                     }
-
-                    bool successSaveCategory = _userRepository.UserCategoryAdd(selectedCategoryIds, user.Id, level);
+                    
+                    bool successSaveCategory = _userRepository.UserCategoryAdd(selectcategoryId, user.Id, level);
 
                     if(!successSaveCategory)
                     {
@@ -147,8 +149,9 @@ namespace MyProjectInMVC.Controllers
         }
         
         [HttpPost]
-        public IActionResult Edit(IndexViewUserEditModel viewModel, List<Guid> selectedCategoryIds, List<CategoryLevelEnum> level)
+        public IActionResult Edit(IndexViewUserEditModel viewModel, List<Guid>? selectcategoryId, List<CategoryLevelEnum>? level)
         {
+            ModelState.Remove("level");
             if (ModelState.IsValid)
             {
                 UserModel user = new UserModel
@@ -162,8 +165,9 @@ namespace MyProjectInMVC.Controllers
                 };
 
                 _userRepository.Edit(user);
+                
 
-                bool successSaveCategory = _userRepository.UserCategoryAdd(selectedCategoryIds, viewModel.UserModel.Id, level);
+                bool successSaveCategory = _userRepository.UserCategoryAdd(selectcategoryId, viewModel.UserModel.Id, level);
 
                 if(!successSaveCategory)
                 {

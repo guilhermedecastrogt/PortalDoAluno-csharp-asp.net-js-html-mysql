@@ -12,6 +12,6 @@ namespace MyProjectInMVC.Repository
         UserModel Edit(UserModel user);
         bool Delete(Guid id);
         UserModel ResetPassword (ResetCurrentPasswordModel resetCurrentPassword);
-        bool UserCategoryAdd (List<Guid> selectedCategoryIds, Guid user, List<CategoryLevelEnum> level);
+        bool UserCategoryAdd (List<Guid> categoryid ,Guid user, List<CategoryLevelEnum> level);
     }
 }
