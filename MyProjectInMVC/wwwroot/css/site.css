@@ -30,6 +30,14 @@ body {
     padding: 1px 10px 2px 10px;
 }
 
+.field-validation-alert {
+    color: #e89500;
+    background-color: #fffde9;
+    border: 1px solid #e89500;
+    border-radius: 5px;
+    padding: 1px 10px 2px 10px;
+}
+
 .close-alert {
     position: absolute;
     right: -10px;

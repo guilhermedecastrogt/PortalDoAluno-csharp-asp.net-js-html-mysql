@@ -108,5 +108,23 @@ namespace MyProjectInMVC.Controllers
             }
         }
 
+        public IActionResult Edit(Guid id)
+        {
+            HomeworkModelView homework = new HomeworkModelView
+            {
+                Categories = _categoryRepository.CategoryList(),
+                HomeworkModel = _homeworkRepository.FindPerId(id),
+            };
+            
+            return View(homework);
+        }
+
+        [HttpPost]
+        public IActionResult Download(string filePath)
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
+        }
+        
     }
 }
