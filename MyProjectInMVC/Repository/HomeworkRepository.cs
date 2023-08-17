@@ -24,6 +24,13 @@ namespace MyProjectInMVC.Repository
             {
                 return false;
             }
+            
+            //Delete file
+            if (System.IO.File.Exists(homework.FilePath))
+            {
+                System.IO.File.Delete(homework.FilePath);
+            }
+            
             _context.Homeworks.Remove(homework);
             _context.SaveChanges();
             return true;
@@ -31,7 +38,23 @@ namespace MyProjectInMVC.Repository
 
         public HomeworkModel Edit(HomeworkModel homework)
         {
-            throw new NotImplementedException();
+            HomeworkModel oldHomework = FindPerId(homework.Id);
+            if (homework != null && oldHomework != null)
+            {
+                if (homework.FilePath != null)
+                {
+                    oldHomework.FilePath = homework.FilePath;
+                }
+                oldHomework.Title = homework.Title;
+                oldHomework.Instructions = homework.Instructions;
+                oldHomework.UpdatedAt = DateTime.Now;
+
+                _context.Homeworks.Update(oldHomework);
+                _context.SaveChanges();
+                return oldHomework;
+            }
+            
+            throw new System.Exception("Erro interno");
         }
 
         public HomeworkModel FindPerId(Guid id)

@@ -34,6 +34,59 @@ namespace MyProjectInMVC.Controllers
 
             return View(homework);
         }
+        
+        [HttpPost]
+        public IActionResult Edit(HomeworkModelView homework, List<CategoryLevelEnum> level, Guid selectedCategoryIds)
+        {
+            if (selectedCategoryIds == null || level == null || level.Count == 0 || level[0] == null)
+            {
+                homework.Categories = _context.Category.ToList();
+                TempData["ErrorMessage"] = "Selecione uma categoria e um nível";
+                TempData["DataFileMessage"] = "*";
+                return View(homework);
+            }
+            
+            try
+            {
+                ModelState.Remove("level");
+                ModelState.Remove("selectedCategoryIds");
+
+                if (ModelState.IsValid)
+                {
+                    if (homework.DataFile != null && homework.DataFile.Length > 0 && homework.DataFile.Length <= 10 * 1024 * 1024)
+                    {
+                        //Delete old file
+                        if (System.IO.File.Exists(homework.HomeworkModel.FilePath))
+                        {
+                            System.IO.File.Delete(homework.HomeworkModel.FilePath);
+                        }
+                    
+                        string originalFileName = Path.GetFileName(homework.DataFile.FileName); //get name file
+                        string extension = Path.GetExtension(originalFileName); //get type file (.pdf) (.txt) ...
+
+                        string nameFile = homework.HomeworkModel.Id.ToString() + extension;
+
+                        homework.HomeworkModel.FilePath = Path.Combine(Directory.GetCurrentDirectory(), "App_Data\\Homeworks", nameFile);
+                        var stream = new FileStream(homework.HomeworkModel.FilePath, FileMode.Create);
+                        homework.DataFile.CopyToAsync(stream);
+                    }
+                    
+                    homework.HomeworkModel.CategoryId = selectedCategoryIds;
+                    homework.HomeworkModel.Level = level[0];
+
+                    _homeworkRepository.Edit(homework.HomeworkModel);
+                    TempData["SuccessMessage"] = "Tarefa editada com sucesso";
+                    return RedirectToAction("Index");
+                }
+                homework.Categories = _context.Category.ToList();
+                return View(homework);
+            }
+            catch(Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Erro ao editar atividade, tente novamente: {ex}";
+                return RedirectToAction("Index");
+            }
+        }
 
         [HttpPost]
         public IActionResult Create(HomeworkModelView homework, List<CategoryLevelEnum> level, Guid selectedCategoryIds)
@@ -115,7 +168,6 @@ namespace MyProjectInMVC.Controllers
                 Categories = _categoryRepository.CategoryList(),
                 HomeworkModel = _homeworkRepository.FindPerId(id),
             };
-            
             return View(homework);
         }
 
@@ -125,6 +177,5 @@ namespace MyProjectInMVC.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
         }
-        
     }
 }

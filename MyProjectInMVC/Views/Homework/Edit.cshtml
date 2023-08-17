@@ -23,6 +23,8 @@
 
         @using (Html.BeginForm("Edit", "Homework", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
+            <input type="hidden" asp-for="HomeworkModel.Id" value="@Model.HomeworkModel.Id">
+            
             <div class="form-group mt-4">
                 <label for="name">Nome*</label>
                 <input type="text" asp-for="HomeworkModel.Title" class="form-control mt-1" placeholder="Digite o Nome" value="@Model.HomeworkModel.Title">
