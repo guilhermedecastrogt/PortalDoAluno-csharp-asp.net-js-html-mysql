@@ -25,6 +25,22 @@ namespace MyProjectInMVC.Controllers
             return View(homeworks);
         }
         
+        public IActionResult Info(Guid id)
+        {
+            HomeworkModel model = _homeworkRepository.FindPerId(id);
+            CategoryModel category = _categoryRepository.FindPerId(model.CategoryId);
+
+            
+            
+            HomeworkModelView homework = new HomeworkModelView
+            {
+                HomeworkModel = model,
+                CategoryName = category.Name
+            };
+            
+            return View(homework);
+        }
+        
         public IActionResult Create()
         {
             HomeworkModelView homework = new HomeworkModelView

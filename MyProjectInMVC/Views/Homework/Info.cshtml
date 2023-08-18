@@ -1,0 +1,39 @@
+﻿@model HomeworkModelView
+@{
+    ViewData["Title"] = "Informações da Atividade";
+}
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 75vh;">
+    <div class="jumbotron container-personalizado">
+        
+        <h2>@Model.HomeworkModel.Title</h2>
+       
+        <p class="mt-4"><b>Instruções: </b>@Model.HomeworkModel.Instructions</p>
+        <p class="mt-1"><b>Categoria: </b> @Model.CategoryName</p>
+        <p class="mt-1"><b>Nível: </b> @Model.HomeworkModel.Level</p>
+        
+        <p class="mt-1"><b>Arquivo:</b> 
+            <form asp-controller="Homework" asp-action="Download" method="post">
+                <input type="hidden" name="filePath" value="@Model.HomeworkModel.FilePath"/>
+                <button type="submit" class="btn btn-outline-success btn-sm">
+                    Visualizar arquivo atual
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                        <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"></path>
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"></path>
+                    </svg>
+                </button>
+            </form>
+        </p>
+        
+        <p class="mt-1"><b>Data de cadastro:</b> @Model.HomeworkModel.CreatedAt</p>
+        @if (Model.HomeworkModel.UpdatedAt == null)
+        {
+            <p class="mt-1"><b>Última atualização:</b> Usuário nunca editado.</p>
+        } else
+        {
+            <p class="mt-1"><b>Última atualização:</b> @Model.HomeworkModel.UpdatedAt</p>
+        }
+        <small class="mt-4"><b>Id:</b> @Model.HomeworkModel.Id</small>
+
+    </div>
+</div>

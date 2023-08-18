@@ -22,10 +22,14 @@ namespace MyProjectInMVC.Repository
         {
             return _context.Category.ToList();
         }
-        public CategoryModel FindPerId(Guid id)
+        public CategoryModel FindPerId(Guid? id)
         {
-            CategoryModel category = _context.Category.FirstOrDefault(x => x.Id == id);
-            return category;
+            if (id != null)
+            {
+                CategoryModel category = _context.Category.FirstOrDefault(x => x.Id == id);
+                return category;
+            }
+            throw new System.Exception("Houve um erro interno");
         }
         public bool Delete(Guid id)
         {

@@ -8,5 +8,7 @@ namespace MyProjectInMVC.Models
         public HomeworkModel HomeworkModel { get; set; }
         public IFormFile? DataFile { get; set; }
         public List<CategoryModel>? Categories { get; set; }
+        
+        public string? CategoryName{ get; set; }
     }
 }
