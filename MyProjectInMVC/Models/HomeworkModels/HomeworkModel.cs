@@ -14,9 +14,9 @@ namespace MyProjectInMVC.Models
         [Key]
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Titulo em branco")]
-        [StringLength(24, ErrorMessage = "Tamano excede 24 letras")]
+        [StringLength(255, ErrorMessage = "Tamano excede 24 letras")]
         public string Title { get; set; }
-        [StringLength(255, ErrorMessage = "Tamano excede 255 letras")]
+        [StringLength(1255, ErrorMessage = "Tamano excede 255 letras")]
         public string? Instructions { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

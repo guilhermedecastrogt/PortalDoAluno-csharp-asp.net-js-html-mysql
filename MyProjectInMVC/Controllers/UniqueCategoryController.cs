@@ -6,7 +6,7 @@ using MyProjectInMVC.Models;
 
 namespace MyProjectInMVC.Controllers
 {
-    
+    [LoggedUserPage]
     public class UniqueCategoryController : Controller
     {
         private readonly ISessao _session;
@@ -28,19 +28,21 @@ namespace MyProjectInMVC.Controllers
             try
             {
                 UserModel user = _session.FindSession();
-                UserCategoryModel confirm = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == categoryid);
-                if (confirm == null)
+                UserCategoryModel userCategory = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == categoryid);
+                if (userCategory == null)
                 {
                     RedirectToAction("Index", "Home");
                 }
 
                 CategoryModel category = _dataContext.Category.FirstOrDefault(x => x.Id == categoryid);
-
-
+                
+                List<HomeworkModel>? Homeworks = _dataContext.Homeworks.Where(
+                    x => x.CategoryId == category.Id && x.Level == userCategory.Level).ToList();
 
                 UniqueCategoryModel model = new UniqueCategoryModel
                 {
-                    Category = category
+                    Category = category,
+                    Homeworks = Homeworks
                 };
 
                 return View(model);
@@ -50,6 +52,13 @@ namespace MyProjectInMVC.Controllers
                 TempData["ErrorMessage"] = $"Erro ao acessar página, tente novamente {ex}";
                 return RedirectToAction("Index", "Home");
             }
+        }
+        
+        
+        public IActionResult Details(Guid homeworkId, Guid categoryId)
+        {
+            HomeworkModel homework = _dataContext.Homeworks.FirstOrDefault(x => x.Id == homeworkId);
+            return View(homework);
         }
     }
 }
