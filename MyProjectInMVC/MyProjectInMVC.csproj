@@ -38,6 +38,10 @@
 
   <ItemGroup>
     <Compile Remove="Models\HomeworkModels\HomeworkCategoryLevelModel.cs" />
+    <Compile Remove="Migrations\20230812052134_HomeworkCategoryModel.cs" />
+    <Compile Remove="Migrations\20230812052134_HomeworkCategoryModel.Designer.cs" />
+    <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.cs" />
+    <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.Designer.cs" />
   </ItemGroup>
 
 </Project>

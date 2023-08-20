@@ -15,8 +15,7 @@ namespace MyProjectInMVC.Data
         public DbSet<UserModel> Users { get; set; }
         public DbSet<UserCategoryModel> UserCategory { get; set; }
         public DbSet<HomeworkModel> Homeworks { get; set; }
-        public DbSet<HomeworkCategoryModel> HomeworkCategory { get; set; }
-
+        public DbSet<HomeworkUserModel> HomeworkUserModel { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             modelBuilder.ApplyConfiguration(new HomeworkMap());

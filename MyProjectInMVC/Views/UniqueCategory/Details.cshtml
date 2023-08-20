@@ -13,16 +13,16 @@
     
     <div class="container mt-3 optionslist ">
         <div class="card mt-3">
-            <div class="card-body">
+            <div class="card-body" style="padding: 40px;">
                 <small>Data da postagem: @Model.CreatedAt</small>
-                <h2>@Model.Title</h2>
-                <p>@Model.Instructions</p>
+                <h2 class="mt-3">@Model.Title</h2>
+                <p class="mt-4">@Model.Instructions</p>
                 @if (@Model.FilePath != null)
                 {
                     <form asp-controller="Homework" asp-action="Download" method="post">
                         <input type="hidden" name="filePath" value="@Model.FilePath"/>
                         <p class="mt-1"><b>Informações da Atividade: </b>
-                            <button type="submit" class="btn btn-outline-success btn-sm">
+                            <button type="submit" class="btn btn-outline-primary btn-sm">
                                 Baixar
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
                                     <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"></path>
@@ -32,6 +32,11 @@
                         </p>
                     </form>
                 }
+                <form asp-controller="UniqueCategory" asp-action="TaskTrue" method="post">
+                    <input type="hidden" name="homeworkId" value="@Model.Id"/>
+                    <input type="hidden" name="categoryId" value="@Model.CategoryId"/>
+                    <button type="submit" class="button-85 btn-sm" role="button">Finalizar Atividade</button>
+                </form>
             </div>
         </div>
     </div>

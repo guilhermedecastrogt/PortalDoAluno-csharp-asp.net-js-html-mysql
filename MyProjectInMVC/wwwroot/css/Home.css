@@ -34,6 +34,21 @@ body {
         background-position: right; /* Move o gradiente para a posição final à direita */
     }
 
+ .botclassgreen {
+     position: relative;
+     border-radius: 13px;
+     transition: background-color 0.3s ease, transform 0.2s ease;
+     background-image: linear-gradient(90deg, rgb(69, 208, 49) 0%, rgba(174,255,186,1) 100%);
+     background-size: 200% 100%;
+     background-position: left;
+     color: #fff;
+     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+ }
+
+ .botclassgreen:hover {
+     background-position: right;
+ }
+
 
 .btn-primary {
     background-color: #007bff;
@@ -72,7 +87,7 @@ h1 {
     float: left;
     width: 800px;
     padding-bottom: 0px;
-    background: white;
+    background: #ffffff00;
     margin-bottom: 0px;
     padding-top: 0em;
     min-height: 50vh;
@@ -100,10 +115,108 @@ h1 {
         float: none;
     }
 }
+
+
+
+
+
+
+
+ .button-85 {
+     padding: 0.6em 2em;
+     border: none;
+     outline: none;
+     color: rgb(255, 255, 255);
+     background: #111;
+     cursor: pointer;
+     position: relative;
+     z-index: 0;
+     border-radius: 10px;
+     user-select: none;
+     -webkit-user-select: none;
+     touch-action: manipulation;
+ }
+
+ .button-85:before {
+     content: "";
+     background: linear-gradient(
+             45deg,
+             #ff0000,
+             #ff7300,
+             #fffb00,
+             #48ff00,
+             #00ffd5,
+             #002bff,
+             #7a00ff,
+             #ff00c8,
+             #ff0000
+     );
+     position: absolute;
+     top: -2px;
+     left: -2px;
+     background-size: 400%;
+     z-index: -1;
+     filter: blur(5px);
+     -webkit-filter: blur(5px);
+     width: calc(100% + 4px);
+     height: calc(100% + 4px);
+     animation: glowing-button-85 20s linear infinite;
+     transition: opacity 0.3s ease-in-out;
+     border-radius: 10px;
+ }
+
+ @keyframes glowing-button-85 {
+     0% {
+         background-position: 0 0;
+     }
+     50% {
+         background-position: 400% 0;
+     }
+     100% {
+         background-position: 0 0;
+     }
+ }
+
+ .button-85:after {
+     z-index: -1;
+     content: "";
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     background: #32b121eb;
+     left: 0;
+     top: 0;
+     border-radius: 10px;
+ }
+
+
  
- .card-body {
-     flex: 1;
-     max-height: 400px; /* Ajuste este valor conforme necessário */
-     overflow: hidden;
+  .custom-link {
+      color: #4f67d8 !important; /* Defina a cor desejada */
+      text-decoration: none; /* Remova a sublinhado padrão */
+  }
+
+ .custom-link:hover {
+     text-decoration: underline; /* Adicione um sublinhado ao passar o mouse */
+ }
+
+ .btn-link{
+     font-weight: 400;
+     color: #556a89;
+     text-decoration: none;
+ }
+
+ .Concluir {
+     margin-left: auto;
+     margin-right: auto;
+     border-radius: 15px;
+     /*border-color: white;*/
+     /*background: white;*/
+     width: 50%;
+     transition: transform 0.3s ease;
+ }
+
+ .Select{
+     background: white!important;
  }
  

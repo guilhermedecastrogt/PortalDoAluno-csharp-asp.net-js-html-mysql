@@ -27,6 +27,7 @@ namespace MyProjectInMVC
             builder.Services.AddScoped<IEmail, Email>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IHomeworkRepository, HomeworkRepository>();
+            builder.Services.AddScoped<IHomeworkUserRepository, HomeworkUserRepository>();
 
             builder.Services.AddSession(o =>
             {
