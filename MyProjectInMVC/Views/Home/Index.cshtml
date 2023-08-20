@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@item.Name</h5>
                             <p class="card-text">Acesse aqui os materiais de estudo disponibilizados para sua turma.</p>
-                            <form asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@item.Slug" mathod="get">
+                            <form asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@item.Slug" method="get">
                                 <input type="hidden" name="categoryid" value="@item.Id">
                                 <button type="submit" class="btn botclass btn-primary">Acessar</button>
                             </form>

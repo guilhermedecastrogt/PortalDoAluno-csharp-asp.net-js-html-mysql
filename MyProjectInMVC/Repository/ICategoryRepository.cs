@@ -9,5 +9,6 @@ namespace MyProjectInMVC.Repository
         CategoryModel FindPerId(Guid? id);
         bool Delete(Guid id);
         CategoryModel Edit(CategoryModel category);
+        CategoryModel FindPerSlug(string slug);
     }
 }

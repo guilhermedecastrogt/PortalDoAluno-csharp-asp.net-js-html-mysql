@@ -31,6 +31,11 @@ namespace MyProjectInMVC.Repository
             }
             throw new System.Exception("Houve um erro interno");
         }
+
+        public CategoryModel FindPerSlug(string slug)
+        {
+            return _context.Category.FirstOrDefault(x => x.Slug == slug);
+        }
         public bool Delete(Guid id)
         {
             CategoryModel category = FindPerId(id);
@@ -40,6 +45,24 @@ namespace MyProjectInMVC.Repository
                 return false;
             }
 
+            List<HomeworkModel> homeworks = _context.Homeworks.Where(x => x.CategoryId == id).ToList();
+            if (homeworks == null)
+            {
+                _context.Category.Remove(category);
+                _context.UserCategory.RemoveRange(_context.UserCategory.Where(x => x.CategoryId == id));
+                _context.SaveChanges();
+                return true;
+            }
+
+            foreach (HomeworkModel item in homeworks)
+            {
+                if (System.IO.File.Exists(item.FilePath))
+                {
+                    System.IO.File.Delete(item.FilePath);
+                }
+                _context.Homeworks.Remove(item);
+            }
+            
             _context.Category.Remove(category);
             _context.UserCategory.RemoveRange(_context.UserCategory.Where(x => x.CategoryId == id));
             _context.SaveChanges();

@@ -32,11 +32,16 @@
                         </p>
                     </form>
                 }
-                <form asp-controller="UniqueCategory" asp-action="TaskTrue" method="post">
-                    <input type="hidden" name="homeworkId" value="@Model.Id"/>
-                    <input type="hidden" name="categoryId" value="@Model.CategoryId"/>
-                    <button type="submit" class="button-85 btn-sm" role="button">Finalizar Atividade</button>
-                </form>
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    <form asp-controller="UniqueCategory" asp-action="TaskTrue" method="post" class="d-flex">
+                        <input type="hidden" name="homeworkId" value="@Model.Id" />
+                        <input type="hidden" name="categoryId" value="@Model.CategoryId" />
+                        <button type="submit" class="button-85 btn-sm" role="button">Finalizar Atividade</button>
+                    </form>
+                    <a class="btn botclass btn-primary mt-auto ml-2" asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@ViewBag.Slug">Retornar</a>
+                </div>
+
             </div>
         </div>
     </div>

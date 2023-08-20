@@ -13,26 +13,29 @@ namespace MyProjectInMVC.Controllers
         private readonly ISessao _session;
         private readonly DataContext _dataContext;
         private readonly IHomeworkUserRepository _homeworkUserRepository;
-        public UniqueCategoryController(ISessao session, DataContext dataContext, IHomeworkUserRepository homeworkUserRepository)
+        private readonly ICategoryRepository _categoryRepository;
+        public UniqueCategoryController(ISessao session, DataContext dataContext, IHomeworkUserRepository homeworkUserRepository, ICategoryRepository categoryRepository)
         {
             _session = session;
             _dataContext = dataContext;
             _homeworkUserRepository = homeworkUserRepository;
+            _categoryRepository = categoryRepository;
         }
 
-        public IActionResult Index(Guid categoryid)
+        public IActionResult Index(string id)
         {
             try
             {
                 UserModel user = _session.FindSession();
-                UserCategoryModel userCategory = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == categoryid);
+                CategoryModel Category = _dataContext.Category.FirstOrDefault(x => x.Slug == id);
+                UserCategoryModel userCategory = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == Category.Id);
                 if (userCategory == null)
                 {
                     TempData["ErrorMessage"] = "Você não tem permissão para acessar essa página.";
                     return RedirectToAction("Index", "Home");
                 }
 
-                CategoryModel category = _dataContext.Category.FirstOrDefault(x => x.Id == categoryid);
+                CategoryModel category = _dataContext.Category.FirstOrDefault(x => x.Id == Category.Id);
                 
                 List<HomeworkModel>? Homeworks = _dataContext.Homeworks.Where(
                     x => x.CategoryId == category.Id && x.Level == userCategory.Level).ToList();
@@ -60,25 +63,26 @@ namespace MyProjectInMVC.Controllers
         public IActionResult Details(Guid homeworkId, Guid categoryId)
         {
             HomeworkModel homework = _dataContext.Homeworks.FirstOrDefault(x => x.Id == homeworkId);
+            CategoryModel category = _categoryRepository.FindPerId(categoryId);
+            ViewBag.Slug = category.Slug;
             return View(homework);
         }
 
-        public IActionResult CompletedHomework(Guid id)
+        public IActionResult CompletedHomework(string id)
         {
             try
             {
+                CategoryModel Category = _categoryRepository.FindPerSlug(id);
                 UserModel user = _session.FindSession();
-                UserCategoryModel userCategory = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == id);
+                UserCategoryModel userCategory = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == Category.Id);
                 if (userCategory == null)
                 {
                     TempData["ErrorMessage"] = "Você não tem permissão para acessar essa página.";
                     return RedirectToAction("Index", "Home");
                 }
-
-                CategoryModel category = _dataContext.Category.FirstOrDefault(x => x.Id == id);
                 
                 List<HomeworkModel>? Homeworks = _dataContext.Homeworks.Where(
-                    x => x.CategoryId == category.Id && x.Level == userCategory.Level).ToList();
+                    x => x.CategoryId == Category.Id && x.Level == userCategory.Level).ToList();
 
                 List<HomeworkModel> HomeworksCheck = _homeworkUserRepository.CheckDeleteFalse(Homeworks, user.Id);
                 
@@ -86,7 +90,7 @@ namespace MyProjectInMVC.Controllers
 
                 UniqueCategoryModel model = new UniqueCategoryModel
                 {
-                    Category = category,
+                    Category = Category,
                     Homeworks = Homeworks
                 };
 

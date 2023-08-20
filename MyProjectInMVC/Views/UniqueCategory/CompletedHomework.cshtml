@@ -38,7 +38,7 @@
                     <button type="submit" class="btn btn-link border-0 align-middle">Concluir</button>
                 </form>
                 <span class="text-muted mx-2 align-middle">|</span>
-                <a asp-controller="UniqueCategory" asp-action="CompletedHomework" asp-route-id="@Model.Category.Id" class="d-inline btn btn-link border-0 align-middle Select">Concluídas</a>
+                <a asp-controller="UniqueCategory" asp-action="CompletedHomework" asp-route-id="@Model.Category.Slug" class="d-inline btn btn-link border-0 align-middle Select">Concluídas</a>
             </h4>
         </div>
         

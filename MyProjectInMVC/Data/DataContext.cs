@@ -19,7 +19,10 @@ namespace MyProjectInMVC.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             modelBuilder.ApplyConfiguration(new HomeworkMap());
-
+            modelBuilder.Entity<CategoryModel>()
+                .HasIndex(c => c.Slug)
+                .IsUnique();
+            
             base.OnModelCreating(modelBuilder);
 		}
     }

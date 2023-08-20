@@ -34,11 +34,10 @@
         <div class="Concluir mt-3 text-center">
             <h4>
                 <form asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@Model.Category.Slug" class="d-inline">
-                    <input type="hidden" name="categoryid" value="@Model.Category.Id">
                     <button type="submit" class="Select btn btn-link border-0 align-middle">Concluir</button>
                 </form>
                 <span class="text-muted mx-2 align-middle">|</span>
-                <a asp-controller="UniqueCategory" asp-action="CompletedHomework" asp-route-id="@Model.Category.Id" class="d-inline btn btn-link border-0 align-middle">Concluídas</a>
+                <a asp-controller="UniqueCategory" asp-action="CompletedHomework" asp-route-id="@Model.Category.Slug" class="d-inline btn btn-link border-0 align-middle">Concluídas</a>
             </h4>
         </div>
 
