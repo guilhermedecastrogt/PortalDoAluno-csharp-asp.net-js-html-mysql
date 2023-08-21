@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyProjectInMVC.Filters;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Repository;
 using MyProjectInMVC.Helper;
 
 namespace MyProjectInMVC.Controllers
 {
+    [LoggedUserPage]
     public class ResetPassword : Controller
     {
         private readonly IUserRepository _userRepository;

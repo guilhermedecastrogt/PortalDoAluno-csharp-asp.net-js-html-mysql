@@ -1,0 +1,93 @@
+﻿@model List<MyProjectInMVC.Models.MessageModels.MessageHomeworkModel>
+@{
+    ViewData["Title"] = "Messages a responder";
+}
+<div class="card mt-5">
+    <div class="card-body mt-1">
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                <div class="text-center">
+                    @TempData["SuccessMessage"]
+                </div>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                <div class="text-center">
+                    @TempData["MessageError"]
+                </div>
+            </div>
+        }
+
+        <div class="text-center">
+            <h1 class="mt-1">Mensagens não respondidas</h1>
+        </div>
+
+        <div class="">
+            <table class="table table-striped mt-4" id="messages-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Aluno</th>
+                        <th scope="col">Mensagem</th>
+                        <th scope="col">Data de Envio</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int i = 0;
+                        foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@item.NameSenderUser</td>
+                                <td>@TruncateDescription(item.Message, 20)</td>
+                                <td>@item.CreatedAt</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <!--a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="Delete" class="btn btn-danger">Deletar</a-->
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="ToRespond" class="btn btn-warning">Responder</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger mt-4 mb-4" role="alert">
+                            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+                            <div class="text-center">
+                                Nenhuma mensagem pendente!
+                            </div>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>>
+
+@functions {
+    public string? TruncateDescription(string? description, int maxLength)
+    {
+        if (description == null)
+        {
+            return null;
+        }
+        if (description.Length > maxLength)
+        {
+            return description.Substring(0, maxLength) + "...";
+        }
+        return description;
+    }
+}
+

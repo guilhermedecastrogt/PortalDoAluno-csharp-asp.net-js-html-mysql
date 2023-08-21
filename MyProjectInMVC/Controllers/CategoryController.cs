@@ -8,7 +8,7 @@ using MyProjectInMVC.Repository;
 
 namespace MyProjectInMVC.Controllers
 {
-    [LoggedUserPage]
+    [AdminUserPage]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;

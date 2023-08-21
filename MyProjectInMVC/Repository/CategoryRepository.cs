@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyProjectInMVC.Data;
-using MyProjectInMVC.Models;
+using MyProjectInMVC.Migrations;
+using CategoryModel = MyProjectInMVC.Models.CategoryModel;
+using HomeworkModel = MyProjectInMVC.Models.HomeworkModel;
 
 namespace MyProjectInMVC.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
         private readonly DataContext _context;
-        public CategoryRepository(DataContext context)
+        private readonly IHomeworkRepository _homeworkRepository;
+        public CategoryRepository(DataContext context, IHomeworkRepository homeworkRepository)
         {
             _context = context;
+            _homeworkRepository = homeworkRepository;
         }
         public CategoryModel Add(CategoryModel category)
         {
@@ -60,7 +64,8 @@ namespace MyProjectInMVC.Repository
                 {
                     System.IO.File.Delete(item.FilePath);
                 }
-                _context.Homeworks.Remove(item);
+
+                _homeworkRepository.Delete(item.Id);
             }
             
             _context.Category.Remove(category);

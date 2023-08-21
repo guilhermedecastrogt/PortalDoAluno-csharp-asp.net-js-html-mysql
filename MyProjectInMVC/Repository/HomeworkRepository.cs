@@ -1,5 +1,6 @@
 ﻿using MyProjectInMVC.Data;
 using MyProjectInMVC.Models;
+using MyProjectInMVC.Models.MessageModels;
 
 namespace MyProjectInMVC.Repository
 {
@@ -30,6 +31,9 @@ namespace MyProjectInMVC.Repository
             {
                 System.IO.File.Delete(homework.FilePath);
             }
+
+            List<MessageHomeworkModel> messages = _context.MessageHomework.Where(x => x.HomeworkId == id).ToList();
+            _context.MessageHomework.RemoveRange(messages);
             
             _context.Homeworks.Remove(homework);
             _context.SaveChanges();

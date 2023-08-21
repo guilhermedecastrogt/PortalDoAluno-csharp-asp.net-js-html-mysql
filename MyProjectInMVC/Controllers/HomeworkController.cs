@@ -7,7 +7,7 @@ using MyProjectInMVC.Repository;
 
 namespace MyProjectInMVC.Controllers
 {
-    [LoggedUserPage]
+    [AdminUserPage]
     public class HomeworkController : Controller
     {
         private readonly IHomeworkRepository _homeworkRepository;

@@ -185,15 +185,27 @@ namespace MyProjectInMVC.Controllers
             {
                 UserModel user = _session.FindSession();
 
-                MessageHomeworkModel createMessage = new MessageHomeworkModel
+                MessageHomeworkModel? check = _dataContext.MessageHomework.FirstOrDefault(x =>
+                    x.HomeworkId == homeworkId && x.SenderUserId == user.Id && x.Status == true);
+                MessageHomeworkModel createMessage = new MessageHomeworkModel();
+                if (check == null)
                 {
-                    SenderUserId = user.Id,
-                    ReceiveUserId = null,
-                    HomeworkId = homeworkId,
-                    Message = message,
-                    Status = false,
-                    NameSenderUser = user.Name
-                };
+                    createMessage.SenderUserId = user.Id;
+                    createMessage.ReceiveUserId = null;
+                    createMessage.HomeworkId = homeworkId;
+                    createMessage.Message = message;
+                    createMessage.Status = false;
+                    createMessage.NameSenderUser = user.Name;
+                }
+                else
+                {
+                    createMessage.SenderUserId = user.Id;
+                    createMessage.ReceiveUserId = null;
+                    createMessage.HomeworkId = homeworkId;
+                    createMessage.Message = message;
+                    createMessage.Status = true;
+                    createMessage.NameSenderUser = user.Name;
+                }
                 
                 _dataContext.MessageHomework.Add(createMessage);
                 _dataContext.SaveChanges();
@@ -206,7 +218,6 @@ namespace MyProjectInMVC.Controllers
                 TempData["ErrorMessage"] = $"Erro interno: {ex}";
                 return RedirectToAction("Index", "Home");
             }
-            
         }
     }
 }

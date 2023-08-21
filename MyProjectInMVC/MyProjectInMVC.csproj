@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\resetpassword.css" />
+    <Content Remove="Pages\MessageHomework\Delete.cshtml" />
+    <Content Remove="Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +17,7 @@
     <None Include="wwwroot\styles.css" />
     <None Remove="App_Data\Homeworks\1c99a379-662c-403d-8ad4-f3c338fd9229.pdf" />
     <None Remove="App_Data\Homeworks\fc6c6a4b-1f5c-45f0-a6b9-647a44c38838.pdf" />
+    <None Remove="Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +45,17 @@
     <Compile Remove="Migrations\20230812052134_HomeworkCategoryModel.Designer.cs" />
     <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.cs" />
     <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.Designer.cs" />
+    <Compile Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\MessageHomework\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\MessageHomework\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\MessageHomework\ToRespond.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Pages\**" />
   </ItemGroup>
 
 </Project>
