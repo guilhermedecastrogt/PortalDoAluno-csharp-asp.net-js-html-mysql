@@ -101,7 +101,8 @@
     position: absolute;
     z-index: 1;
     color: #fff;
-    background-color: #4e63d7;
+    background-image: linear-gradient(to right, #4f66d8, #76bfe9);
+    background-size: 200% 200%;
     border-radius: 5px;
     height: 100%;
     width: 45px;
@@ -151,4 +152,21 @@
     margin-right: 10px;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
+}
+
+.botclass {
+    position: relative;
+    border-radius: 13px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-image: linear-gradient(to right, #4f66d8, #76bfe9);
+    background-size: 200% 100%; /* Define o tamanho do gradiente */
+    background-position: center; /* Define a posição inicial do gradiente à esquerda */
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito de hover para o gradiente lateral */
+.botclass:hover {
+    background-position: 100px; /* Move o gradiente para a posição final à direita */
+    color: #fff;
 }

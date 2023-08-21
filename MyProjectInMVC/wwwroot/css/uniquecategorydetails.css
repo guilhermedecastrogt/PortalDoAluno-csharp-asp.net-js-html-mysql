@@ -1,0 +1,262 @@
+﻿/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* Estilos para os cards */
+.card {
+    border-radius: 15px;
+    border-color: white;
+    /*box-shadow: 0 4px 8px white;*/
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos para os botões */
+/* Estilos para os botões */
+.botclass {
+    position: relative;
+    border-radius: 13px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-image: linear-gradient(to right, #4f66d8, #76bfe9);
+    background-size: 200% 100%; /* Define o tamanho do gradiente */
+    background-position: left; /* Define a posição inicial do gradiente à esquerda */
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito de hover para o gradiente lateral */
+.botclass:hover {
+    background-position: right; /* Move o gradiente para a posição final à direita */
+}
+
+.botclassgreen {
+    position: relative;
+    border-radius: 13px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-image: linear-gradient(90deg, rgb(69, 208, 49) 0%, rgba(174,255,186,1) 100%);
+    background-size: 200% 100%;
+    background-position: center;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.botclassgreen:hover {
+    background-position: 100px; /* Move o gradiente para a posição final à direita */
+    color: #fff;
+}
+
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: white;
+}
+
+/* Estilos para o título principal */
+.fundobranco {
+    background-color: white;
+    max-width: 200px;
+}
+
+h1 {
+    color: #007bff;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.cardlist {
+    float: right;
+    width: 35%;
+    background-color: white;
+    height: 800px;
+    border-radius: 30px;
+    border: 3px solid #f7f7f7;
+    padding: 10px 10px 10px 10px;
+}
+
+.optionslist {
+    float: left;
+    width: 800px;
+    padding-bottom: 0px;
+    background: #ffffff00;
+    margin-bottom: 0px;
+    padding-top: 0em;
+    min-height: 50vh;
+}
+
+.primarydiv {
+    /*display: flex;*/
+    width: 100%;
+    padding-bottom: 800px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+@media screen and (max-width :768px) {
+    .cardlist {
+        width: auto;
+        float: none;
+    }
+
+    .optionslist {
+        width: auto;
+        float: none;
+    }
+}
+
+
+
+
+
+
+
+.button-85 {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-85:before {
+    content: "";
+    background: linear-gradient(
+            45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.button-85:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #32b121eb;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+
+
+.custom-link {
+    color: #4f67d8 !important; /* Defina a cor desejada */
+    text-decoration: none; /* Remova a sublinhado padrão */
+}
+
+.custom-link:hover {
+    text-decoration: underline; /* Adicione um sublinhado ao passar o mouse */
+}
+
+.btn-link{
+    font-weight: 400;
+    color: #556a89;
+    text-decoration: none;
+}
+
+.Concluir {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    /*border-color: white;*/
+    /*background: white;*/
+    width: 50%;
+    transition: transform 0.3s ease;
+}
+
+.Select{
+    background: white!important;
+}
+
+.inferior{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+
+/* Estilo base para as mensagens */
+.message {
+    max-width: 50%;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilo para a mensagem enviada (outro usuário) */
+.sent {
+    background-color: #fff; /* Fundo branco */
+    border: 1px solid #007bff; /* Borda da mensagem enviada */
+    color: #007bff; /* Cor do texto da mensagem enviada */
+}
+
+/* Estilo para a mensagem recebida (você) */
+.received {
+    background-color: #007bff; /* Cor de fundo da mensagem recebida */
+    color: #fff; /* Cor do texto da mensagem recebida */
+}
+
+/* Estilo para o nome do usuário */
+.message h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Estilo para o texto da mensagem */
+.message p {
+    font-size: 16px;
+    margin: 0;
+}

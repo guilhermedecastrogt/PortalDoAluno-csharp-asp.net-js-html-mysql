@@ -3,6 +3,7 @@ using MyProjectInMVC.Data;
 using MyProjectInMVC.Filters;
 using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
+using MyProjectInMVC.Models.MessageModels;
 using MyProjectInMVC.Repository;
 
 namespace MyProjectInMVC.Controllers
@@ -62,10 +63,37 @@ namespace MyProjectInMVC.Controllers
         
         public IActionResult Details(Guid homeworkId, Guid categoryId)
         {
+            UserModel user = _session.FindSession();
             HomeworkModel homework = _dataContext.Homeworks.FirstOrDefault(x => x.Id == homeworkId);
             CategoryModel category = _categoryRepository.FindPerId(categoryId);
+            UserCategoryModel acess = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == categoryId);
+            HomeworkUserModel HomeworkUser = _dataContext.HomeworkUserModel.FirstOrDefault(x => x.HomeworkId == homework.Id && x.UserId == user.Id && x.Status == true);
+            if (acess == null)
+            {
+                TempData["ErrorMessage"] = "Você não tem permissão para acessar essa página.";
+                return RedirectToAction("Index", "Home");
+            }
+            
+            if (HomeworkUser != null)
+            {
+                ViewBag.True = HomeworkUser.Status;
+            }
+
+            List<MessageHomeworkModel> messages = _dataContext.MessageHomework
+                .Where(x => (x.SenderUserId == user.Id && x.HomeworkId == homework.Id) || 
+                            (x.ReceiveUserId == user.Id && x.HomeworkId == homework.Id))
+                .OrderByDescending(x => x.CreatedAt)
+                .ToList();
+
+            DetailsViewModel model = new DetailsViewModel
+            {
+                UserSession = user.Id,
+                Homework = homework,
+                Messages = messages
+            };
+            
             ViewBag.Slug = category.Slug;
-            return View(homework);
+            return View(model);
         }
 
         public IActionResult CompletedHomework(string id)
@@ -102,10 +130,12 @@ namespace MyProjectInMVC.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        [HttpPost]
         public IActionResult TaskTrue(Guid homeworkId, Guid categoryId)
         {
             try
             {
+                CategoryModel category = _categoryRepository.FindPerId(categoryId);
                 UserModel user = _session.FindSession();
                 HomeworkUserModel model = new HomeworkUserModel();
                 model.HomeworkId = homeworkId;
@@ -114,14 +144,69 @@ namespace MyProjectInMVC.Controllers
                 _homeworkUserRepository.Create(model);
 
                 TempData["SuccessMessage"] = "Parabéns, você conseguiu concluir a atividade!";
-                Guid CategoryId = categoryId;
-                return RedirectToAction("Index", "UniqueCategory", new {categoryid = categoryId});
+                return RedirectToAction("Index", "UniqueCategory", new {id = category.Slug});
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = $"Erro interno: {ex}";
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        [HttpPost]
+        public IActionResult TaskFalse(Guid homeworkId, Guid categoryId)
+        {
+            try
+            {
+                CategoryModel category = _categoryRepository.FindPerId(categoryId);
+                UserModel user = _session.FindSession();
+                HomeworkUserModel model =_dataContext.HomeworkUserModel.FirstOrDefault(x => 
+                        x.HomeworkId == homeworkId && 
+                        x.UserId == user.Id
+                );
+                
+                _dataContext.Remove(model);
+                _dataContext.SaveChanges();
+                
+                TempData["SuccessMessage"] = "Tarefa disponibilizada para entregar novamente na página 'Concluir'";
+                return RedirectToAction("Index", "UniqueCategory", new {id = category.Slug});
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Erro interno: {ex}";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult InviteMessage(string message, Guid homeworkId, Guid categoryId)
+        {
+            try
+            {
+                UserModel user = _session.FindSession();
+
+                MessageHomeworkModel createMessage = new MessageHomeworkModel
+                {
+                    SenderUserId = user.Id,
+                    ReceiveUserId = null,
+                    HomeworkId = homeworkId,
+                    Message = message,
+                    Status = false,
+                    NameSenderUser = user.Name
+                };
+                
+                _dataContext.MessageHomework.Add(createMessage);
+                _dataContext.SaveChanges();
+                TempData["SuccessMessage"] = "Mensagem enviada com successo, aguarde que o professor logo responderá";
+                return RedirectToAction("Details", "UniqueCategory",
+                    new { homeworkId = homeworkId, categoryId = categoryId });
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Erro interno: {ex}";
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
     }
 }

@@ -1,26 +1,35 @@
-﻿@model HomeworkModel
+﻿@using MyProjectInMVC.Models.MessageModels
+@model DetailsViewModel
 
 @{
-    ViewBag.Title = $"Tarefas - {Model.Title}";
+    ViewBag.Title = $"Tarefas - {Model.Homework.Title}";
     Layout = "_Layout";
 }
 
 <header>
-    <link rel="stylesheet" href="~/css/home.css">
+    <link rel="stylesheet" href="~/css/uniquecategorydetails.css">
 </header>
-
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        <div class="text-center">
+            @TempData["SuccessMessage"]
+        </div>
+    </div>
+}
 <div class="primarydiv mb-5">
     
     <div class="container mt-3 optionslist ">
         <div class="card mt-3">
             <div class="card-body" style="padding: 40px;">
-                <small>Data da postagem: @Model.CreatedAt</small>
-                <h2 class="mt-3">@Model.Title</h2>
-                <p class="mt-4">@Model.Instructions</p>
-                @if (@Model.FilePath != null)
+                <small>Data da postagem: @Model.Homework.CreatedAt</small>
+                <h2 class="mt-3">@Model.Homework.Title</h2>
+                <p class="mt-4">@Model.Homework.Instructions</p>
+                @if (@Model.Homework.FilePath != null)
                 {
                     <form asp-controller="Homework" asp-action="Download" method="post">
-                        <input type="hidden" name="filePath" value="@Model.FilePath"/>
+                        <input type="hidden" name="filePath" value="@Model.Homework.FilePath"/>
                         <p class="mt-1"><b>Informações da Atividade: </b>
                             <button type="submit" class="btn btn-outline-primary btn-sm">
                                 Baixar
@@ -34,18 +43,72 @@
                 }
                 
                 <div class="d-flex justify-content-between align-items-center">
-                    <form asp-controller="UniqueCategory" asp-action="TaskTrue" method="post" class="d-flex">
-                        <input type="hidden" name="homeworkId" value="@Model.Id" />
-                        <input type="hidden" name="categoryId" value="@Model.CategoryId" />
-                        <button type="submit" class="button-85 btn-sm" role="button">Finalizar Atividade</button>
-                    </form>
-                    <a class="btn botclass btn-primary mt-auto ml-2" asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@ViewBag.Slug">Retornar</a>
+                    @if (ViewBag.True != null && ViewBag.True == true)
+                    {
+                        <form asp-controller="UniqueCategory" asp-action="TaskFalse" method="post" class="d-flex">
+                            <input type="hidden" name="homeworkId" value="@Model.Homework.Id"/>
+                            <input type="hidden" name="categoryId" value="@Model.Homework.CategoryId"/>
+                            <button type="submit" class="btn btn-danger btn-sm" role="button">Entregar novamente</button>
+                        </form>
+                        <a class="btn botclass btn-primary mt-auto ml-2" asp-controller="UniqueCategory" asp-action="CompletedHomework" asp-route-id="@ViewBag.Slug">Retornar</a>
+                    }
+                    else
+                    {
+                        <form asp-controller="UniqueCategory" asp-action="TaskTrue" method="post" class="d-flex">
+                            <input type="hidden" name="homeworkId" value="@Model.Homework.Id"/>
+                            <input type="hidden" name="categoryId" value="@Model.Homework.CategoryId"/>
+                            <button type="submit" class="button-85 btn-sm" role="button">Finalizar Atividade</button>
+                        </form>
+                        <a class="btn botclass btn-primary mt-auto ml-2" asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@ViewBag.Slug">Retornar</a>
+                    }
                 </div>
 
             </div>
         </div>
-    </div>
+        <div class="Chat mt-5">
+            <h2 class="mb-3 mt-4">Tire sua dúvida ou adicione um comentário!</h2>
+            
+            @foreach (MessageHomeworkModel item in @Model.Messages)
+            {
+                if (item.SenderUserId == @Model.UserSession)
+                {
+                    <div class="message received">
+                        <div>
+                            <small>@item.CreatedAt</small>
+                            <h4>Você</h4>
+                            <p>@item.Message</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="message sent">
+                        <div>
+                            <small>@item.CreatedAt</small>
+                            <h4>@item.NameSenderUser</h4>
+                            <p>@item.Message</p>
+                        </div>
+                    </div>
+                }
+            }
+                
+            <form asp-controller="UniqueCategory" asp-action="InviteMessage" method="post" class="row mb-5">
+                <input type="hidden" value="@Model.Homework.Id" name="homeworkId" />
+                <input type="hidden" value="@Model.Homework.CategoryId" name="categoryId" />
+              
+                <div class="col-md-8">
+                    <textarea class="form-control form-control-lg" placeholder="Mensagem... (evite enviar mensagens separadas)" name="message"></textarea>
+                </div>
+              
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-lg botclassgreen">Enviar</button>
+                </div>
+            </form>
+            <br/><br/><br/>
 
+        </div>
+    </div>
+    
     <div class="cardlist container mt-3">
         <h1>Teste</h1>
     </div>
