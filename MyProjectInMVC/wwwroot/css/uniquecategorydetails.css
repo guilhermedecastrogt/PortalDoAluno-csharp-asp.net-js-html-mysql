@@ -242,7 +242,6 @@ h1 {
 /* Estilo para a mensagem enviada (de outro usuário) */
 .sent {
     background-color: #fff; /* Fundo branco */
-    border: 1px solid #007bff; /* Borda da mensagem enviada */
     color: #007bff; /* Cor do texto da mensagem enviada */
 }
 
@@ -269,7 +268,7 @@ h1 {
     max-width: 600px; /* Ajuste a largura do chat conforme necessário */
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    /*border: 1px solid #f7f7f7;*/
     border-radius: 10px;
     background-color: #f9f9f9;
 }
@@ -323,15 +322,14 @@ h1 {
 
 /* Estilo para a mensagem enviada (de outro usuário) */
 .sent {
-    background-color: #fff; /* Fundo branco */
-    border: 1px solid #007bff; /* Borda da mensagem enviada */
-    color: #007bff; /* Cor do texto da mensagem enviada */
+    background-color: #fff;
+    color: #676767;
 }
 
 /* Estilo para a mensagem recebida (sua mensagem) */
 .received {
-    background-color: #007bff; /* Cor de fundo da mensagem recebida */
-    color: #fff; /* Cor do texto da mensagem recebida */
+    background-image: linear-gradient(to right, #4f66d8, #76bfe9);
+    color: #fff;
 }
 
 /* Estilo para o nome do usuário */
@@ -346,5 +344,11 @@ h1 {
     margin: 0;
 }
 
-
-
+.row>* {
+    flex-shrink: 0;
+    width: 50% !important;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-top: var(--bs-gutter-y);
+}

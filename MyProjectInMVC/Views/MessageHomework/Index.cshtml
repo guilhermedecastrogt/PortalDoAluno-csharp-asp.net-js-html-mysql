@@ -58,6 +58,7 @@
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <!--a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="Delete" class="btn btn-danger">Deletar</a-->
                                         <a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="ToRespond" class="btn btn-warning">Responder</a>
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="Already" class="btn btn-success">Já Respondia</a>
                                     </div>
                                 </td>
                             </tr>
@@ -76,7 +77,7 @@
             </table>
         </div>
     </div>
-</div>>
+</div>
 
 @functions {
     public string? TruncateDescription(string? description, int maxLength)

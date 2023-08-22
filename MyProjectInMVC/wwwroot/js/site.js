@@ -7,7 +7,8 @@ $(document).ready(function () {
     getDataTable('#contacts-table')
     getDataTable('#users-table')
     getDataTable('#category-table')
-    getDataTable('messages-table')
+    getDataTable('#messages-table')
+    getDataTable('#allmessages-table')
 })
 
 function getDataTable(id) {

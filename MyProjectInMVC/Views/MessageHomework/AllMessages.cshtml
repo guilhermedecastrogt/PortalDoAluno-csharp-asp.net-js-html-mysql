@@ -28,11 +28,11 @@
         <div class="text-center">
             <h1 class="mt-1">Mensagens não respondidas</h1>
             <br/>
-            <a class="btn btn-primary" asp-controller="MessageHomework" asp-action="AllMessages">Todas as mensagens</a>
+            <a class="btn btn-primary" asp-controller="MessageHomework" asp-action="Index">Não respondidas</a>
         </div>
 
         <div class="">
-            <table class="table table-striped mt-4" id="messages-table">
+            <table class="table table-striped mt-4" id="allmessages-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -45,21 +45,23 @@
                 <tbody>
                     @if (Model != null)
                     {
-                        int i = 0;
+                        int i = 0, cont = 1;
                         foreach (var item in @Model.allMessages)
                         {
                             <tr>
-                                <th scope="row">@i</th>
+                                <th scope="row">@cont</th>
                                 <td>@item.NameSenderUser</td>
                                 <td>@Model.Homework[i].Title</td>
                                 <td>@item.CreatedAt</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <!--a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="Delete" class="btn btn-danger">Deletar</a-->
-                                        <a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="ToRespond" class="btn btn-warning">Responder</a>
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="ToRespond" class="btn btn-success">Chat</a>
+                                        <a role="button" asp-route-id="@item.Id" asp-controller="MessageHomework" asp-action="Delete" class="btn btn-danger">Delete</a>
                                     </div>
                                 </td>
                             </tr>
+                            cont++;
                             i++;
                         }
                     }
@@ -76,4 +78,4 @@
             </table>
         </div>
     </div>
-</div>>
+</div>

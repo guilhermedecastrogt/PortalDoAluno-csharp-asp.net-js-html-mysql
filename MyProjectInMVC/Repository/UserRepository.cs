@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyProjectInMVC.Data;
 using MyProjectInMVC.Enums;
 using MyProjectInMVC.Helper;
+using MyProjectInMVC.Migrations;
 using MyProjectInMVC.Models;
 using NuGet.Protocol.Plugins;
+using MessageHomeworkModel = MyProjectInMVC.Models.MessageModels.MessageHomeworkModel;
+using UserCategoryModel = MyProjectInMVC.Models.UserCategoryModel;
 
 namespace MyProjectInMVC.Repository
 {
@@ -36,6 +40,18 @@ namespace MyProjectInMVC.Repository
             if (userDb == null)
             {
                 throw new System.Exception("Internal Error");
+            }
+            
+            //Delete all HomeworkMessages from User
+            List<MessageHomeworkModel> messages = _dataContext.MessageHomework.Where(x => x.SenderUserId == id || x.ReceiveUserId == id).ToList();
+            if (messages == null)
+            {
+                return false;
+            }
+
+            foreach (MessageHomeworkModel item in messages)
+            {
+                _dataContext.MessageHomework.Remove(item);
             }
 
             _dataContext.UserCategory.RemoveRange(_dataContext.UserCategory.Where(x => x.UserId == id));

@@ -111,6 +111,43 @@ namespace MyProjectInMVC.Controllers
             return View(model);
         }
 
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                MessageHomeworkModel message = _context.MessageHomework.FirstOrDefault(x => x.Id == id);
+                _context.MessageHomework.Remove(message);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Mensagem apagada com sucesso";
+                return RedirectToAction("AllMessages");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Erro ao apagar mensagem, tente novamente: {ex}";
+                return RedirectToAction("AllMessages");
+            }
+        }
+
+        public IActionResult Already(Guid id)
+        {
+            try
+            {
+                MessageHomeworkModel model = _context.MessageHomework.FirstOrDefault(x => x.Id == id);
+                model.Status = true;
+                _context.Update(model);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Mensagem respondida!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Erro interno, tente novamente: {ex}";
+                return RedirectToAction("Index");
+                
+            }
+        }
+
         public class AllMessagesViewModel
         {
             public List<MessageHomeworkModel> allMessages { get; set; }
