@@ -87,6 +87,35 @@ namespace MyProjectInMVC.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        public IActionResult AllMessages()
+        {
+            List<MessageHomeworkModel> allMessages = _context.MessageHomework.ToList();
+            
+            List<HomeworkModel> Homeworks = new List<HomeworkModel>();
+            
+            int i = 0;
+            foreach (MessageHomeworkModel item in allMessages)
+            {
+                HomeworkModel homework = _context.Homeworks.FirstOrDefault(x => x.Id == item.HomeworkId);
+                Homeworks.Add(homework);
+                i++;
+            }
+
+            AllMessagesViewModel model = new AllMessagesViewModel
+            {
+                allMessages = allMessages,
+                Homework = Homeworks
+            };
+            
+            return View(model);
+        }
+
+        public class AllMessagesViewModel
+        {
+            public List<MessageHomeworkModel> allMessages { get; set; }
+            public List<HomeworkModel> Homework { get; set; }
+        }
     }
 }
 

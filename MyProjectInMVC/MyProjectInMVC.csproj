@@ -9,6 +9,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\resetpassword.css" />
     <Content Remove="Pages\MessageHomework\Delete.cshtml" />
+    <Content Include="Pages\MessageHomework\AllMessages.cshtml" />
     <Content Remove="Pages\**" />
   </ItemGroup>
 
@@ -52,6 +53,7 @@
     <_ContentIncludedByDefault Remove="Pages\MessageHomework\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\MessageHomework\Delete.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\MessageHomework\ToRespond.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\MessageHomework\AllMessages.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
