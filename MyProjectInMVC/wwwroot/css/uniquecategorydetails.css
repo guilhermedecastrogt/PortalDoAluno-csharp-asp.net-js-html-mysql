@@ -78,10 +78,10 @@ h1 {
     float: right;
     width: 35%;
     background-color: white;
-    height: 800px;
+    height: auto;
     border-radius: 30px;
     border: 3px solid #f7f7f7;
-    padding: 10px 10px 10px 10px;
+    padding: 30px 30px 30px 30px;
 }
 
 .optionslist {
@@ -230,20 +230,23 @@ h1 {
 
 /* Estilo base para as mensagens */
 .message {
-    max-width: 50%;
+    max-width: 100%;
     border-radius: 10px;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Espaçamento entre mensagens */
+    overflow-y: auto; /* Adicione esta linha para a barra de rolagem vertical */
+    max-height: 300px; /* Defina a altura máxima das mensagens antes da rolagem */
+    margin-top: 10px; /* Espaçamento entre mensagens */
 }
 
-/* Estilo para a mensagem enviada (outro usuário) */
+/* Estilo para a mensagem enviada (de outro usuário) */
 .sent {
     background-color: #fff; /* Fundo branco */
     border: 1px solid #007bff; /* Borda da mensagem enviada */
     color: #007bff; /* Cor do texto da mensagem enviada */
 }
 
-/* Estilo para a mensagem recebida (você) */
+/* Estilo para a mensagem recebida (sua mensagem) */
 .received {
     background-color: #007bff; /* Cor de fundo da mensagem recebida */
     color: #fff; /* Cor do texto da mensagem recebida */
@@ -260,3 +263,88 @@ h1 {
     font-size: 16px;
     margin: 0;
 }
+
+/* Estilo para a caixa de chat */
+.Chat {
+    max-width: 600px; /* Ajuste a largura do chat conforme necessário */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Estilo para o título do chat */
+.Chat h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para o formulário de envio de mensagens */
+.Chat form {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para o campo de entrada de texto */
+.Chat input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilo para o botão de envio de mensagens */
+.Chat button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Estilo para o botão de envio de mensagens ao passar o mouse */
+.Chat button:hover {
+    background-color: #0056b3;
+}
+/* Estilo base para as mensagens */
+.message-container {
+    max-width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px; /* Espaçamento entre mensagens */
+    max-height: 400px; /* Defina a altura máxima das mensagens antes da rolagem */
+    overflow-y: auto; /* Adicione esta linha para a barra de rolagem vertical */
+    margin-top: 10px; /* Espaçamento entre mensagens */
+}
+
+/* Estilo para a mensagem enviada (de outro usuário) */
+.sent {
+    background-color: #fff; /* Fundo branco */
+    border: 1px solid #007bff; /* Borda da mensagem enviada */
+    color: #007bff; /* Cor do texto da mensagem enviada */
+}
+
+/* Estilo para a mensagem recebida (sua mensagem) */
+.received {
+    background-color: #007bff; /* Cor de fundo da mensagem recebida */
+    color: #fff; /* Cor do texto da mensagem recebida */
+}
+
+/* Estilo para o nome do usuário */
+.message h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Estilo para o texto da mensagem */
+.message p {
+    font-size: 16px;
+    margin: 0;
+}
+
+
+

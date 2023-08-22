@@ -1,8 +1,121 @@
-﻿@model dynamic
+﻿@using MyProjectInMVC.Models.MessageModels
+@model ToRespondViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = $"Tarefas - {Model.Homework.Title}";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<header>
+    <link rel="stylesheet" href="~/css/uniquecategorydetails.css">
+</header>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        <div class="text-center">
+            @TempData["SuccessMessage"]
+        </div>
+    </div>
+}
+<div class="primarydiv mb-5">
+    
+    <div class="container mt-3 optionslist ">
+        <div class="card mt-3">
+            <div class="card-body" style="padding: 40px;">
+                <small>Data da postagem: @Model.Homework.CreatedAt</small>
+                <h2 class="mt-3">@Model.Homework.Title</h2>
+                <p class="mt-4">@Model.Homework.Instructions</p>
+                @if (@Model.Homework.FilePath != null)
+                {
+                    <form asp-controller="Homework" asp-action="Download" method="post">
+                        <input type="hidden" name="filePath" value="@Model.Homework.FilePath"/>
+                        <p class="mt-1"><b>Informações da Atividade: </b>
+                            <button type="submit" class="btn btn-outline-primary btn-sm">
+                                Baixar
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"></path>
+                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"></path>
+                                </svg>
+                            </button>
+                        </p>
+                    </form>
+                }
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    @if (ViewBag.True != null && ViewBag.True == true)
+                    {
+                        <form asp-controller="UniqueCategory" asp-action="TaskFalse" method="post" class="d-flex">
+                            <input type="hidden" name="homeworkId" value="@Model.Homework.Id"/>
+                            <input type="hidden" name="categoryId" value="@Model.Homework.CategoryId"/>
+                            <button type="submit" class="btn btn-danger btn-sm" role="button">Entregar novamente</button>
+                        </form>
+                        <a class="btn botclass btn-primary mt-auto ml-2" asp-controller="UniqueCategory" asp-action="CompletedHomework" asp-route-id="@ViewBag.Slug">Retornar</a>
+                    }
+                    else
+                    {
+                        <form asp-controller="UniqueCategory" asp-action="TaskTrue" method="post" class="d-flex">
+                            <input type="hidden" name="homeworkId" value="@Model.Homework.Id"/>
+                            <input type="hidden" name="categoryId" value="@Model.Homework.CategoryId"/>
+                            <button type="submit" class="button-85 btn-sm" role="button">Finalizar Atividade</button>
+                        </form>
+                        <a class="btn botclass btn-primary mt-auto ml-2" asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@ViewBag.Slug">Retornar</a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="cardlist container mt-3">
+        <div class="Chat">
+            <h2 class="mb-3">Responder Aluno</h2>
+            
+            <div id="message-container" class="message-container">
+                @foreach (MessageHomeworkModel item in @Model.Messages)
+                {
+                    if (item.SenderUserId == @Model.UserSession)
+                    {
+                        <div class="message received">
+                            <div>
+                                <small>@item.CreatedAt</small>
+                                <h4>Você</h4>
+                                <p>@item.Message</p>
+                            </div>
+                        </div>
+                    }
+                    if (item.SenderUserId == @Model.StudentId)
+                    {
+                        <div class="message sent">
+                            <div>
+                                <small>@item.CreatedAt</small>
+                                <h4>@item.NameSenderUser</h4>
+                                <p>@item.Message</p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            
+                
+            <form asp-controller="MessageHomework" asp-action="ToRespondMessage" method="post" class="row">
+                <input type="hidden" value="@Model.Homework.Id" name="homeworkId" />
+                <input type="hidden" value="@Model.Homework.CategoryId" name="categoryId" />
+                <input type="hidden" value="@Model.StudentId" name="studentId" />
+                <input type="hidden" value="@Model.MessageTrueId" name="messagetrueId" />
+              
+                <div class="col-md-8">
+                    <input type="text" class="form-control form-control-lg" placeholder="Mensagem... (evite enviar mensagens separadas)" name="message">
+                </div>
+              
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-lg btn-block botclassgreen">Enviar</button>
+                </div>
+            </form>
+        </div>
+        <script>
+            var messageContainer = document.getElementById('message-container');
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        </script>
+    </div>
+</div>

@@ -65,51 +65,56 @@
 
             </div>
         </div>
-        <div class="Chat mt-5">
-            <h2 class="mb-3 mt-4">Tire sua dúvida ou adicione um comentário!</h2>
+    </div>
+    
+    <div class="cardlist container mt-3 mb-5">
+        <div class="Chat">
+            <h2 class="mb-3">Tire sua dúvida ou adicione um comentário!</h2>
             
-            @foreach (MessageHomeworkModel item in @Model.Messages)
-            {
-                if (item.SenderUserId == @Model.UserSession)
+            <div id="message-container" class="message-container">
+                @foreach (MessageHomeworkModel item in @Model.Messages)
                 {
-                    <div class="message received">
-                        <div>
-                            <small>@item.CreatedAt</small>
-                            <h4>Você</h4>
-                            <p>@item.Message</p>
+                    if (item.SenderUserId == @Model.UserSession)
+                    {
+                        <div class="message received">
+                            <div>
+                                <small>@item.CreatedAt</small>
+                                <h4>Você</h4>
+                                <p>@item.Message</p>
+                            </div>
                         </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="message sent">
-                        <div>
-                            <small>@item.CreatedAt</small>
-                            <h4>@item.NameSenderUser</h4>
-                            <p>@item.Message</p>
+                    }
+                    else
+                    {
+                        <div class="message sent">
+                            <div>
+                                <small>@item.CreatedAt</small>
+                                <h4>@item.NameSenderUser</h4>
+                                <p>@item.Message</p>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
-                
-            <form asp-controller="UniqueCategory" asp-action="InviteMessage" method="post" class="row mb-5">
+            </div>
+            
+            <form asp-controller="UniqueCategory" asp-action="InviteMessage" method="post" class="row">
                 <input type="hidden" value="@Model.Homework.Id" name="homeworkId" />
                 <input type="hidden" value="@Model.Homework.CategoryId" name="categoryId" />
               
                 <div class="col-md-8">
-                    <textarea class="form-control form-control-lg" placeholder="Mensagem... (evite enviar mensagens separadas)" name="message"></textarea>
+                    <input type="text" class="form-control form-control-lg" placeholder="Mensagem..." name="message">
                 </div>
               
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-lg botclassgreen">Enviar</button>
+                    <button type="submit" class="btn btn-lg btn-block botclassgreen">Enviar</button>
                 </div>
             </form>
-            <br/><br/><br/>
-
+        
         </div>
-    </div>
-    
-    <div class="cardlist container mt-3">
-        <h1>Teste</h1>
+        
+        <script>
+            var messageContainer = document.getElementById('message-container');
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        </script>
     </div>
 </div>

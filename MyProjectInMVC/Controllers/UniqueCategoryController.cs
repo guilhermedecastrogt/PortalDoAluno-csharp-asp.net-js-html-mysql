@@ -82,7 +82,7 @@ namespace MyProjectInMVC.Controllers
             List<MessageHomeworkModel> messages = _dataContext.MessageHomework
                 .Where(x => (x.SenderUserId == user.Id && x.HomeworkId == homework.Id) || 
                             (x.ReceiveUserId == user.Id && x.HomeworkId == homework.Id))
-                .OrderByDescending(x => x.CreatedAt)
+                .OrderBy(x => x.CreatedAt)
                 .ToList();
 
             DetailsViewModel model = new DetailsViewModel
@@ -186,7 +186,7 @@ namespace MyProjectInMVC.Controllers
                 UserModel user = _session.FindSession();
 
                 MessageHomeworkModel? check = _dataContext.MessageHomework.FirstOrDefault(x =>
-                    x.HomeworkId == homeworkId && x.SenderUserId == user.Id && x.Status == true);
+                    x.HomeworkId == homeworkId && x.SenderUserId == user.Id && x.Status == false);
                 MessageHomeworkModel createMessage = new MessageHomeworkModel();
                 if (check == null)
                 {
