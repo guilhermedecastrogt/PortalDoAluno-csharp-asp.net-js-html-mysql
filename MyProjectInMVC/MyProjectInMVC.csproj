@@ -4,6 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>3b6200d9-a657-4a38-b77c-d7a43c2baf8c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +13,7 @@
     <Content Remove="Pages\MessageHomework\Delete.cshtml" />
     <Content Include="Pages\MessageHomework\AllMessages.cshtml" />
     <Content Remove="Pages\**" />
+    <Content Remove=".gitignore\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +22,8 @@
     <None Remove="App_Data\Homeworks\1c99a379-662c-403d-8ad4-f3c338fd9229.pdf" />
     <None Remove="App_Data\Homeworks\fc6c6a4b-1f5c-45f0-a6b9-647a44c38838.pdf" />
     <None Remove="Pages\**" />
+    <None Remove=".dockerignore" />
+    <None Remove=".gitignore\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,12 +37,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="NuGet.Frameworks" Version="6.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="App_Data\Homeworks\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +55,26 @@
     <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.cs" />
     <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.Designer.cs" />
     <Compile Remove="Pages\**" />
+    <Compile Remove="Migrations\DataContextModelSnapshot.cs" />
+    <Compile Remove="Migrations\20230821171749_MessageHomeworkModel.cs" />
+    <Compile Remove="Migrations\20230821171749_MessageHomeworkModel.Designer.cs" />
+    <Compile Remove="Migrations\20230820163410_SlugCategoryModel.cs" />
+    <Compile Remove="Migrations\20230820163410_SlugCategoryModel.Designer.cs" />
+    <Compile Remove="Migrations\20230819230044_HomeworkUserModel.cs" />
+    <Compile Remove="Migrations\20230819230044_HomeworkUserModel.Designer.cs" />
+    <Compile Remove="Migrations\20230818043443_UpdateHomeworkModel.cs" />
+    <Compile Remove="Migrations\20230818043443_UpdateHomeworkModel.Designer.cs" />
+    <Compile Remove="Migrations\20230815051224_AdicionandoLevelHomeworkModel.cs" />
+    <Compile Remove="Migrations\20230815051224_AdicionandoLevelHomeworkModel.Designer.cs" />
+    <Compile Remove="Migrations\20230812065626_HomeworkModel.cs" />
+    <Compile Remove="Migrations\20230812065626_HomeworkModel.Designer.cs" />
+    <Compile Remove="Migrations\20230810183838_UserCategoryModel.cs" />
+    <Compile Remove="Migrations\20230810183838_UserCategoryModel.Designer.cs" />
+    <Compile Remove="Migrations\20230806163005_CategoryModel.cs" />
+    <Compile Remove="Migrations\20230806163005_CategoryModel.Designer.cs" />
+    <Compile Remove="Migrations\20230717175538_CreateTableUser.cs" />
+    <Compile Remove="Migrations\20230717175538_CreateTableUser.Designer.cs" />
+    <Compile Remove=".gitignore\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +86,7 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="Pages\**" />
+    <EmbeddedResource Remove=".gitignore\**" />
   </ItemGroup>
 
 </Project>

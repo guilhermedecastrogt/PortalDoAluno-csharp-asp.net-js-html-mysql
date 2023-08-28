@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MyProjectInMVC.Data;
 using MyProjectInMVC.Enums;
 using MyProjectInMVC.Helper;
-using MyProjectInMVC.Migrations;
+//using MyProjectInMVC.Migrations;
 using MyProjectInMVC.Models;
 using NuGet.Protocol.Plugins;
 using MessageHomeworkModel = MyProjectInMVC.Models.MessageModels.MessageHomeworkModel;

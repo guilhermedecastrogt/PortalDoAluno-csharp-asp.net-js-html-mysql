@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyProjectInMVC.Data;
-using MyProjectInMVC.Migrations;
+//using MyProjectInMVC.Migrations;
 using CategoryModel = MyProjectInMVC.Models.CategoryModel;
 using HomeworkModel = MyProjectInMVC.Models.HomeworkModel;
 

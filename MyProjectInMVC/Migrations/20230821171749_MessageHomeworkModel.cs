@@ -15,10 +15,10 @@ namespace MyProjectInMVC.Migrations
                 name: "MessageHomework",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SenderUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReceiveUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    HomeworkId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    SenderUserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ReceiveUserId = table.Column<Guid>(type: "char(36)", nullable: true),
+                    HomeworkId = table.Column<Guid>(type: "char(36)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     NameSenderUser = table.Column<string>(type: "nvarchar(max)", nullable: false),

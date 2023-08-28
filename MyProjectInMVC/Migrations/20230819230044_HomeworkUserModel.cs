@@ -18,8 +18,8 @@ namespace MyProjectInMVC.Migrations
                 name: "HomeworkUserModel",
                 columns: table => new
                 {
-                    HomeworkId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HomeworkId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -38,9 +38,9 @@ namespace MyProjectInMVC.Migrations
                 name: "HomeworkCategory",
                 columns: table => new
                 {
-                    HomeworkCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HomeworkId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    HomeworkCategoryId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    HomeworkId = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {

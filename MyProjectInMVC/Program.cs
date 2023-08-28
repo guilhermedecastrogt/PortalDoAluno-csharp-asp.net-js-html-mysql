@@ -13,27 +13,26 @@ namespace MyProjectInMVC
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+                // Add services to the container.
+                builder.Services.AddControllersWithViews();
+                string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+                builder.Services.AddDbContext<DataContext>
+                    (options => options.UseMySQL(mySqlConnection));
 
-            builder.Services.AddDbContext<DataContext>
-                (options => options.UseSqlServer(mySqlConnection));
 
+                builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+                builder.Services.AddScoped<IUserRepository, UserRepository>();
+                builder.Services.AddScoped<ISessao, Sessao>();
+                builder.Services.AddScoped<IEmail, Email>();
+                builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+                builder.Services.AddScoped<IHomeworkRepository, HomeworkRepository>();
+                builder.Services.AddScoped<IHomeworkUserRepository, HomeworkUserRepository>();
 
-            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<ISessao, Sessao>();
-            builder.Services.AddScoped<IEmail, Email>();
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddScoped<IHomeworkRepository, HomeworkRepository>();
-            builder.Services.AddScoped<IHomeworkUserRepository, HomeworkUserRepository>();
-
-            builder.Services.AddSession(o =>
-            {
-                o.Cookie.HttpOnly = true;
-                o.Cookie.IsEssential = true;
-            });
+                builder.Services.AddSession(o =>
+                {
+                    o.Cookie.HttpOnly = true;
+                    o.Cookie.IsEssential = true;
+                });
 
             var app = builder.Build();
 

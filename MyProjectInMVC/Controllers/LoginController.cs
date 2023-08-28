@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyProjectInMVC.Data;
+using MyProjectInMVC.Enums;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Helper;
 using NuGet.Protocol.Plugins;
@@ -24,6 +25,19 @@ namespace MyProjectInMVC.Controllers
 
         public IActionResult Index()
         {
+            /*UserModel newuser = new UserModel
+            {
+                Name = "admin",
+                Email = "guilhermecastro1000@gmail.com",
+                Password = "123321qwa",
+                Role = AdmEnum.Admin,
+                phoneNumber = "123",
+                Cpf = "123"
+            };
+
+            _dataContext.Users.Add(newuser);
+            _dataContext.SaveChanges();*/
+            
             //If user == Logged
             var user = _session.IfLogged();
             if(user == true)
