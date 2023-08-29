@@ -14,9 +14,11 @@
     <Content Include="Pages\MessageHomework\AllMessages.cshtml" />
     <Content Remove="Pages\**" />
     <Content Remove=".gitignore\**" />
+    <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\favicon.ico" />
     <None Include="wwwroot\resetpassword.css" />
     <None Include="wwwroot\styles.css" />
     <None Remove="App_Data\Homeworks\1c99a379-662c-403d-8ad4-f3c338fd9229.pdf" />
@@ -24,6 +26,7 @@
     <None Remove="Pages\**" />
     <None Remove=".dockerignore" />
     <None Remove=".gitignore\**" />
+    <None Remove="favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
