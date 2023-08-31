@@ -35,12 +35,33 @@ namespace MyProjectInMVC.Controllers
             UserModel user = _session.FindSession();
 
             List<MessageChatModel> messages =
-                _context.Chat.Where(x => x.SenderUserId == user.Id || x.ReceiveUserId == user.Id).ToList();
+                _context.Chat.Where(x => x.SenderUserId == user.Id || x.ReceiveUserId == user.Id)
+                    .OrderBy(x => x.CreatedAt)
+                        .ToList();
             
             StudentChatView model = new StudentChatView
             {
                 UserSession = user,
                 Messages = messages
+            };
+            return View(model);
+        }
+        [AdminUserPage]
+        public IActionResult IndexChat(Guid id)
+        {
+            UserModel userSession = _session.FindSession();
+            modelIndex userList = _chatRepository.Model();
+
+            List<MessageChatModel> messages =
+                _context.Chat.Where(x => x.SenderUserId == id || x.ReceiveUserId == id)
+                    .OrderBy(x => x.CreatedAt)
+                        .ToList();
+            
+            modelIndexChat model = new modelIndexChat
+            {
+                UserList = userList,
+                Messages = messages,
+                UserSession = userSession.Id
             };
             return View(model);
         }
@@ -82,5 +103,12 @@ namespace MyProjectInMVC.Controllers
     {
         public List<MessageChatModel> Messages { get; set; }
         public UserModel UserSession { get; set; }
+    }
+
+    public class modelIndexChat
+    {
+        public modelIndex UserList { get; set; }
+        public List<MessageChatModel> Messages { get; set; }
+        public Guid UserSession { get; set; }
     }
 }
