@@ -12,9 +12,9 @@
     <Content Remove="wwwroot\resetpassword.css" />
     <Content Remove="Pages\MessageHomework\Delete.cshtml" />
     <Content Include="Pages\MessageHomework\AllMessages.cshtml" />
-    <Content Remove="Pages\**" />
     <Content Remove=".gitignore\**" />
     <Content Remove="wwwroot\favicon.ico" />
+    <Content Remove="Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,10 +23,11 @@
     <None Include="wwwroot\styles.css" />
     <None Remove="App_Data\Homeworks\1c99a379-662c-403d-8ad4-f3c338fd9229.pdf" />
     <None Remove="App_Data\Homeworks\fc6c6a4b-1f5c-45f0-a6b9-647a44c38838.pdf" />
-    <None Remove="Pages\**" />
     <None Remove=".dockerignore" />
     <None Remove=".gitignore\**" />
     <None Remove="favicon.ico" />
+    <None Remove="Pages\**" />
+    <None Remove="Views\Chat\opa.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,7 +58,6 @@
     <Compile Remove="Migrations\20230812052134_HomeworkCategoryModel.Designer.cs" />
     <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.cs" />
     <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.Designer.cs" />
-    <Compile Remove="Pages\**" />
     <Compile Remove="Migrations\DataContextModelSnapshot.cs" />
     <Compile Remove="Migrations\20230821171749_MessageHomeworkModel.cs" />
     <Compile Remove="Migrations\20230821171749_MessageHomeworkModel.Designer.cs" />
@@ -78,6 +78,13 @@
     <Compile Remove="Migrations\20230717175538_CreateTableUser.cs" />
     <Compile Remove="Migrations\20230717175538_CreateTableUser.Designer.cs" />
     <Compile Remove=".gitignore\**" />
+    <Compile Remove="Migrations\20230825192320_AllMigrations.cs" />
+    <Compile Remove="Migrations\20230825192320_AllMigrations.Designer.cs" />
+    <Compile Remove="Migrations\20230830000418_Chat.cs" />
+    <Compile Remove="Migrations\20230830000418_Chat.Designer.cs" />
+    <Compile Remove="Migrations\20230830001347_ChatModel.cs" />
+    <Compile Remove="Migrations\20230830001347_ChatModel.Designer.cs" />
+    <Compile Remove="Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,8 +95,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Pages\**" />
     <EmbeddedResource Remove=".gitignore\**" />
+    <EmbeddedResource Remove="Pages\**" />
   </ItemGroup>
 
 </Project>

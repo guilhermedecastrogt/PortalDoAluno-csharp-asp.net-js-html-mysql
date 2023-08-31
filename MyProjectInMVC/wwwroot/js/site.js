@@ -9,6 +9,7 @@ $(document).ready(function () {
     getDataTable('#category-table')
     getDataTable('#messages-table')
     getDataTable('#allmessages-table')
+    getDataTable('#messagesChat-table')
 })
 
 function getDataTable(id) {

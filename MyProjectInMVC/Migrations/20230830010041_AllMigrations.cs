@@ -29,6 +29,24 @@ namespace MyProjectInMVC.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Chat",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    SenderUserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ReceiveUserId = table.Column<Guid>(type: "char(36)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    NameSenderUser = table.Column<string>(type: "longtext", nullable: false),
+                    Message = table.Column<string>(type: "varchar(600)", maxLength: 600, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chat", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "HomeworkUserModel",
                 columns: table => new
                 {
@@ -135,6 +153,9 @@ namespace MyProjectInMVC.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Chat");
+
             migrationBuilder.DropTable(
                 name: "Homeworks");
 

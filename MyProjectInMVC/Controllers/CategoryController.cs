@@ -52,7 +52,6 @@ namespace MyProjectInMVC.Controllers
                 TempData["ErrorMessage"] = $"Erro ao cadastrar cateogory, tente novamente: {ex}";
                 return RedirectToAction("Index");
             }
-            
         }
         public IActionResult Delete(Guid id)
         {

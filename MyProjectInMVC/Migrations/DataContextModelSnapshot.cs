@@ -41,6 +41,38 @@ namespace MyProjectInMVC.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("MyProjectInMVC.Models.ChatModels.ChatModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(600)
+                        .HasColumnType("varchar(600)");
+
+                    b.Property<string>("NameSenderUser")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid?>("ReceiveUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("SenderUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Chat");
+                });
+
             modelBuilder.Entity("MyProjectInMVC.Models.HomeworkModel", b =>
                 {
                     b.Property<Guid>("Id")

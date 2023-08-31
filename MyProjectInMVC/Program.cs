@@ -27,6 +27,7 @@ namespace MyProjectInMVC
                 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
                 builder.Services.AddScoped<IHomeworkRepository, HomeworkRepository>();
                 builder.Services.AddScoped<IHomeworkUserRepository, HomeworkUserRepository>();
+                builder.Services.AddScoped<IChatRepository, ChatRepository>();
 
                 builder.Services.AddSession(o =>
                 {

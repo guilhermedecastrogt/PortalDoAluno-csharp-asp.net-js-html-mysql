@@ -27,12 +27,12 @@ namespace MyProjectInMVC.Controllers
         {
             /*UserModel newuser = new UserModel
             {
-                Name = "admin",
+                Name = "Guilherme",
                 Email = "guilhermecastro1000@gmail.com",
                 Password = "123321qwa",
                 Role = AdmEnum.Admin,
-                phoneNumber = "123",
-                Cpf = "123"
+                phoneNumber = "62 99614 1781",
+                Cpf = "076.992.091-84"
             };
 
             _dataContext.Users.Add(newuser);
