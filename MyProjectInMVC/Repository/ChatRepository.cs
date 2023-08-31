@@ -1,6 +1,7 @@
 ﻿using MyProjectInMVC.Controllers;
 using MyProjectInMVC.Data;
 using MyProjectInMVC.Enums;
+using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Models.ChatModels;
 
@@ -9,10 +10,11 @@ namespace MyProjectInMVC.Repository;
 public class ChatRepository : IChatRepository
 {
     private readonly DataContext _context;
-
-    public ChatRepository(DataContext context)
+    private readonly ISessao _session;
+    public ChatRepository(DataContext context, ISessao session)
     {
         _context = context;
+        _session = session;
     }
     public string Time(DateTime dateTime)
     {
@@ -31,15 +33,15 @@ public class ChatRepository : IChatRepository
         }
         else if (minutes > 1 && hours < 1)
         {
-            time = $"Há {minutes} min";
+            time = $"há {minutes} min";
         }
         else if(hours > 1 && days < 1)
         {
-            time = $"Há {hours} horas";
+            time = $"há {hours} horas";
         }
         else if(days > 1)
         {
-            time = $"Há {days} dias";
+            time = $"há {days} dias";
         }
         else
         {
@@ -90,5 +92,19 @@ public class ChatRepository : IChatRepository
             UsersFalse = userfalse
         };
         return model;
+    }
+
+    public MessageChatModel InviteMessage(string message)
+    {
+        UserModel userSession = _session.FindSession();
+        
+        MessageChatModel msg = new MessageChatModel();
+        msg.Message = message;
+        msg.SenderUserId = userSession.Id;
+        msg.CreatedAt = DateTime.Now;
+        msg.Status = false;
+        msg.NameSenderUser = userSession.Name;
+ 
+        return msg;
     }
 }

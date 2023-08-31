@@ -1,0 +1,58 @@
+﻿@using MyProjectInMVC.Models.ChatModels
+@model MyProjectInMVC.Controllers.StudentChatView
+
+@{
+    ViewBag.Title = "Chat";
+}
+
+<header>
+    <link rel="stylesheet" href="~/css/studentchat.css">
+</header>
+
+<div class="cardlist container mt-3 mb-5">
+        <div class="Chat">
+            <h2 class="mb-3">Tire sua dúvida ou adicione um comentário!</h2>
+            
+            <div id="message-container" class="message-container">
+                @foreach (MessageChatModel item in @Model.Messages)
+                {
+                    if (item.SenderUserId == @Model.UserSession.Id)
+                    {
+                        <div class="message received">
+                            <div>
+                                <small>@item.CreatedAt</small>
+                                <h4>Você</h4>
+                                <p>@item.Message</p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="message sent">
+                            <div>
+                                <small>@item.CreatedAt</small>
+                                <h4>@item.NameSenderUser</h4>
+                                <p>@item.Message</p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            
+            <form asp-controller="Chat" asp-action="InviteMessage" method="post" class="row">
+                <div class="col-md-8">
+                    <input type="text" class="form-control form-control-lg" placeholder="Mensagem..." name="message">
+                </div>
+              
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-lg btn-block botclassgreen">Enviar</button>
+                </div>
+            </form>
+        
+        </div>
+        
+        <script>
+            var messageContainer = document.getElementById('message-container');
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        </script>
+    </div>

@@ -1,0 +1,188 @@
+﻿.cardlist {
+    width: 45%;
+    background-color: white;
+    height: auto;
+    border-radius: 30px;
+    border: 3px solid #f7f7f7;
+    padding: 30px 30px 30px 30px;
+}
+
+.botclassgreen {
+    position: relative;
+    border-radius: 13px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-image: linear-gradient(90deg, rgb(69, 208, 49) 0%, rgba(174,255,186,1) 100%);
+    background-size: 200% 100%;
+    background-position: center;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.botclassgreen:hover {
+    background-position: 100px; /* Move o gradiente para a posição final à direita */
+    color: #fff;
+}
+
+/*Chat*/
+
+.custom-link {
+    color: #4f67d8 !important; /* Defina a cor desejada */
+    text-decoration: none; /* Remova a sublinhado padrão */
+}
+
+.custom-link:hover {
+    text-decoration: underline; /* Adicione um sublinhado ao passar o mouse */
+}
+
+.btn-link{
+    font-weight: 400;
+    color: #556a89;
+    text-decoration: none;
+}
+
+.Concluir {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    /*border-color: white;*/
+    /*background: white;*/
+    width: 50%;
+    transition: transform 0.3s ease;
+}
+
+.Select{
+    background: white!important;
+}
+
+.inferior{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+
+/* Estilo base para as mensagens */
+.message {
+    max-width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px; /* Espaçamento entre mensagens */
+    overflow-y: auto; /* Adicione esta linha para a barra de rolagem vertical */
+    max-height: 300px; /* Defina a altura máxima das mensagens antes da rolagem */
+    margin-top: 10px; /* Espaçamento entre mensagens */
+}
+
+/* Estilo para a mensagem enviada (de outro usuário) */
+.sent {
+    background-color: #fff; /* Fundo branco */
+    color: #007bff; /* Cor do texto da mensagem enviada */
+}
+
+/* Estilo para a mensagem recebida (sua mensagem) */
+.received {
+    background-color: #007bff; /* Cor de fundo da mensagem recebida */
+    color: #fff; /* Cor do texto da mensagem recebida */
+}
+
+/* Estilo para o nome do usuário */
+.message h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Estilo para o texto da mensagem */
+.message p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Estilo para a caixa de chat */
+.Chat {
+    max-width: 600px; /* Ajuste a largura do chat conforme necessário */
+    margin: 0 auto;
+    padding: 20px;
+    /*border: 1px solid #f7f7f7;*/
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Estilo para o título do chat */
+.Chat h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para o formulário de envio de mensagens */
+.Chat form {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para o campo de entrada de texto */
+.Chat input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilo para o botão de envio de mensagens */
+.Chat button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+}
+
+/* Estilo para o botão de envio de mensagens ao passar o mouse */
+.Chat button:hover {
+    background-color: #0056b3;
+}
+/* Estilo base para as mensagens */
+.message-container {
+    max-width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px; /* Espaçamento entre mensagens */
+    max-height: 400px; /* Defina a altura máxima das mensagens antes da rolagem */
+    overflow-y: auto; /* Adicione esta linha para a barra de rolagem vertical */
+    margin-top: 10px; /* Espaçamento entre mensagens */
+}
+
+/* Estilo para a mensagem enviada (de outro usuário) */
+.sent {
+    background-color: #fff;
+    color: #676767;
+}
+
+/* Estilo para a mensagem recebida (sua mensagem) */
+.received {
+    background-image: linear-gradient(to right, #4f66d8, #76bfe9);
+    color: #fff;
+}
+
+/* Estilo para o nome do usuário */
+.message h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Estilo para o texto da mensagem */
+.message p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.row>* {
+    flex-shrink: 0;
+    width: 50% !important;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-top: var(--bs-gutter-y);
+}

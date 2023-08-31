@@ -1,106 +1,125 @@
-﻿@model List<MyProjectInMVC.Models.ChatModels.UserListChatModel>
+﻿@using MyProjectInMVC.Models.ChatModels
+@model MyProjectInMVC.Controllers.modelIndex
 @{
-    ViewData["Title"] = "Chat";
+    ViewData["Title"] = "Chat - Admin";
 }
 <section style="background-color: #eee;">
-    <div class="container py-5">
-      <div class="row">
-        <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
-          <h5 class="font-weight-bold mb-3 text-center text-lg-start">Chats</h5>
-          <div class="card">
-            <div class="card-body">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+        <h5 class="font-weight-bold mb-3 text-center text-lg-start">Chats</h5>
+        <div class="card">
+          <div class="card-body">
   
               
-              <ul class="list-unstyled mb-0">
+            <ul class="list-unstyled mb-0">
                 
+              @foreach (UserListChatModel item in @Model.UsersFalse)
+              {
                 <li class="p-2 border-bottom" style="background-color: #eee;">
                   <a href="#!" class="d-flex justify-content-between">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
                            class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
                       <div class="pt-1">
-                        <p class="fw-bold mb-0">John Doe</p>
-                        <p class="small text-muted">Hello, Are you there?</p>
+                        <p class="fw-bold mb-0">@item.Name</p>
+                        <p class="small text-muted">@TruncateDescription(item.Message, 25)</p>
                       </div>
                     </div>
                     <div class="pt-1">
-                      <p class="small text-muted mb-1">Just now</p>
-                      <span class="badge bg-danger float-end">1</span>
+                      <p class="small text-muted mb-1">@item.Time</p>
+                      <span class="badge bg-danger float-end">.</span>
                     </div>
                   </a>
                 </li>
-                
+              }
+
+              @foreach (UserListChatModel item in @Model.UsersTrue)
+              {
                 <li class="p-2 border-bottom">
                   <a href="#!" class="d-flex justify-content-between">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
-                        class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                           class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
                       <div class="pt-1">
-                        <p class="fw-bold mb-0">Danny Smith</p>
-                        <p class="small text-muted">Lorem ipsum dolor sit.</p>
+                        <p class="fw-bold mb-0">@item.Name</p>
+                        <p class="small text-muted">@TruncateDescription(item.Message, 25)</p>
                       </div>
                     </div>
                     <div class="pt-1">
-                      <p class="small text-muted mb-1">5 mins ago</p>
+                      <p class="small text-muted mb-1">@item.Time</p>
                     </div>
                   </a>
                 </li>
-
-              </ul>
-  
-            </div>
+              }
+            </ul>
           </div>
-  
         </div>
+      </div>
   
-        <div class="col-md-6 col-lg-7 col-xl-8">
+      <div class="col-md-6 col-lg-7 col-xl-8">
   
-          <ul class="list-unstyled">
-            <li class="d-flex justify-content-between mb-4">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
-                class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
-              <div class="card">
-                <div class="card-header d-flex justify-content-between p-3">
-                  <p class="fw-bold mb-0">Brad Pitt</p>
-                  <p class="text-muted small mb-0"><i class="far fa-clock"></i> 12 mins ago</p>
-                </div>
-                <div class="card-body">
-                  <p class="mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.
-                  </p>
-                </div>
+        <ul class="list-unstyled">
+          <li class="d-flex justify-content-between mb-4">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
+                 class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between p-3">
+                <p class="fw-bold mb-0">Brad Pitt</p>
+                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 12 mins ago</p>
               </div>
-            </li>
-            <li class="d-flex justify-content-between mb-4">
-              <div class="card w-100">
-                <div class="card-header d-flex justify-content-between p-3">
-                  <p class="fw-bold mb-0">Lara Croft</p>
-                  <p class="text-muted small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
-                </div>
-                <div class="card-body">
-                  <p class="mb-0">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                    laudantium.
-                  </p>
-                </div>
+              <div class="card-body">
+                <p class="mb-0">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua.
+                </p>
               </div>
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
-                   class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
-            </li>
+            </div>
+          </li>
+          <li class="d-flex justify-content-between mb-4">
+            <div class="card w-100">
+              <div class="card-header d-flex justify-content-between p-3">
+                <p class="fw-bold mb-0">Lara Croft</p>
+                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
+              </div>
+              <div class="card-body">
+                <p class="mb-0">
+                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                  laudantium.
+                </p>
+              </div>
+            </div>
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                 class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+          </li>
             
-            <li class="bg-white mb-3">
-              <div class="form-outline">
-                <textarea class="form-control" id="textAreaExample2" rows="4" placeholder="Message..."></textarea>
-              </div>
-            </li>
-            <button type="button" class="btn btn-info btn-rounded float-end">Send</button>
-          </ul>
-  
-        </div>
+          <li class="bg-white mb-3">
+            <div class="form-outline">
+              <textarea class="form-control" id="textAreaExample2" rows="4" placeholder="Message..."></textarea>
+            </div>
+          </li>
+          <button type="button" class="btn btn-info btn-rounded float-end">Send</button>
+        </ul>
   
       </div>
   
     </div>
-  </section>
+  
+  </div>
+</section>
+
+@functions {
+    public string? TruncateDescription(string? description, int maxLength)
+    {
+        if (description == null)
+        {
+            return null;
+        }
+        if (description.Length > maxLength)
+        {
+            return description.Substring(0, maxLength) + "...";
+        }
+        return description;
+    }
+}
 

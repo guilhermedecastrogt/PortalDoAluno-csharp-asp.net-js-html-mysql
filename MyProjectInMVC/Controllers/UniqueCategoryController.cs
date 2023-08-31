@@ -102,7 +102,7 @@ namespace MyProjectInMVC.Controllers
             {
                 CategoryModel Category = _categoryRepository.FindPerSlug(id);
                 UserModel user = _session.FindSession();
-                UserCategoryModel userCategory = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == Category.Id);
+                UserCategoryModel? userCategory = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == Category.Id);
                 if (userCategory == null)
                 {
                     TempData["ErrorMessage"] = "Você não tem permissão para acessar essa página.";
@@ -160,7 +160,7 @@ namespace MyProjectInMVC.Controllers
             {
                 CategoryModel category = _categoryRepository.FindPerId(categoryId);
                 UserModel user = _session.FindSession();
-                HomeworkUserModel model =_dataContext.HomeworkUserModel.FirstOrDefault(x => 
+                HomeworkUserModel? model =_dataContext.HomeworkUserModel.FirstOrDefault(x => 
                         x.HomeworkId == homeworkId && 
                         x.UserId == user.Id
                 );
