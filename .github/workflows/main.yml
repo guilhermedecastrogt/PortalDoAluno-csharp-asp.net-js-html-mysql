@@ -24,5 +24,4 @@ jobs:
         file: ./MyProjectInMVC/Dockerfile
         push: true
         tags: 
-          guilhermedecastro/githubaction:v1
           guilhermedecastro/githubaction:latest
