@@ -15,9 +15,13 @@ namespace MyProjectInMVC
 
                 // Add services to the container.
                 builder.Services.AddControllersWithViews();
-                string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+                
+                //string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+                string? connectionString = Environment.GetEnvironmentVariable("ConnectionStringName");
+                //connectionString = "server=212.192.29.71;user=seusitep_portaldoalunouser;database=seusitep_PortalDoAluno;port=3306;password=123321Qwa.123321";
+                
                 builder.Services.AddDbContext<DataContext>
-                    (options => options.UseMySQL(mySqlConnection));
+                    (options => options.UseMySQL(connectionString));
 
 
                 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

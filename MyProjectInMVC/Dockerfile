@@ -16,7 +16,10 @@ RUN dotnet build "MyProjectInMVC.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "MyProjectInMVC.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
+# Defina a variável de ambiente para a connection string
+ENV ConnectionStringName="server=212.192.29.71;user=seusitep_portaldoalunouser;database=seusitep_PortalDoAluno;port=3306;password=123321Qwa.123321"
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-CMD ASPNETCORE_URLS="http://*:$PORT" dotnet MyProjectInMvc.dll
+ENTRYPOINT ["dotnet", "MyProjectInMVC.dll"]
