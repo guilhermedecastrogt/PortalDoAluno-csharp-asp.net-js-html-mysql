@@ -11,7 +11,7 @@ COPY ["MyProjectInMVC.csproj", "MyProjectInMVC/"]
 
 RUN ls MyProjectInMVC/
 
-RUN dotnet restore "MyProjectInMVC/MyProjectInMVC.csproj"
+RUN dotnet restore "MyProjectInMVC.csproj"
 COPY . .
 WORKDIR "/src/MyProjectInMVC"
 RUN dotnet build "MyProjectInMVC.csproj" -c Release -o /app/build
