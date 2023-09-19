@@ -1,4 +1,5 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# Veja https://aka.ms/customizecontainer para aprender como personalizar seu contêiner de depuração
+# e como o Visual Studio utiliza este Dockerfile para construir suas imagens para depuração mais rápida.
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
@@ -7,7 +8,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY MyProjectInMVC.csproj MyProjectInMVC/
+COPY MyProjectInMVC/MyProjectInMVC.csproj MyProjectInMVC/
 RUN dotnet restore "MyProjectInMVC/MyProjectInMVC.csproj"
 COPY . .
 WORKDIR "/src/MyProjectInMVC"
