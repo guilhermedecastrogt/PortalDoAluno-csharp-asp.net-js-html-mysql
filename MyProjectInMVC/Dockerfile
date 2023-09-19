@@ -1,5 +1,4 @@
-# Veja https://aka.ms/customizecontainer para aprender como personalizar seu contêiner de depuração
-# e como o Visual Studio utiliza este Dockerfile para construir suas imagens para depuração mais rápida.
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
@@ -8,16 +7,18 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["MyProjectInMVC.csproj", "MyProjectInMVC/"]
-RUN dotnet restore "MyProjectInMVC.csproj"
+COPY ["MyProjectInMVC/MyProjectInMVC.csproj", "MyProjectInMVC/"]
+
+RUN ls MyProjectInMVC/
+
+RUN dotnet restore "MyProjectInMVC/MyProjectInMVC.csproj"
 COPY . .
 WORKDIR "/src/MyProjectInMVC"
-RUN dotnet build -c Release -o /app/build
+RUN dotnet build "MyProjectInMVC.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MyProjectInMVC.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# Defina a variável de ambiente para a connection string
 ENV ConnectionStringName="server=212.192.29.71;user=seusitep_portaldoalunouser;database=seusitep_PortalDoAluno;port=3306;password=123321Qwa.123321"
 
 FROM base AS final
