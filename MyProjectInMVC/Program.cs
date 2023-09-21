@@ -18,7 +18,7 @@ namespace MyProjectInMVC
                 
                 //string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
                 string? connectionString = Environment.GetEnvironmentVariable("ConnectionStringName");
-                //connectionString = "server=212.192.29.71;user=seusitep_portaldoalunouser;database=seusitep_PortalDoAluno;port=3306;password=123321Qwa.123321";
+                connectionString = "server=212.192.29.71;user=seusitep_portaldoalunouser;database=seusitep_PortalDoAluno;port=3306;password=123321Qwa.123321";
                 
                 builder.Services.AddDbContext<DataContext>
                     (options => options.UseMySQL(connectionString));
