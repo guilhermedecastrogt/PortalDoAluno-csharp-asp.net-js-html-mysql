@@ -16,7 +16,8 @@ RUN dotnet build "MyProjectInMVC.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "MyProjectInMVC.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-ENV ConnectionStringName="server=212.192.29.71;user=seusitep_portaldoalunouser;database=seusitep_PortalDoAluno;port=3306;password=123321Qwa.123321"
+ARG ConnectionStringName
+ENV ConnectionStringName=$ConnectionStringName
 
 FROM base AS final
 WORKDIR /app
