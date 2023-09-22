@@ -10,11 +10,9 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\resetpassword.css" />
-    <Content Remove="Pages\MessageHomework\Delete.cshtml" />
     <Content Include="Pages\MessageHomework\AllMessages.cshtml" />
     <Content Remove=".gitignore\**" />
     <Content Remove="wwwroot\favicon.ico" />
-    <Content Remove="Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +24,6 @@
     <None Remove=".dockerignore" />
     <None Remove=".gitignore\**" />
     <None Remove="favicon.ico" />
-    <None Remove="Pages\**" />
     <None Remove="Views\Chat\opa.html" />
   </ItemGroup>
 
@@ -84,7 +81,7 @@
     <Compile Remove="Migrations\20230830000418_Chat.Designer.cs" />
     <Compile Remove="Migrations\20230830001347_ChatModel.cs" />
     <Compile Remove="Migrations\20230830001347_ChatModel.Designer.cs" />
-    <Compile Remove="Pages\**" />
+    <Compile Remove="DataBaseConnectionStringIgnore.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -96,7 +93,6 @@
 
   <ItemGroup>
     <EmbeddedResource Remove=".gitignore\**" />
-    <EmbeddedResource Remove="Pages\**" />
   </ItemGroup>
 
 </Project>
