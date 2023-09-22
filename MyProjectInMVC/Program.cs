@@ -13,7 +13,7 @@ namespace MyProjectInMVC
         {
             var builder = WebApplication.CreateBuilder(args);
             
-            builder.Configuration.AddJsonFile("DataBaseConnectionStringIgnore.json", optional: false, reloadOnChange: true);
+            //builder.Configuration.AddJsonFile("DataBaseConnectionStringIgnore.json", optional: false, reloadOnChange: true);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
