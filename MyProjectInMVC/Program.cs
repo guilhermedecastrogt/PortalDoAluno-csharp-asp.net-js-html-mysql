@@ -12,8 +12,16 @@ namespace MyProjectInMVC
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
-            builder.Configuration.AddJsonFile("DataBaseConnectionStringIgnore.json", optional: false, reloadOnChange: true);
+
+            try
+            {
+                builder.Configuration.AddJsonFile("DataBaseConnectionStringIgnore.json", optional: false,
+                    reloadOnChange: true);
+            }
+            catch
+            {
+                Console.WriteLine("Error to find .json");
+            }
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
