@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\resetpassword.css" />
-    <Content Include="Pages\MessageHomework\AllMessages.cshtml" />
+    <Content Include="MyProjectInMVC.csproj.user" />
     <Content Remove=".gitignore\**" />
     <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
@@ -23,7 +23,6 @@
     <None Remove="App_Data\Homeworks\fc6c6a4b-1f5c-45f0-a6b9-647a44c38838.pdf" />
     <None Remove=".dockerignore" />
     <None Remove=".gitignore\**" />
-    <None Remove="favicon.ico" />
     <None Remove="Views\Chat\opa.html" />
   </ItemGroup>
 

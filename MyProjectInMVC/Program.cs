@@ -13,13 +13,17 @@ namespace MyProjectInMVC
         {
             var builder = WebApplication.CreateBuilder(args);
             
-            //builder.Configuration.AddJsonFile("DataBaseConnectionStringIgnore.json", optional: false, reloadOnChange: true);
+            builder.Configuration.AddJsonFile("DataBaseConnectionStringIgnore.json", optional: false, reloadOnChange: true);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             //string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
             string? connectionString = Environment.GetEnvironmentVariable("ConnectionStringName");
+            if (connectionString == null)
+            {
+                connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            }
 
             builder.Services.AddDbContext<DataContext>
                 (options => options.UseMySQL(connectionString));
