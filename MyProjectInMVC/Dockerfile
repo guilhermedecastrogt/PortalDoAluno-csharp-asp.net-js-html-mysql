@@ -16,8 +16,7 @@ RUN dotnet build "MyProjectInMVC.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "MyProjectInMVC.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-ARG ConnectionStringName
-ENV ConnectionStringName=$ConnectionStringName
+ENV ConnectionStringName="";
 
 FROM base AS final
 WORKDIR /app
