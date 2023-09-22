@@ -20,10 +20,6 @@ namespace MyProjectInMVC
 
             //string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
             string? connectionString = Environment.GetEnvironmentVariable("ConnectionStringName");
-            if (connectionString == null)
-            {
-                connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            }
 
             builder.Services.AddDbContext<DataContext>
                 (options => options.UseMySQL(connectionString));
