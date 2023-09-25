@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Identity.Client;
 using MyProjectInMVC.Data;
 using MyProjectInMVC.Enums;
@@ -57,11 +58,22 @@ namespace MyProjectInMVC.Controllers
                     .OrderBy(x => x.CreatedAt)
                         .ToList();
             
+            foreach (MessageChatModel item in messages)
+            {
+                if (item.Status == false && item.SenderUserId == id)
+                {
+                    item.Status = true;
+                    _context.Update(item);
+                    _context.SaveChanges();
+                }
+            }
+            
             modelIndexChat model = new modelIndexChat
             {
                 UserList = userList,
                 Messages = messages,
-                UserSession = userSession.Id
+                UserSession = userSession.Id,
+                UserId = id
             };
             return View(model);
         }
@@ -73,13 +85,13 @@ namespace MyProjectInMVC.Controllers
             try
             {
                 MessageChatModel msg = _chatRepository.InviteMessage(message);
+                _context.Chat.Add(msg);
+                _context.SaveChanges();
                 if (userSession.Role == AdmEnum.Admin)
                 {
                     msg.ReceiveUserId = receiveUserId;
+                    return RedirectToAction("IndexChat", new {id = receiveUserId});
                 }
-
-                _context.Chat.Add(msg);
-                _context.SaveChanges();
                 return RedirectToAction("StudentChat");
             }
             catch (Exception ex)
@@ -110,5 +122,6 @@ namespace MyProjectInMVC.Controllers
         public modelIndex UserList { get; set; }
         public List<MessageChatModel> Messages { get; set; }
         public Guid UserSession { get; set; }
+        public Guid UserId { get; set; }
     }
 }

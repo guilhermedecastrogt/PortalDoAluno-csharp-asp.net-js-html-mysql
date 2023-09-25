@@ -63,7 +63,7 @@ public class ChatRepository : IChatRepository
             UserListChatModel user = new UserListChatModel(item.Id);
             user.Name = item.Name;
                 
-            MessageChatModel? message = _context.Chat.FirstOrDefault(x => x.ReceiveUserId == item.Id || x.SenderUserId == item.Id);
+            MessageChatModel? message = _context.Chat.FirstOrDefault(x => x.SenderUserId == item.Id);
             if (message == null)
             {
                 user.Message = "";
