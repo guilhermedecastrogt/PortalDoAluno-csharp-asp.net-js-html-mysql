@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\resetpassword.css" />
     <None Include="wwwroot\favicon.ico" />
-    <None Include="wwwroot\resetpassword.css" />
     <None Include="wwwroot\styles.css" />
     <None Remove="App_Data\Homeworks\1c99a379-662c-403d-8ad4-f3c338fd9229.pdf" />
     <None Remove="App_Data\Homeworks\fc6c6a4b-1f5c-45f0-a6b9-647a44c38838.pdf" />
