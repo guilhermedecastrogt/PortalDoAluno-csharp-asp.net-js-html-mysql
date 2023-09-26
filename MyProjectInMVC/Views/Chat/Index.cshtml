@@ -37,7 +37,7 @@
               @foreach (UserListChatModel item in @Model.UsersTrue)
               {
                 <li class="p-2 border-bottom">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a asp-controller="Chat" asp-action="IndexChat" asp-route-id="@item.UserId" class="d-flex justify-content-between">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
                            class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">

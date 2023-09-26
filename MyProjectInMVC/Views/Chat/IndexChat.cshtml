@@ -1,12 +1,15 @@
 ﻿@using MyProjectInMVC.Models.ChatModels
+@using MyProjectInMVC.Repository
 @model MyProjectInMVC.Controllers.modelIndexChat
 @{
     ViewData["Title"] = "Chat - Admin";
+    int i = 0;
 }
+
 <section style="background-color: #eee;">
   <div class="container py-5">
     <div class="row">
-      <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+      <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0" style="max-height: 500px; overflow-y: auto;">
         <h5 class="font-weight-bold mb-3 text-center text-lg-start">Chats</h5>
         <div class="card">
           <div class="card-body">
@@ -37,7 +40,7 @@
               @foreach (UserListChatModel item in @Model.UserList.UsersTrue)
               {
                 <li class="p-2 border-bottom">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a asp-controller="Chat" asp-action="IndexChat" asp-route-id="@item.UserId" class="d-flex justify-content-between">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
                            class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -57,10 +60,9 @@
         </div>
       </div>
   
-      <div class="col-md-6 col-lg-7 col-xl-8">
+      <div class="col-md-6 col-lg-7 col-xl-8" style="max-height: 500px; overflow-y: auto;" id="messageContainer">
   
         <ul class="list-unstyled">
-          
           
           @foreach (MessageChatModel item in @Model.Messages)
           {
@@ -70,7 +72,7 @@
                 <div class="card w-90">
                   <div class="card-header d-flex justify-content-between p-3">
                     <p class="fw-bold mb-0">@item.NameSenderUser</p>
-                    <p class="text-muted small mb-0"><i class="far fa-clock"></i>@item.CreatedAt</p>
+                    <p class="text-muted small mb-0"><i class="far fa-clock"></i>@Model.TimeMessage[i]</p>
                   </div>
                   <div class="card-body">
                     <p class="mb-0">@item.Message</p>
@@ -88,7 +90,7 @@
                 <div class="card w-90">
                   <div class="card-header d-flex justify-content-between p-3">
                     <p class="fw-bold mb-0">@item.NameSenderUser</p>
-                    <p class="text-muted small mb-0"><i class="far fa-clock"></i>@item.CreatedAt</p>
+                    <p class="text-muted small mb-0"><i class="far fa-clock"></i>@Model.TimeMessage[i]</p>
                   </div>
                   <div class="card-body">
                     <p class="mb-0">@item.Message</p>
@@ -96,6 +98,7 @@
                 </div>
               </li>
             }
+            i++;
           }
           <form asp-controller="Chat" asp-action="InviteMessage" asp-route-receiveUserId="@Model.UserId" method="post">
             <li class="bg-white mb-3">
@@ -110,6 +113,16 @@
     </div>
   </div>
 </section>
+
+<script>
+    function scrollMessagesToBottom() {
+        var messageContainer = document.getElementById("messageContainer");
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+    window.onload = function() {
+        scrollMessagesToBottom();
+    };
+</script>
 
 @functions {
     public string? TruncateDescription(string? description, int maxLength)

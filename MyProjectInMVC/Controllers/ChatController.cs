@@ -57,6 +57,13 @@ namespace MyProjectInMVC.Controllers
                 _context.Chat.Where(x => x.SenderUserId == id || x.ReceiveUserId == id)
                     .OrderBy(x => x.CreatedAt)
                         .ToList();
+
+            List<string> liststring = new List<string>();
+            foreach (MessageChatModel item in messages)
+            {
+                string time = _chatRepository.Time(item.CreatedAt);
+                liststring.Add(time);
+            }
             
             foreach (MessageChatModel item in messages)
             {
@@ -73,7 +80,8 @@ namespace MyProjectInMVC.Controllers
                 UserList = userList,
                 Messages = messages,
                 UserSession = userSession.Id,
-                UserId = id
+                UserId = id,
+                TimeMessage = liststring
             };
             return View(model);
         }
@@ -85,13 +93,15 @@ namespace MyProjectInMVC.Controllers
             try
             {
                 MessageChatModel msg = _chatRepository.InviteMessage(message);
-                _context.Chat.Add(msg);
-                _context.SaveChanges();
                 if (userSession.Role == AdmEnum.Admin)
                 {
                     msg.ReceiveUserId = receiveUserId;
+                    _context.Chat.Add(msg);
+                    _context.SaveChanges();
                     return RedirectToAction("IndexChat", new {id = receiveUserId});
                 }
+                _context.Chat.Add(msg);
+                _context.SaveChanges();
                 return RedirectToAction("StudentChat");
             }
             catch (Exception ex)
@@ -123,5 +133,6 @@ namespace MyProjectInMVC.Controllers
         public List<MessageChatModel> Messages { get; set; }
         public Guid UserSession { get; set; }
         public Guid UserId { get; set; }
+        public List<string> TimeMessage { get; set; }
     }
 }

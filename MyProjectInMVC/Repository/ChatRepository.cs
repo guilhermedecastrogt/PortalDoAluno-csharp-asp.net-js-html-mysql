@@ -45,7 +45,7 @@ public class ChatRepository : IChatRepository
         }
         else
         {
-            time = "Bug";
+            time = "Agora";
         }
 
         return time;

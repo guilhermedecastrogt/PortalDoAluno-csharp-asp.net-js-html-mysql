@@ -45,7 +45,6 @@
 
   <ItemGroup>
     <Folder Include="App_Data\Homeworks\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,7 +53,6 @@
     <Compile Remove="Migrations\20230812052134_HomeworkCategoryModel.Designer.cs" />
     <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.cs" />
     <Compile Remove="Migrations\20230812070031_LinkHomeworkToCategory.Designer.cs" />
-    <Compile Remove="Migrations\DataContextModelSnapshot.cs" />
     <Compile Remove="Migrations\20230821171749_MessageHomeworkModel.cs" />
     <Compile Remove="Migrations\20230821171749_MessageHomeworkModel.Designer.cs" />
     <Compile Remove="Migrations\20230820163410_SlugCategoryModel.cs" />
