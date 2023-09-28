@@ -14,11 +14,25 @@ namespace MyProjectInMVC.Helper
         {
             try
             {
-                string host = _configuration.GetValue<string>("SMTP:Host");
-                string password = _configuration.GetValue<string>("SMTP:Password");
-                string username = _configuration.GetValue<string>("SMTP:UserName");
-                int port = _configuration.GetValue<int>("SMTP:Port");
-                string name = _configuration.GetValue<string>("SMTP:Name");
+                string? host, password, username, name, portstring;
+                int port;
+                try
+                {
+                    host = Environment.GetEnvironmentVariable("SMTPConnectionHost");
+                    password = Environment.GetEnvironmentVariable("SMTPConnectionPassword");
+                    username = Environment.GetEnvironmentVariable("SMTPConnectionUsername");
+                    portstring = Environment.GetEnvironmentVariable("SMTPConnectionPort");
+                    name = Environment.GetEnvironmentVariable("SMTPConnectionName");
+                    port = int.Parse(portstring);
+                }
+                catch
+                {
+                    host = _configuration.GetValue<string>("SMTP:Host");
+                    password = _configuration.GetValue<string>("SMTP:Password");
+                    username = _configuration.GetValue<string>("SMTP:UserName");
+                    port = _configuration.GetValue<int>("SMTP:Port");
+                    name = _configuration.GetValue<string>("SMTP:Name");
+                }
                 
 
                 MailMessage mail = new MailMessage()

@@ -26,6 +26,17 @@ ENV FtpConnectionPassword=$FtpConnectionPassword
 ARG FtpConnectionServerUrl
 ENV FtpConnectionServerUrl=$FtpConnectionServerUrl
 
+ARG SMTPConnectionUsername
+ENV SMTPConnectionUsername=$SMTPConnectionUsername
+ARG SMTPConnectionName
+ENV SMTPConnectionName=$SMTPConnectionName
+ARG SMTPConnectionHost
+ENV SMTPConnectionHost=$SMTPConnectionHost
+ARG SMTPConnectionPassword
+ENV SMTPConnectionPassword=$SMTPConnectionPassword
+ARG SMTPConnectionPort
+ENV SMTPConnectionPort=$SMTPConnectionPort
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
