@@ -12,7 +12,9 @@ public class FtpConnection
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro {ex}");
+            ftpUsername = Environment.GetEnvironmentVariable("FtpConnectionUsername");
+            ftpPassword = Environment.GetEnvironmentVariable("FtpConnectionPassword");
+            ftpServerUrl = Environment.GetEnvironmentVariable("FtpConnectionServerUrl");
         }
     }
     
