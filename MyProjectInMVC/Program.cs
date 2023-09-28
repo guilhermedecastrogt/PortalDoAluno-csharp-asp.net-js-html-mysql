@@ -45,6 +45,8 @@ namespace MyProjectInMVC
             builder.Services.AddScoped<IHomeworkRepository, HomeworkRepository>();
             builder.Services.AddScoped<IHomeworkUserRepository, HomeworkUserRepository>();
             builder.Services.AddScoped<IChatRepository, ChatRepository>();
+            builder.Services.AddScoped<IFtpUploader, FtpUploader>();
+            
 
             builder.Services.AddSession(o =>
             {

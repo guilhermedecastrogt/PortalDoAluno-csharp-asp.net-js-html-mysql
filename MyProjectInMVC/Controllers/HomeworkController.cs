@@ -2,6 +2,7 @@
 using MyProjectInMVC.Data;
 using MyProjectInMVC.Enums;
 using MyProjectInMVC.Filters;
+using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Repository;
 
@@ -13,11 +14,21 @@ namespace MyProjectInMVC.Controllers
         private readonly IHomeworkRepository _homeworkRepository;
         private readonly DataContext _context;
         private readonly ICategoryRepository _categoryRepository;
-        public HomeworkController(IHomeworkRepository repository, DataContext datacontext, ICategoryRepository categoryRepository)
+        private readonly IFtpUploader _ftpUploader;
+        private readonly IConfiguration _configuration;
+        public HomeworkController(
+            IHomeworkRepository repository,
+            DataContext datacontext,
+            ICategoryRepository categoryRepository,
+            IFtpUploader ftpUploader,
+            IConfiguration configuration
+        )
         {
             _homeworkRepository = repository;
             _context = datacontext;
             _categoryRepository = categoryRepository;
+            _ftpUploader = ftpUploader;
+            _configuration = configuration;
         }
         public IActionResult Index()
         {
@@ -71,20 +82,46 @@ namespace MyProjectInMVC.Controllers
                 {
                     if (homework.DataFile != null && homework.DataFile.Length > 0 && homework.DataFile.Length <= 10 * 1024 * 1024)
                     {
-                        //Delete old file
-                        if (System.IO.File.Exists(homework.HomeworkModel.FilePath))
+                        try
                         {
-                            System.IO.File.Delete(homework.HomeworkModel.FilePath);
+                            // Remove File
+                                HomeworkModel? homeworkPath =
+                                    _context.Homeworks.FirstOrDefault(x => x.Id == homework.HomeworkModel.Id);
+                                string path = Path.GetExtension(homeworkPath.FilePath);
+
+                                FtpConnection model = new FtpConnection(_configuration);
+                                model.ftpServerUrl = model.ftpServerUrl + "/homeworks/";
+                                model.remoteFileName = homework.HomeworkModel.Id + path;
+                                bool check = _ftpUploader.DeleteFile(model);
+                                if (!check)
+                                {
+                                    Console.WriteLine("Erro ao salvar arquivo.");
+                                    TempData["ErrorMessage"] = "Erro ao salvar arquivo";
+                                    return RedirectToAction("Index");
+                                }
+                            //
                         }
-                    
-                        string originalFileName = Path.GetFileName(homework.DataFile.FileName); //get name file
-                        string extension = Path.GetExtension(originalFileName); //get type file (.pdf) (.txt) ...
-
-                        string nameFile = homework.HomeworkModel.Id.ToString() + extension;
-
-                        homework.HomeworkModel.FilePath = Path.Combine(Directory.GetCurrentDirectory(), "App_Data\\Homeworks", nameFile);
-                        var stream = new FileStream(homework.HomeworkModel.FilePath, FileMode.Create);
-                        homework.DataFile.CopyToAsync(stream);
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex);  
+                        }
+                        
+                        //Save File
+                        string filename = homework.DataFile.FileName;
+                        string fileExtension = Path.GetExtension(filename);
+                        FtpConnection connection = new FtpConnection(_configuration)
+                        {
+                            File = homework.DataFile,
+                            remoteFileName = homework.HomeworkModel.Id.ToString() + fileExtension,
+                            path = "homeworks",
+                        };
+                        string? pathSave = _ftpUploader.UploadFile(connection);
+                        if (pathSave == null)
+                        {
+                            TempData["ErrorMessage"] = $"Erro ao salvar arquivo no servidor!";
+                            return RedirectToAction("Index");
+                        }
+                        homework.HomeworkModel.FilePath = pathSave;
                     }
                     
                     homework.HomeworkModel.CategoryId = selectedCategoryIds;
@@ -127,14 +164,21 @@ namespace MyProjectInMVC.Controllers
                     {
                         if (homework.DataFile != null && homework.DataFile.Length > 0 && homework.DataFile.Length <= 10 * 1024 * 1024)
                         {
-                            string originalFileName = Path.GetFileName(homework.DataFile.FileName);
-                            string extension = Path.GetExtension(originalFileName);
-
-                            string nameFile = homework.HomeworkModel.Id.ToString() + extension;
-
-                            homework.HomeworkModel.FilePath = Path.Combine(Directory.GetCurrentDirectory(), "App_Data\\Homeworks", nameFile);
-                            var stream = new FileStream(homework.HomeworkModel.FilePath, FileMode.Create);
-                            homework.DataFile.CopyToAsync(stream);
+                            string filename = homework.DataFile.FileName;
+                            string fileExtension = Path.GetExtension(filename);
+                            FtpConnection model = new FtpConnection(_configuration)
+                            {
+                                File = homework.DataFile,
+                                remoteFileName = homework.HomeworkModel.Id.ToString() + fileExtension,
+                                path = "homeworks",
+                            };
+                            string? path = _ftpUploader.UploadFile(model);
+                            if (path == null)
+                            {
+                                TempData["ErrorMessage"] = $"Erro ao salvar arquivo no servidor!";
+                                return RedirectToAction("Index");
+                            }
+                            homework.HomeworkModel.FilePath = path;
                         }
                     }
                     catch (Exception ex)
@@ -186,13 +230,5 @@ namespace MyProjectInMVC.Controllers
             };
             return View(homework);
         }
-
-        [HttpPost]
-        public IActionResult Download(string filePath)
-        {
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-            return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
-        }
-        
     }
 }

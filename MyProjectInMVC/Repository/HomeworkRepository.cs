@@ -1,4 +1,5 @@
 ﻿using MyProjectInMVC.Data;
+using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Models.MessageModels;
 
@@ -7,9 +8,13 @@ namespace MyProjectInMVC.Repository
     public class HomeworkRepository : IHomeworkRepository
     {
         private readonly DataContext _context;
-        public HomeworkRepository(DataContext context)
+        private readonly IFtpUploader _ftpUploader;
+        private readonly IConfiguration _configuration;
+        public HomeworkRepository(DataContext context, IFtpUploader ftpUploader, IConfiguration configuration)
         {
             _context = context;
+            _ftpUploader = ftpUploader;
+            _configuration = configuration;
         }
         public HomeworkModel Add(HomeworkModel homework)
         {
@@ -27,9 +32,17 @@ namespace MyProjectInMVC.Repository
             }
             
             //Delete file
-            if (System.IO.File.Exists(homework.FilePath))
+            string? path = Path.GetExtension(homework.FilePath);
+            if (path != null)
             {
-                System.IO.File.Delete(homework.FilePath);
+                FtpConnection model = new FtpConnection(_configuration);
+                model.ftpServerUrl = model.ftpServerUrl + "/homeworks/";
+                model.remoteFileName = homework.Id + path;
+                bool check = _ftpUploader.DeleteFile(model);
+                if (!check)
+                {
+                    return false;
+                }
             }
 
             List<MessageHomeworkModel> messages = _context.MessageHomework.Where(x => x.HomeworkId == id).ToList();

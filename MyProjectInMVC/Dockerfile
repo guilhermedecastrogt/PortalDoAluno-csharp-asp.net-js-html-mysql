@@ -19,6 +19,13 @@ RUN dotnet publish "MyProjectInMVC.csproj" -c Release -o /app/publish /p:UseAppH
 ARG ConnectionStringName
 ENV ConnectionStringName=$ConnectionStringName
 
+ARG FtpConnectionUsername
+ENV FtpConnectionUsername=$FtpConnectionUsername
+ARG FtpConnectionPassword
+ENV FtpConnectionPassword=$FtpConnectionPassword
+ARG FtpConnectionServerUrl
+ENV FtpConnectionServerUrl=$FtpConnectionServerUrl
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
