@@ -35,13 +35,20 @@ namespace MyProjectInMVC.Repository
             string? path = Path.GetExtension(homework.FilePath);
             if (path != null)
             {
-                FtpConnection model = new FtpConnection(_configuration);
-                model.ftpServerUrl = model.ftpServerUrl + "/homeworks/";
-                model.remoteFileName = homework.Id + path;
-                bool check = _ftpUploader.DeleteFile(model);
-                if (!check)
+                try
                 {
-                    return false;
+                    FtpConnection model = new FtpConnection(_configuration);
+                    model.ftpServerUrl = model.ftpServerUrl + "/homeworks/";
+                    model.remoteFileName = homework.Id + path;
+                    bool check = _ftpUploader.DeleteFile(model);
+                    if (!check)
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Nenhuma atividade encontrada no servidor... ou {ex}");
                 }
             }
 

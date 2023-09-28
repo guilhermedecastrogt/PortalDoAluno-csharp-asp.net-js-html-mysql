@@ -211,12 +211,12 @@ namespace MyProjectInMVC.Controllers
             try
             {
                 _homeworkRepository.Delete(id);
-                TempData["SuccessMessage"] = "Usuário apagado com sucesso!";
+                TempData["SuccessMessage"] = "Tarefa apagada com sucesso!";
                 return RedirectToAction("Index");
             }
             catch (Exception error)
             {
-                TempData["ErrorMessage"] = $"Erro ao apagar usuário: {error.Message}";
+                TempData["ErrorMessage"] = $"Erro ao apagar tarefa: {error.Message}";
                 return RedirectToAction("Index");
             }
         }

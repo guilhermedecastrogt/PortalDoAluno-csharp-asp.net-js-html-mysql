@@ -19,7 +19,7 @@ namespace MyProjectInMVC.Helper
                 string username = _configuration.GetValue<string>("SMTP:UserName");
                 int port = _configuration.GetValue<int>("SMTP:Port");
                 string name = _configuration.GetValue<string>("SMTP:Name");
-
+                
 
                 MailMessage mail = new MailMessage()
                 {
