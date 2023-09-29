@@ -6,11 +6,15 @@
     int i = 0;
 }
 
-<section style="background-color: #eee;">
+<header>
+  <link rel="stylesheet" href="~/css/chat.css">
+</header>
+
+<section class="background">
   <div class="container py-5">
     <div class="row">
       <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0" style="max-height: 500px; overflow-y: auto;">
-        <h5 class="font-weight-bold mb-3 text-center text-lg-start">Chats</h5>
+        <h1 class="font-weight-bold mb-3 text-center text-lg-start">Usuários</h1>
         <div class="card">
           <div class="card-body">
   
@@ -22,8 +26,8 @@
                 <li class="p-2 border-bottom" style="background-color: #eee;">
                   <a asp-controller="Chat" asp-action="IndexChat" asp-route-id="@item.UserId" class="d-flex justify-content-between">
                     <div class="d-flex flex-row">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
-                           class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                      @*<img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
+                           class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">*@
                       <div class="pt-1">
                         <p class="fw-bold mb-0">@item.Name</p>
                         <p class="small text-muted">@TruncateDescription(item.Message, 25)</p>
@@ -60,7 +64,7 @@
         </div>
       </div>
   
-      <div class="col-md-6 col-lg-7 col-xl-8" style="max-height: 500px; overflow-y: auto;" id="messageContainer">
+      <div class="col-md-6 container2 col-lg-7 col-xl-8" style="max-height: 500px; overflow-y: auto;" id="messageContainer">
   
         <ul class="list-unstyled">
           
@@ -85,7 +89,7 @@
             else
             {
               <li class="d-flex justify-content-between mb-4">
-                <img src="https://matheusandreozzi.com.br/eee.png" alt="avatar"
+                <img src="https://site.groupe-psa.com/content/uploads/sites/9/2016/12/white-background-2-768x450.jpg" alt="avatar"
                      class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
                 <div class="card w-90">
                   <div class="card-header d-flex justify-content-between p-3">
@@ -103,7 +107,7 @@
           <form asp-controller="Chat" asp-action="InviteMessage" asp-route-receiveUserId="@Model.UserId" method="post">
             <li class="bg-white mb-3">
               <div class="form-outline">
-                <textarea class="form-control" name="message" rows="4" placeholder="Mensagem..."></textarea>
+                <input type="text" class="form-control" name="message" rows="4" placeholder="Mensagem...">
               </div>
             </li>
             <button type="submit" class="btn btn-info btn-rounded float-end">Enviar</button>
