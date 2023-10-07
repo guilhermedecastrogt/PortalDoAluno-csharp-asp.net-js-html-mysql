@@ -3,7 +3,12 @@
 @{
     ViewData["Title"] = "Chat - Admin";
 }
-<section style="background-color: #eee;">
+
+<header>
+  <link rel="stylesheet" href="~/css/chat.css">
+</header>
+
+<section class="background">
   <div class="container py-5">
     <div class="row">
       <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
@@ -19,8 +24,8 @@
                 <li class="p-2 border-bottom" style="background-color: #eee;">
                   <a asp-controller="Chat" asp-action="IndexChat" asp-route-id="@item.UserId" class="d-flex justify-content-between">
                     <div class="d-flex flex-row">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
-                           class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                      @*<img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
+                           class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">*@
                       <div class="pt-1">
                         <p class="fw-bold mb-0">@item.Name</p>
                         <p class="small text-muted">@TruncateDescription(item.Message, 25)</p>
@@ -39,8 +44,8 @@
                 <li class="p-2 border-bottom">
                   <a asp-controller="Chat" asp-action="IndexChat" asp-route-id="@item.UserId" class="d-flex justify-content-between">
                     <div class="d-flex flex-row">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
-                           class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                      @*<img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
+                           class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">*@
                       <div class="pt-1">
                         <p class="fw-bold mb-0">@item.Name</p>
                         <p class="small text-muted">@TruncateDescription(item.Message, 25)</p>
