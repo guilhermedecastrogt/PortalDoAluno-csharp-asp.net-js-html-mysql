@@ -236,3 +236,14 @@ h1{
         order: 2 !important; /* Mantém a ordem original para dispositivos maiores */
     }
 }
+
+.notification-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ff4f4f;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

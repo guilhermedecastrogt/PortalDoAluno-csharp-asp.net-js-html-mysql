@@ -45,8 +45,16 @@
 }
 
 .container2 {
-    padding: 10px 20px 10px 100px;
+    padding: 10px 20px 10px 100px; /* Estilos para todos os dispositivos */
 }
+
+@media (max-width: 767px) {
+    .container2 {
+        padding: 10px 20px 10px 20px; /* Estilos para dispositivos com largura de tela menor que 768px (celulares) */
+    }
+}
+
+
 p {
     margin-top: 0;
     margin-bottom: 1rem;
