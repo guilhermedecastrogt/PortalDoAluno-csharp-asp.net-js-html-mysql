@@ -28,7 +28,6 @@ namespace MyProjectInMVC.Controllers
             List<UserCategoryModel> UserCategoryIds = _dataContext.UserCategory.Where(x => x.UserId == user.Id).ToList();
             List<CategoryModel> allCategories = _categoryRepository.CategoryList();
             List<CategoryModel> categories = new List<CategoryModel>();
-            
 
             foreach (CategoryModel category in allCategories)
             {
@@ -40,7 +39,45 @@ namespace MyProjectInMVC.Controllers
                     }
                 }
             }
-            return View(categories);
+
+            List<CategoryModel> redCategory = new List<CategoryModel>();
+            List<CategoryModel> Categories = new List<CategoryModel>();
+            
+            foreach (CategoryModel item in categories)
+            {
+                List<HomeworkModel> homeworks = _dataContext.Homeworks.Where(x =>
+                    x.CategoryId == item.Id).ToList();
+                
+                foreach (HomeworkModel homework in homeworks)
+                {
+                    ConfirmUserHomeworkPreviewModel? check = _dataContext.ConfirmUserHomeworkPreview.FirstOrDefault(
+                        x =>
+                            x.HomeworkId == homework.Id &&
+                            x.UserId == user.Id
+                    );
+                    if (check == null)
+                    {
+                        redCategory.Add(item);
+                    }
+                    else
+                    {
+                        Categories.Add(item);
+                    }
+                }
+            }
+
+            IndexHomeModel model = new IndexHomeModel()
+            {
+                Categories = Categories,
+                RedCategory = redCategory
+            };
+            return View(model);
         }
+    }
+
+    public class IndexHomeModel
+    {
+        public List<CategoryModel>? RedCategory { get; set; }
+        public List<CategoryModel>? Categories { get; set; }
     }
 }

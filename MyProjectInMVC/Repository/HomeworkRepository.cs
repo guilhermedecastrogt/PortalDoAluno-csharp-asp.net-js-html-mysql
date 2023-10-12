@@ -2,7 +2,7 @@
 using MyProjectInMVC.Helper;
 using MyProjectInMVC.Models;
 using MyProjectInMVC.Models.MessageModels;
-
+ 
 namespace MyProjectInMVC.Repository
 {
     public class HomeworkRepository : IHomeworkRepository
@@ -50,6 +50,16 @@ namespace MyProjectInMVC.Repository
                 {
                     Console.WriteLine($"Nenhuma atividade encontrada no servidor... ou {ex}");
                 }
+            }
+            
+            //Delete PreviewHomeork
+
+            List<ConfirmUserHomeworkPreviewModel>? listUserPreview = _context.ConfirmUserHomeworkPreview.Where(x =>
+                x.HomeworkId == id
+            ).ToList();
+            if (listUserPreview != null)
+            {
+                _context.RemoveRange(listUserPreview);
             }
 
             List<MessageHomeworkModel> messages = _context.MessageHomework.Where(x => x.HomeworkId == id).ToList();

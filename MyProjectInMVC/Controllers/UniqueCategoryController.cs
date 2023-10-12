@@ -68,6 +68,23 @@ namespace MyProjectInMVC.Controllers
             CategoryModel category = _categoryRepository.FindPerId(categoryId);
             UserCategoryModel acess = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == categoryId);
             HomeworkUserModel HomeworkUser = _dataContext.HomeworkUserModel.FirstOrDefault(x => x.HomeworkId == homework.Id && x.UserId == user.Id && x.Status == true);
+
+            ConfirmUserHomeworkPreviewModel? previewHomework =
+                _dataContext.ConfirmUserHomeworkPreview.FirstOrDefault(x =>
+                    x.HomeworkId == homeworkId &&
+                    x.UserId == user.Id);
+
+            if (previewHomework == null)
+            {
+                ConfirmUserHomeworkPreviewModel newView = new ConfirmUserHomeworkPreviewModel()
+                {
+                    UserId = user.Id,
+                    HomeworkId = homeworkId,
+                };
+                _dataContext.ConfirmUserHomeworkPreview.Add(newView);
+                _dataContext.SaveChanges();
+            }
+            
             if (acess == null)
             {
                 TempData["ErrorMessage"] = "Você não tem permissão para acessar essa página.";

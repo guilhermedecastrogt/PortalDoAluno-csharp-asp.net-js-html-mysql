@@ -6,5 +6,6 @@ public class ConfirmUserHomeworkPreviewModel
 {
     [Key]
     public Guid HomeworkId { get; set; }
-    public Guid Type { get; set; }
+
+    public Guid UserId { get; set; }
 }

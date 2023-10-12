@@ -1,4 +1,4 @@
-﻿@model List<CategoryModel>
+﻿@model MyProjectInMVC.Controllers.IndexHomeModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -31,7 +31,24 @@
     <div class="container mt-3 optionslist ">
         <div class="row mt-3">
 
-            @foreach (CategoryModel item in Model)
+            @foreach (CategoryModel item in Model.RedCategory)
+            {
+                <div class="col-lg-6 col-md-12 mb-6 mt-3">
+                    <div class="card">
+                        <span class="notification-dot"></span>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">Acesse aqui os materiais de estudo disponibilizados para sua turma.</p>
+                            <form asp-controller="UniqueCategory" asp-action="Index" asp-route-id="@item.Slug" method="get">
+                                <input type="hidden" name="categoryid" value="@item.Id">
+                                <button type="submit" class="btn botclass btn-primary">Acessar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            @foreach (CategoryModel item in Model.Categories)
             {
                 <div class="col-lg-6 col-md-12 mb-6 mt-3">
                     <div class="card">
@@ -66,16 +83,6 @@
                 </div>
             </div>
             
-            <div class="col-md-6 mb-6 mt-3">
-                <div class="card">
-                    <span class="notification-dot"></span>
-                    <div class="card-body">
-                        <h5 class="card-title">Eventos e Calendário</h5>
-                        <p class="card-text">Fique por dentro dos eventos e não perca nenhuma novidade.</p>
-                        <a href="#" class="btn botclass btn-primary">Acessar</a>
-                    </div>
-                </div>
-            </div>
             @*<div class="col-md-6 mb-6 mt-3">
                 <div class="card">
                     <div class="card-body">
