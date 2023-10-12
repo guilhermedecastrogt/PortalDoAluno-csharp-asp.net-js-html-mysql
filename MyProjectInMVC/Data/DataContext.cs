@@ -20,6 +20,7 @@ namespace MyProjectInMVC.Data
         public DbSet<MessageHomeworkModel> MessageHomework { get; set; }
         public DbSet<MessageChatModel> Chat { get; set; }
         public DbSet<CategoryModel> Category { get; set; }
+        public DbSet<ConfirmUserHomeworkPreviewModel> ConfirmUserHomeworkPreview { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             modelBuilder.ApplyConfiguration(new HomeworkMap());

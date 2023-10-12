@@ -28,6 +28,7 @@ namespace MyProjectInMVC.Controllers
             List<UserCategoryModel> UserCategoryIds = _dataContext.UserCategory.Where(x => x.UserId == user.Id).ToList();
             List<CategoryModel> allCategories = _categoryRepository.CategoryList();
             List<CategoryModel> categories = new List<CategoryModel>();
+            
 
             foreach (CategoryModel category in allCategories)
             {
@@ -39,7 +40,6 @@ namespace MyProjectInMVC.Controllers
                     }
                 }
             }
-
             return View(categories);
         }
     }

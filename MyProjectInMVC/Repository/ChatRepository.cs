@@ -1,4 +1,5 @@
-﻿using MyProjectInMVC.Controllers;
+﻿using Microsoft.VisualBasic;
+using MyProjectInMVC.Controllers;
 using MyProjectInMVC.Data;
 using MyProjectInMVC.Enums;
 using MyProjectInMVC.Helper;
@@ -62,21 +63,58 @@ public class ChatRepository : IChatRepository
         {
             UserListChatModel user = new UserListChatModel(item.Id);
             user.Name = item.Name;
-                
-            MessageChatModel? message = _context.Chat.FirstOrDefault(x => x.SenderUserId == item.Id);
-            if (message == null)
+
+            List<MessageChatModel>? listMessage = _context.Chat
+                .Where(x => x.SenderUserId == item.Id)
+                .OrderByDescending(x=> x.CreatedAt)
+                .ToList();
+
+            MessageChatModel? message = listMessage.FirstOrDefault();
+            
+            List<MessageChatModel> ListMessageProf = _context.Chat
+                .Where(x => x.ReceiveUserId == item.Id)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToList();
+            
+            MessageChatModel? messageProf = ListMessageProf.FirstOrDefault();
+            
+            
+            if (message == null && messageProf == null)
             {
                 user.Message = "";
                 user.Time = "";
                 user.Status = true;
             }
-            else
+
+            if (message != null && messageProf != null)
+            {
+                if (message.CreatedAt > messageProf.CreatedAt)
+                {
+                    user.Message = message.Message;
+                    user.Time = Time(message.CreatedAt);
+                    user.Status = message.Status;
+                }
+                if (message.CreatedAt < messageProf.CreatedAt)
+                {
+                    user.Message = messageProf.Message;
+                    user.Time = Time(messageProf.CreatedAt);
+                    user.Status = true;
+                } 
+            }
+
+            if (message == null && messageProf != null)
+            {
+                user.Message = messageProf.Message;
+                user.Time = Time(messageProf.CreatedAt);
+                user.Status = true;
+            }
+            else if(message != null && messageProf == null)
             {
                 user.Message = message.Message;
                 user.Time = Time(message.CreatedAt);
                 user.Status = message.Status;
             }
-
+            
             if (user.Status == false)
             {
                 userfalse.Add(user);
@@ -85,6 +123,7 @@ public class ChatRepository : IChatRepository
             {
                 usertrue.Add(user);
             }
+            
         }
         modelIndex model = new modelIndex
         {
