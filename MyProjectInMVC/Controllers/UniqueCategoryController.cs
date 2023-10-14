@@ -40,15 +40,33 @@ namespace MyProjectInMVC.Controllers
                 
                 List<HomeworkModel>? Homeworks = _dataContext.Homeworks.Where(
                     x => x.CategoryId == category.Id && x.Level == userCategory.Level).ToList();
-
                 List<HomeworkModel> HomeworksCheck = _homeworkUserRepository.CheckDeleteTrue(Homeworks, user.Id);
-                
                 Homeworks = HomeworksCheck;
+
+                List<HomeworkModel> homeworks = new List<HomeworkModel>();
+                List<HomeworkModel> redHomeworks = new List<HomeworkModel>();
+                foreach (HomeworkModel item in Homeworks)
+                {
+                    ConfirmUserHomeworkPreviewModel? check = _dataContext.ConfirmUserHomeworkPreview.FirstOrDefault(
+                        x=>
+                            x.HomeworkId == item.Id &&
+                            x.UserId == user.Id
+                    );
+                    if (check == null)
+                    {
+                        redHomeworks.Add(item);
+                    }
+                    else
+                    {
+                        homeworks.Add(item);
+                    }
+                }
 
                 UniqueCategoryModel model = new UniqueCategoryModel
                 {
                     Category = category,
-                    Homeworks = Homeworks
+                    Homeworks = homeworks,
+                    RedHomeworks = redHomeworks
                 };
 
                 return View(model);
@@ -68,7 +86,8 @@ namespace MyProjectInMVC.Controllers
             CategoryModel category = _categoryRepository.FindPerId(categoryId);
             UserCategoryModel acess = _dataContext.UserCategory.FirstOrDefault(x => x.UserId == user.Id && x.CategoryId == categoryId);
             HomeworkUserModel HomeworkUser = _dataContext.HomeworkUserModel.FirstOrDefault(x => x.HomeworkId == homework.Id && x.UserId == user.Id && x.Status == true);
-
+            
+            
             ConfirmUserHomeworkPreviewModel? previewHomework =
                 _dataContext.ConfirmUserHomeworkPreview.FirstOrDefault(x =>
                     x.HomeworkId == homeworkId &&

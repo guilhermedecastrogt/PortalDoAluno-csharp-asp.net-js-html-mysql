@@ -2,7 +2,8 @@
 {
     public class UniqueCategoryModel
     {
-        public CategoryModel Category { get; set; }
-        public List<HomeworkModel> Homeworks { get; set; }
+        public CategoryModel? Category { get; set; }
+        public List<HomeworkModel>? Homeworks { get; set; }
+        public List<HomeworkModel>? RedHomeworks { get; set; }
     }
 }

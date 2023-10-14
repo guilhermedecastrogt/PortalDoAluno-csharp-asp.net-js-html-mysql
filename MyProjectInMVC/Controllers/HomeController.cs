@@ -57,11 +57,56 @@ namespace MyProjectInMVC.Controllers
                     );
                     if (check == null)
                     {
-                        redCategory.Add(item);
+                        CategoryModel? removeCategory = new CategoryModel();
+                        foreach (CategoryModel category in Categories)
+                        {
+                            if (category.Id == item.Id)
+                            {
+                                removeCategory = item;
+                            }
+                        }
+                        if (removeCategory != null)
+                        {
+                            Categories.Remove(removeCategory);
+                        }
+                        
+                        bool checkExistCategory = false;
+                        foreach (CategoryModel checkExist in redCategory)
+                        {
+                            if (checkExist.Id == item.Id)
+                            {
+                                checkExistCategory = true;
+                            }
+                        }
+                        if (!checkExistCategory)
+                        {
+                            redCategory.Add(item);
+                        }
                     }
                     else
                     {
-                        Categories.Add(item);
+                        bool checkRedCategory = false;
+                        foreach (CategoryModel category in redCategory)
+                        {
+                            if (category.Id == item.Id)
+                            {
+                                checkRedCategory = true;
+                            }
+                        }
+
+                        bool checkExistCategory = false;
+                        foreach (CategoryModel checkExist in Categories)
+                        {
+                            if (checkExist.Id == item.Id)
+                            {
+                                checkExistCategory = true;
+                            }
+                        }
+
+                        if (!checkRedCategory && !checkExistCategory)
+                        {
+                            Categories.Add(item);
+                        }
                     }
                 }
             }
