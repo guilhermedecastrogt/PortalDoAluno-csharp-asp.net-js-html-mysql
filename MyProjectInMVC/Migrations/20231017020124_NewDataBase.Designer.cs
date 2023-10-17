@@ -11,8 +11,8 @@ using MyProjectInMVC.Data;
 namespace MyProjectInMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231012195317_ConfirmUsderHomeworkPreview")]
-    partial class ConfirmUsderHomeworkPreview
+    [Migration("20231017020124_NewDataBase")]
+    partial class NewDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,7 +82,7 @@ namespace MyProjectInMVC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("Type")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("HomeworkId");

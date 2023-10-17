@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MyProjectInMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class AllMigrations : Migration
+    public partial class NewDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -43,6 +43,19 @@ namespace MyProjectInMVC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Chat", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ConfirmUserHomeworkPreview",
+                columns: table => new
+                {
+                    HomeworkId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConfirmUserHomeworkPreview", x => x.HomeworkId);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -155,6 +168,9 @@ namespace MyProjectInMVC.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Chat");
+
+            migrationBuilder.DropTable(
+                name: "ConfirmUserHomeworkPreview");
 
             migrationBuilder.DropTable(
                 name: "Homeworks");
